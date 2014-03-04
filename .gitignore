@@ -12,4 +12,14 @@ DATA/train.csv
 *~
 *.swp
 
+# Binaries
+bin
+
+# Database
+*.sqlite3
+
+# R & RStudio
+.RData
+.Rproj.user
+*.Rproj
 
