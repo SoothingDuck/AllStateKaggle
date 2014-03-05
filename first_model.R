@@ -32,7 +32,25 @@ T1.married_couple as first_view_married_couple,
 -- T1.duration_previous as first_view_duration_previous,
 T1.A as first_view_A,
 T7.A as last_view_A,
-T2.A as real_A
+T1.B as first_view_B,
+T7.B as last_view_B,
+T1.B as first_view_C,
+T7.B as last_view_C,
+T1.B as first_view_D,
+T7.B as last_view_D,
+T1.B as first_view_E,
+T7.B as last_view_E,
+T1.B as first_view_F,
+T7.B as last_view_F,
+T1.B as first_view_G,
+T7.B as last_view_G,
+T2.A as real_A,
+T2.A as real_B,
+T2.A as real_C,
+T2.A as real_D,
+T2.A as real_E,
+T2.A as real_F,
+T2.A as real_G
 from
 transactions T1, transactions T2, customers T3,
 (
@@ -107,14 +125,40 @@ data$minutes_elapsed <- ifelse(
 
 data <- data[,! colnames(data) %in% c("first_view_time","last_view_time")]
 
-data$first_view_A <- factor(data$first_view_A)
-data$last_view_A <- factor(data$last_view_A)
 data$first_view_homeowner <- factor(ifelse(data$first_view_homeowner == 1, "Yes", "No"))
 data$first_view_car_value <- factor(data$first_view_car_value)
 data$first_view_married_couple <- factor(ifelse(data$first_view_married_couple == 1, "Yes", "No"))
 
+data$first_view_A <- factor(data$first_view_A)
+data$last_view_A <- factor(data$last_view_A)
+data$real_A <- factor(data$real_A)
+
+data$first_view_B <- factor(data$first_view_B)
+data$last_view_B <- factor(data$last_view_B)
+data$real_B <- factor(data$real_B)
+
+data$first_view_C <- factor(data$first_view_C)
+data$last_view_C <- factor(data$last_view_C)
+data$real_C <- factor(data$real_C)
+
+data$first_view_D <- factor(data$first_view_D)
+data$last_view_D <- factor(data$last_view_D)
+data$real_D <- factor(data$real_D)
+
+data$first_view_E <- factor(data$first_view_E)
+data$last_view_E <- factor(data$last_view_E)
+data$real_E <- factor(data$real_E)
+
+data$first_view_F <- factor(data$first_view_F)
+data$last_view_F <- factor(data$last_view_F)
+data$real_F <- factor(data$real_F)
+
+data$first_view_G <- factor(data$first_view_G)
+data$last_view_G <- factor(data$last_view_G)
+data$real_G <- factor(data$real_G)
+
 # Separation train, test
-trainIndex <- createDataPartition(data$last_view_A, p = .8,
+trainIndex <- createDataPartition(data$real_A, p = .8,
                                   list = FALSE,
                                   times = 1)
 
@@ -135,13 +179,15 @@ list_prob <- seq(.2, .8, .1)
 
 list_prob <- c(.8)
 
+prob <- .8
+
 result <- data.frame()
 
 for(prob in list_prob) {
   
 cat("Taille train : ", prob, "\n")
 
-trainIndex <- createDataPartition(data$last_view_A, p = prob,
+trainIndex <- createDataPartition(data$real_A, p = prob,
                                   list = FALSE,
                                   times = 1)
 
@@ -150,19 +196,15 @@ dataTrain <- data[trainIndex,]
 # Evaluation modeles
 
 model_0 <- glm(
-  I(last_view_A == "0") ~ . 
-  
-  + I(first_view_day == last_view_day)
+  I(real_A == "0") ~ . 
   , family = binomial, data=dataTrain)
 
 model_1 <- glm(
-  I(last_view_A == "1") ~ . 
-  + I(first_view_day == last_view_day)
+  I(real_A == "1") ~ . 
   , family = binomial, data=dataTrain)
 
 model_2 <- glm(
-  I(last_view_A == "2") ~  . 
-  + I(first_view_day == last_view_day)
+  I(real_A == "2") ~  .
   , family = binomial, data=dataTrain)
 
 # model_rf <- randomForest(
@@ -188,17 +230,19 @@ dataTrain$predict_glm_2 <- predict(model_2, newdata=dataTrain)
 dataTrain$predicted_glm_A <- factor(max.col(dataTrain[,c("predict_glm_0","predict_glm_1", "predict_glm_2")])-1)
 
 
-print("Error GLM :")
-print(prediction_error(dataTest$last_view_A, dataTest$predicted_glm_A))
+print("Error GLM Test:")
+print(prediction_error(dataTest$real_A, dataTest$predicted_glm_A))
 
-# print("Error RF :")
-# print(prediction_error(dataTest$last_view_A, dataTest$predicted_rf_A))
+print("Error GLM Train:")
+print(prediction_error(dataTrain$real_A, dataTrain$predicted_glm_A))
 
 result <- rbind(result, data.frame(
   size.train=prob, 
-  error.glm.test=prediction_error(dataTest$last_view_A, dataTest$predicted_glm_A),
-  error.glm.train=prediction_error(dataTrain$last_view_A, dataTrain$predicted_glm_A)
+  error.glm.test=prediction_error(dataTest$real_A, dataTest$predicted_glm_A),
+  error.glm.train=prediction_error(dataTrain$real_A, dataTrain$predicted_glm_A)
 )
 )
   
 }
+
+print(result)
