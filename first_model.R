@@ -21,6 +21,7 @@ T4.nb_views,
 -- T1.location as first_view_location,
 T5.location_popularity,
 T1.group_size as first_view_group_size,
+T7.group_size as last_view_group_size,
 T1.homeowner as first_view_homeowner,
 T1.car_age as first_view_car_age,
 T1.car_value as first_view_car_value,
@@ -44,13 +45,7 @@ T1.B as first_view_F,
 T7.B as last_view_F,
 T1.B as first_view_G,
 T7.B as last_view_G,
-T2.A as real_A,
-T2.A as real_B,
-T2.A as real_C,
-T2.A as real_D,
-T2.A as real_E,
-T2.A as real_F,
-T2.A as real_G
+T2.A as real_A
 from
 transactions T1, transactions T2, customers T3,
 (
@@ -108,7 +103,7 @@ T1.customer_ID = T3.customer_ID
 dbDisconnect(con)
 
 # Préparation des données
-print("Prépartion des données")
+print("Préparation des données")
 rownames(data) <- as.character(data$customer_ID)
 data <- data[,colnames(data) != "customer_ID"]
 data$state <- factor(data$state)
@@ -135,27 +130,27 @@ data$real_A <- factor(data$real_A)
 
 data$first_view_B <- factor(data$first_view_B)
 data$last_view_B <- factor(data$last_view_B)
-data$real_B <- factor(data$real_B)
+# data$real_B <- factor(data$real_B)
 
 data$first_view_C <- factor(data$first_view_C)
 data$last_view_C <- factor(data$last_view_C)
-data$real_C <- factor(data$real_C)
+# data$real_C <- factor(data$real_C)
 
 data$first_view_D <- factor(data$first_view_D)
 data$last_view_D <- factor(data$last_view_D)
-data$real_D <- factor(data$real_D)
+# data$real_D <- factor(data$real_D)
 
 data$first_view_E <- factor(data$first_view_E)
 data$last_view_E <- factor(data$last_view_E)
-data$real_E <- factor(data$real_E)
+# data$real_E <- factor(data$real_E)
 
 data$first_view_F <- factor(data$first_view_F)
 data$last_view_F <- factor(data$last_view_F)
-data$real_F <- factor(data$real_F)
+# data$real_F <- factor(data$real_F)
 
 data$first_view_G <- factor(data$first_view_G)
 data$last_view_G <- factor(data$last_view_G)
-data$real_G <- factor(data$real_G)
+# data$real_G <- factor(data$real_G)
 
 # Separation train, test
 trainIndex <- createDataPartition(data$real_A, p = .8,
@@ -175,11 +170,11 @@ prediction_error <- function(true_data, predicted_data) {
   return ((ko_prediction)/(ok_prediction+ko_prediction))
 }
 
-list_prob <- seq(.2, .8, .1)
-
+# Test
 list_prob <- c(.8)
-
 prob <- .8
+
+list_prob <- seq(.2, .8, .1)
 
 result <- data.frame()
 
@@ -194,15 +189,29 @@ trainIndex <- createDataPartition(data$real_A, p = prob,
 dataTrain <- data[trainIndex,]
   
 # Evaluation modeles
-
+print("Entrainement modele GLM 0")
 model_0 <- glm(
-  I(real_A == "0") ~ . 
+  I(real_A == "0") ~ .
+  - first_view_C - last_view_C
+  - first_view_D - last_view_D
+  - first_view_E - last_view_E
+  - first_view_F - last_view_F
+  - first_view_G - last_view_G
+  - first_view_hour
+  - minutes_elapsed
+  - first_view_married_couple
+  - first_view_age_youngest
+  - first_view_age_oldest
+  - first_view_group_size
+  + I(first_view_day == last_view_day)
   , family = binomial, data=dataTrain)
 
+print("Entrainement modele GLM 1")
 model_1 <- glm(
   I(real_A == "1") ~ . 
   , family = binomial, data=dataTrain)
 
+print("Entrainement modele GLM 2")
 model_2 <- glm(
   I(real_A == "2") ~  .
   , family = binomial, data=dataTrain)
