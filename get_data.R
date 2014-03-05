@@ -1,5 +1,3 @@
-library(caret)
-library(randomForest)
 library(RSQLite)
 library(stringr)
 
@@ -9,7 +7,7 @@ drv <- dbDriver("SQLite")
 con <- dbConnect(drv, dbname=sqlitedb.filename)
 
 data <- dbGetQuery(con,
-"
+                   "
 select 
 T1.customer_ID,
 T3.state,
@@ -26,19 +24,19 @@ T1.homeowner as first_view_homeowner,
 T1.car_age as first_view_car_age,
 T1.car_value as first_view_car_value,
 case
-  when T1.risk_factor is null then 'Not available'
-  else T1.risk_factor || ''
+when T1.risk_factor is null then 'Not available'
+else T1.risk_factor || ''
 end as first_view_risk_factor,
 T1.age_oldest as first_view_age_oldest,
 T1.age_youngest as first_view_age_youngest,
 T1.married_couple as first_view_married_couple,
 case
-  when T1.C_previous is null then 'Not available'
-  else T1.C_previous || ''
+when T1.C_previous is null then 'Not available'
+else T1.C_previous || ''
 end as first_view_C_previous,
 case
-  when T1.duration_previous is null then 'Not available'
-  else T1.duration_previous || ''
+when T1.duration_previous is null then 'Not available'
+else T1.duration_previous || ''
 end as first_view_duration_previous,
 T1.cost as first_view_cost,
 T7.cost as last_view_cost,
@@ -60,33 +58,33 @@ T2.A as real_A
 from
 transactions T1, transactions T2, customers T3,
 (
-  select
-  customer_ID,
-  count(*) as nb_views
-  from
-  transactions
-  where
-  record_type = 0
-  group by 1
+select
+customer_ID,
+count(*) as nb_views
+from
+transactions
+where
+record_type = 0
+group by 1
 ) T4,
 (
-  select
-  location,
-  count(distinct customer_ID) as location_popularity
-  from
-  transactions
-  group by 1
+select
+location,
+count(distinct customer_ID) as location_popularity
+from
+transactions
+group by 1
 ) T5,
 (
-  select
-  customer_ID,
-  case
-    when max(shopping_pt) = 1 then 1
-    else max(shopping_pt)-1
-  end as last_view_shopping_pt
-  from
-  transactions
-  group by 1
+select
+customer_ID,
+case
+when max(shopping_pt) = 1 then 1
+else max(shopping_pt)-1
+end as last_view_shopping_pt
+from
+transactions
+group by 1
 ) T6,
 transactions T7
 where
@@ -109,7 +107,7 @@ and
 T3.dataset = 'train'
 and
 T1.customer_ID = T3.customer_ID
-")
+                   ")
 
 dbDisconnect(con)
 
@@ -125,9 +123,9 @@ data$first_view_hour <- as.numeric(str_sub(data$first_view_time, 0, 2))
 data$minutes_elapsed <- ifelse(
   data$first_view_day == data$last_view_day,
   (as.numeric(str_sub(data$last_view_time, 0, 2))*60 + as.numeric(str_sub(data$last_view_time, 4, 6))) -  
-  (as.numeric(str_sub(data$first_view_time, 0, 2))*60 + as.numeric(str_sub(data$first_view_time, 4, 6))),
+    (as.numeric(str_sub(data$first_view_time, 0, 2))*60 + as.numeric(str_sub(data$first_view_time, 4, 6))),
   60*60*24
-  )
+)
 
 data <- data[,! colnames(data) %in% c("first_view_time","last_view_time")]
 
@@ -166,107 +164,3 @@ data$last_view_F <- factor(data$last_view_F)
 data$first_view_G <- factor(data$first_view_G)
 data$last_view_G <- factor(data$last_view_G)
 # data$real_G <- factor(data$real_G)
-
-# Separation train, test
-trainIndex <- createDataPartition(data$real_A, p = .8,
-                                  list = FALSE,
-                                  times = 1)
-
-dataTrain <- data[trainIndex,]
-dataTest <- data[-trainIndex,]
-
-
-# Estimation modeles
-prediction_error <- function(true_data, predicted_data) {
-  
-  ok_prediction <- sum(true_data == predicted_data)
-  ko_prediction <- sum(true_data != predicted_data)
-  
-  return ((ko_prediction)/(ok_prediction+ko_prediction))
-}
-
-# Test
-list_prob <- c(.8)
-prob <- .8
-
-list_prob <- seq(.2, .8, .1)
-
-result <- data.frame()
-
-for(prob in list_prob) {
-  
-cat("Taille train : ", prob, "\n")
-
-trainIndex <- createDataPartition(data$real_A, p = prob,
-                                  list = FALSE,
-                                  times = 1)
-
-dataTrain <- data[trainIndex,]
-  
-# Evaluation modeles
-print("Entrainement modele GLM 0")
-model_0 <- glm(
-  I(real_A == "0") ~ .
-  - first_view_C - last_view_C
-  - first_view_D - last_view_D
-  - first_view_E - last_view_E
-  - first_view_F - last_view_F
-  - first_view_G - last_view_G
-  - first_view_hour
-  - minutes_elapsed
-  - first_view_married_couple
-  - first_view_age_youngest
-  - first_view_age_oldest
-  - first_view_group_size
-  + I(first_view_day == last_view_day)
-  , family = binomial, data=dataTrain)
-
-print("Entrainement modele GLM 1")
-model_1 <- glm(
-  I(real_A == "1") ~ . 
-  , family = binomial, data=dataTrain)
-
-print("Entrainement modele GLM 2")
-model_2 <- glm(
-  I(real_A == "2") ~  .
-  , family = binomial, data=dataTrain)
-
-# model_rf <- randomForest(
-#   last_view_A ~ . - state
-#   + I(first_view_day == last_view_day),
-#   data=dataTrain,
-#   importance=TRUE,
-#   do.trace=TRUE,
-#   ntree=20
-#   )
-
-dataTest$predict_glm_0 <- predict(model_0, newdata=dataTest)
-dataTest$predict_glm_1 <- predict(model_1, newdata=dataTest)
-dataTest$predict_glm_2 <- predict(model_2, newdata=dataTest)
-
-dataTest$predicted_glm_A <- factor(max.col(dataTest[,c("predict_glm_0","predict_glm_1", "predict_glm_2")])-1)
-# dataTest$predicted_rf_A <- predict(model_rf, newdata=dataTest)
-
-dataTrain$predict_glm_0 <- predict(model_0, newdata=dataTrain)
-dataTrain$predict_glm_1 <- predict(model_1, newdata=dataTrain)
-dataTrain$predict_glm_2 <- predict(model_2, newdata=dataTrain)
-
-dataTrain$predicted_glm_A <- factor(max.col(dataTrain[,c("predict_glm_0","predict_glm_1", "predict_glm_2")])-1)
-
-
-print("Error GLM Test:")
-print(prediction_error(dataTest$real_A, dataTest$predicted_glm_A))
-
-print("Error GLM Train:")
-print(prediction_error(dataTrain$real_A, dataTrain$predicted_glm_A))
-
-result <- rbind(result, data.frame(
-  size.train=prob, 
-  error.glm.test=prediction_error(dataTest$real_A, dataTest$predicted_glm_A),
-  error.glm.train=prediction_error(dataTrain$real_A, dataTrain$predicted_glm_A)
-)
-)
-  
-}
-
-print(result)
