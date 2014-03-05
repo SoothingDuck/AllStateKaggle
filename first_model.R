@@ -25,12 +25,23 @@ T7.group_size as last_view_group_size,
 T1.homeowner as first_view_homeowner,
 T1.car_age as first_view_car_age,
 T1.car_value as first_view_car_value,
--- T1.risk_factor as first_view_risk_factor,
+case
+  when T1.risk_factor is null then 'Not available'
+  else T1.risk_factor || ''
+end as first_view_risk_factor,
 T1.age_oldest as first_view_age_oldest,
 T1.age_youngest as first_view_age_youngest,
 T1.married_couple as first_view_married_couple,
--- T1.C_previous as first_view_C_previous,
--- T1.duration_previous as first_view_duration_previous,
+case
+  when T1.C_previous is null then 'Not available'
+  else T1.C_previous || ''
+end as first_view_C_previous,
+case
+  when T1.duration_previous is null then 'Not available'
+  else T1.duration_previous || ''
+end as first_view_duration_previous,
+T1.cost as first_view_cost,
+T7.cost as last_view_cost,
 T1.A as first_view_A,
 T7.A as last_view_A,
 T1.B as first_view_B,
@@ -123,6 +134,10 @@ data <- data[,! colnames(data) %in% c("first_view_time","last_view_time")]
 data$first_view_homeowner <- factor(ifelse(data$first_view_homeowner == 1, "Yes", "No"))
 data$first_view_car_value <- factor(data$first_view_car_value)
 data$first_view_married_couple <- factor(ifelse(data$first_view_married_couple == 1, "Yes", "No"))
+
+data$first_view_risk_factor <- factor(data$first_view_risk_factor)
+data$first_view_C_previous <- factor(data$first_view_C_previous)
+data$first_view_duration_previous <- factor(data$first_view_duration_previous)
 
 data$first_view_A <- factor(data$first_view_A)
 data$last_view_A <- factor(data$last_view_A)
