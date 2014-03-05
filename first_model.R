@@ -1,6 +1,7 @@
 library(caret)
 library(randomForest)
 library(RSQLite)
+library(stringr)
 
 sqlitedb.filename <- "allstate_data.sqlite3"
 
@@ -88,12 +89,24 @@ T1.customer_ID = T3.customer_ID
 
 dbDisconnect(con)
 
-# Normalisation des données
+# Préparation des données
+print("Prépartion des données")
 rownames(data) <- as.character(data$customer_ID)
-data <- data[,-c(1)]
+data <- data[,colnames(data) != "customer_ID"]
 data$state <- factor(data$state)
 data$first_view_day <- factor(data$first_view_day)
 data$last_view_day <- factor(data$last_view_day)
+
+data$first_view_hour <- as.numeric(str_sub(data$first_view_time, 0, 2))
+data$minutes_elapsed <- ifelse(
+  data$first_view_day == data$last_view_day,
+  (as.numeric(str_sub(data$last_view_time, 0, 2))*60 + as.numeric(str_sub(data$last_view_time, 4, 6))) -  
+  (as.numeric(str_sub(data$first_view_time, 0, 2))*60 + as.numeric(str_sub(data$first_view_time, 4, 6))),
+  60*60*24
+  )
+
+data <- data[,! colnames(data) %in% c("first_view_time","last_view_time")]
+
 data$first_view_A <- factor(data$first_view_A)
 data$last_view_A <- factor(data$last_view_A)
 data$first_view_homeowner <- factor(ifelse(data$first_view_homeowner == 1, "Yes", "No"))
