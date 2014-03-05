@@ -22,4 +22,4 @@ bin
 .RData
 .Rproj.user
 *.Rproj
-
+.Rapp*
