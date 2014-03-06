@@ -81,7 +81,7 @@ dataTest$predicted_glm_F <- factor(max.col(dataTest[,c("predict_glm_0","predict_
 
 dataTrain$predict_glm_0 <- predict(model_0, newdata=dataTrain)
 dataTrain$predict_glm_1 <- predict(model_1, newdata=dataTrain)
-dataTrain$predict_glm_2 <- predict(model_Z, newdata=dataTrain)
+dataTrain$predict_glm_2 <- predict(model_2, newdata=dataTrain)
 dataTrain$predict_glm_3 <- predict(model_3, newdata=dataTrain)
 
 dataTrain$predicted_glm_F <- factor(max.col(dataTrain[,c("predict_glm_0","predict_glm_1","predict_glm_2","predict_glm_3")])-1)
