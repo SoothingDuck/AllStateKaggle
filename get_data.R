@@ -220,6 +220,7 @@ data$state <- factor(data$state)
 # day
 data$first_view_day <- factor(data$first_view_day)
 data$last_view_day <- factor(data$last_view_day)
+data$min_cost_view_day <- factor(data$min_cost_view_day)
 
 # time
 data$first_view_hour <- as.numeric(str_sub(data$first_view_time, 0, 2))
@@ -230,65 +231,78 @@ data$minutes_elapsed <- ifelse(
   60*60*24
 )
 
-data <- data[,! colnames(data) %in% c("first_view_time","last_view_time")]
+data <- data[,! colnames(data) %in% c("first_view_time","last_view_time","min_cost_view_time")]
 
 # homeowner
 data$first_view_homeowner <- factor(ifelse(data$first_view_homeowner == 1, "Yes", "No"))
 data$last_view_homeowner <- factor(ifelse(data$last_view_homeowner == 1, "Yes", "No"))
+data$min_cost_view_homeowner <- factor(ifelse(data$min_cost_view_homeowner == 1, "Yes", "No"))
 
 # car_value
 data$first_view_car_value <- factor(data$first_view_car_value)
 data$last_view_car_value <- factor(data$last_view_car_value)
+data$min_cost_view_car_value <- factor(data$min_cost_view_car_value)
 
 # risk_factor
 data$first_view_risk_factor <- factor(data$first_view_risk_factor)
 data$last_view_risk_factor <- factor(data$last_view_risk_factor)
+data$min_cost_view_risk_factor <- factor(data$min_cost_view_risk_factor)
 
 # married_couple
 data$first_view_married_couple <- factor(ifelse(data$first_view_married_couple == 1, "Yes", "No"))
 data$last_view_married_couple <- factor(ifelse(data$last_view_married_couple == 1, "Yes", "No"))
+data$min_cost_view_married_couple <- factor(ifelse(data$min_cost_view_married_couple == 1, "Yes", "No"))
 
 # C_previous
 data$first_view_C_previous <- factor(data$first_view_C_previous)
 data$last_view_C_previous <- factor(data$last_view_C_previous)
+data$min_cost_view_C_previous <- factor(data$min_cost_view_C_previous)
 
 # duration_previous
 data$first_view_duration_previous <- factor(data$first_view_duration_previous)
 data$last_view_duration_previous <- factor(data$last_view_duration_previous)
+data$min_cost_view_duration_previous <- factor(data$min_cost_view_duration_previous)
 
 # A
 data$first_view_A <- factor(data$first_view_A)
 data$last_view_A <- factor(data$last_view_A)
+data$min_cost_view_A <- factor(data$min_cost_view_A)
 data$real_A <- factor(data$real_A)
 
 # B
 data$first_view_B <- factor(data$first_view_B)
 data$last_view_B <- factor(data$last_view_B)
+data$min_cost_view_B <- factor(data$min_cost_view_B)
 data$real_B <- factor(data$real_B)
 
 # C
 data$first_view_C <- factor(data$first_view_C)
 data$last_view_C <- factor(data$last_view_C)
+data$min_cost_view_C <- factor(data$min_cost_view_C)
 data$real_C <- factor(data$real_C)
 
 # D
 data$first_view_D <- factor(data$first_view_D)
 data$last_view_D <- factor(data$last_view_D)
+data$min_cost_view_D <- factor(data$min_cost_view_D)
 data$real_D <- factor(data$real_D)
 
 # E
 data$first_view_E <- factor(data$first_view_E)
 data$last_view_E <- factor(data$last_view_E)
+data$min_cost_view_E <- factor(data$min_cost_view_E)
 data$real_E <- factor(data$real_E)
 
 # F
 data$first_view_F <- factor(data$first_view_F)
 data$last_view_F <- factor(data$last_view_F)
+data$min_cost_view_F <- factor(data$min_cost_view_F)
 data$real_F <- factor(data$real_F)
 
 # G
 data$first_view_G <- factor(data$first_view_G)
 data$last_view_G <- factor(data$last_view_G)
+data$min_cost_view_G <- factor(data$min_cost_view_G)
 data$real_G <- factor(data$real_G)
 
 # functions
