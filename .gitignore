@@ -7,7 +7,6 @@
 # BIG DATA
 DATA/test_v2.csv
 DATA/train.csv
-DATA/OUTPUT/*.csv
 
 # Backup files
 *~

@@ -96,7 +96,15 @@ print(prediction_error(dataTrain$real_C, dataTrain$predicted_glm_C))
 result <- rbind(result, data.frame(
   size.train=prob, 
   error.glm.test=prediction_error(dataTest$real_C, dataTest$predicted_glm_C),
-  error.glm.train=prediction_error(dataTrain$real_C, dataTrain$predicted_glm_C)
+  error.glm.train=prediction_error(dataTrain$real_C, dataTrain$predicted_glm_C),
+  error.glm.test.1=prediction_error(dataTest$real_C == "1", dataTest$predicted_glm_C == "1"),
+  error.glm.train.1=prediction_error(dataTrain$real_C == "1", dataTrain$predicted_glm_C == "1"),
+  error.glm.test.2=prediction_error(dataTest$real_C == "2", dataTest$predicted_glm_C == "2"),
+  error.glm.train.2=prediction_error(dataTrain$real_C == "2", dataTrain$predicted_glm_C == "2"),
+  error.glm.test.3=prediction_error(dataTest$real_C == "3", dataTest$predicted_glm_C == "3"),
+  error.glm.train.3=prediction_error(dataTrain$real_C == "3", dataTrain$predicted_glm_C == "3"),
+  error.glm.test.4=prediction_error(dataTest$real_C == "4", dataTest$predicted_glm_C == "4"),
+  error.glm.train.4=prediction_error(dataTrain$real_C == "4", dataTrain$predicted_glm_C == "4")
 )
 )
   

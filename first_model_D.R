@@ -87,7 +87,13 @@ print(prediction_error(dataTrain$real_D, dataTrain$predicted_glm_D))
 result <- rbind(result, data.frame(
   size.train=prob, 
   error.glm.test=prediction_error(dataTest$real_D, dataTest$predicted_glm_D),
-  error.glm.train=prediction_error(dataTrain$real_D, dataTrain$predicted_glm_D)
+  error.glm.train=prediction_error(dataTrain$real_D, dataTrain$predicted_glm_D),
+  error.glm.test.1=prediction_error(dataTest$real_D == "1", dataTest$predicted_glm_D == "1"),
+  error.glm.train.1=prediction_error(dataTrain$real_D == "1", dataTrain$predicted_glm_D == "1"),
+  error.glm.test.2=prediction_error(dataTest$real_D == "2", dataTest$predicted_glm_D == "2"),
+  error.glm.train.2=prediction_error(dataTrain$real_D == "2", dataTrain$predicted_glm_D == "2"),
+  error.glm.test.3=prediction_error(dataTest$real_D == "3", dataTest$predicted_glm_D == "3"),
+  error.glm.train.3=prediction_error(dataTrain$real_D == "3", dataTrain$predicted_glm_D == "3")
 )
 )
   
