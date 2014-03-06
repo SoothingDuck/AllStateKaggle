@@ -104,4 +104,33 @@ result <- rbind(result, data.frame(
   
 }
 
+# Sauvegarde CR erreurs
 print(result)
+
+write.csv(result, file.path("DATA","OUTPUT","result_model_A.csv"))
+
+# Entrainement final
+print("Entrainement modele GLM 0 final")
+model_0_final_A <- glm(
+  I(real_A == "0") ~ .
+  + I(first_view_day == last_view_day) 
+  - first_view_day - last_view_day - min_cost_view_day
+  , family = binomial, data=data)
+
+print("Entrainement modele GLM 1 final")
+model_1_final_A <- glm(
+  I(real_A == "1") ~ . 
+  + I(first_view_day == last_view_day) 
+  - first_view_day - last_view_day - min_cost_view_day
+  , family = binomial, data=data)
+
+print("Entrainement modele GLM 2 final")
+model_2_final_A <- glm(
+  I(real_A == "2") ~  .
+  + I(first_view_day == last_view_day) 
+  - first_view_day - last_view_day - min_cost_view_day
+  - first_view_duration_previous - last_view_duration_previous - min_cost_view_duration_previous
+  , family = binomial, data=data)
+
+# Sauvegarde des modeles
+save(model_0_final_A, model_1_final_A, model_2_final_A, file=file.path("DATA","OUTPUT","first_model_A.RData"))
