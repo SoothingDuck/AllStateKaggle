@@ -1,7 +1,11 @@
 library(caret)
 library(randomForest)
 
+# Chargement des données d'entrainement
 source("get_data.R")
+
+# Selection variable à estimer
+data <- select.final.variable(data, "A")
 
 # Separation train, test
 trainIndex <- createDataPartition(data$real_A, p = .8,
@@ -43,28 +47,23 @@ dataTrain <- data[trainIndex,]
 print("Entrainement modele GLM 0")
 model_0 <- glm(
   I(real_A == "0") ~ .
-  - first_view_C - last_view_C
-  - first_view_D - last_view_D
-  - first_view_E - last_view_E
-  - first_view_F - last_view_F
-  - first_view_G - last_view_G
-  - first_view_hour
-  - minutes_elapsed
-  - first_view_married_couple
-  - first_view_age_youngest
-  - first_view_age_oldest
-  - first_view_group_size
-  + I(first_view_day == last_view_day)
+  + I(first_view_day == last_view_day) 
+  - first_view_day - last_view_day - min_cost_view_day
   , family = binomial, data=dataTrain)
 
 print("Entrainement modele GLM 1")
 model_1 <- glm(
   I(real_A == "1") ~ . 
+  + I(first_view_day == last_view_day) 
+  - first_view_day - last_view_day - min_cost_view_day
   , family = binomial, data=dataTrain)
 
 print("Entrainement modele GLM 2")
 model_2 <- glm(
   I(real_A == "2") ~  .
+  + I(first_view_day == last_view_day) 
+  - first_view_day - last_view_day - min_cost_view_day
+  - first_view_duration_previous - last_view_duration_previous - min_cost_view_duration_previous
   , family = binomial, data=dataTrain)
 
 # model_rf <- randomForest(

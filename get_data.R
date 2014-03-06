@@ -259,9 +259,9 @@ data$last_view_C_previous <- factor(data$last_view_C_previous)
 data$min_cost_view_C_previous <- factor(data$min_cost_view_C_previous)
 
 # duration_previous
-data$first_view_duration_previous <- factor(data$first_view_duration_previous)
-data$last_view_duration_previous <- factor(data$last_view_duration_previous)
-data$min_cost_view_duration_previous <- factor(data$min_cost_view_duration_previous)
+# data$first_view_duration_previous <- factor(data$first_view_duration_previous)
+# data$last_view_duration_previous <- factor(data$last_view_duration_previous)
+# data$min_cost_view_duration_previous <- factor(data$min_cost_view_duration_previous)
 
 # A
 data$first_view_A <- factor(data$first_view_A)
