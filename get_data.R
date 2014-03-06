@@ -54,7 +54,13 @@ T1.B as first_view_F,
 T7.B as last_view_F,
 T1.B as first_view_G,
 T7.B as last_view_G,
-T2.A as real_A
+T2.A as real_A,
+T2.B as real_B,
+T2.C as real_C,
+T2.D as real_D,
+T2.E as real_E,
+T2.F as real_F,
+T2.G as real_G
 from
 transactions T1, transactions T2, customers T3,
 (
@@ -143,24 +149,30 @@ data$real_A <- factor(data$real_A)
 
 data$first_view_B <- factor(data$first_view_B)
 data$last_view_B <- factor(data$last_view_B)
-# data$real_B <- factor(data$real_B)
+data$real_B <- factor(data$real_B)
 
 data$first_view_C <- factor(data$first_view_C)
 data$last_view_C <- factor(data$last_view_C)
-# data$real_C <- factor(data$real_C)
+data$real_C <- factor(data$real_C)
 
 data$first_view_D <- factor(data$first_view_D)
 data$last_view_D <- factor(data$last_view_D)
-# data$real_D <- factor(data$real_D)
+data$real_D <- factor(data$real_D)
 
 data$first_view_E <- factor(data$first_view_E)
 data$last_view_E <- factor(data$last_view_E)
-# data$real_E <- factor(data$real_E)
+data$real_E <- factor(data$real_E)
 
 data$first_view_F <- factor(data$first_view_F)
 data$last_view_F <- factor(data$last_view_F)
-# data$real_F <- factor(data$real_F)
+data$real_F <- factor(data$real_F)
 
 data$first_view_G <- factor(data$first_view_G)
 data$last_view_G <- factor(data$last_view_G)
-# data$real_G <- factor(data$real_G)
+data$real_G <- factor(data$real_G)
+
+select.final.variable <- function(data, letter) {
+  col <- ! (grepl("real",colnames(data)) & ! grepl(paste("real","A", sep="_"), colnames(data)))
+  return(data[,col])
+}
+
