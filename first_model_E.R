@@ -61,12 +61,12 @@ model_1 <- glm(
 dataTest$predict_glm_0 <- predict(model_0, newdata=dataTest)
 dataTest$predict_glm_1 <- predict(model_1, newdata=dataTest)
 
-dataTest$predicted_glm_E <- factor(max.col(dataTest[,c("predict_glm_0","predict_glm_1")]))
+dataTest$predicted_glm_E <- factor(max.col(dataTest[,c("predict_glm_0","predict_glm_1")])-1)
 
 dataTrain$predict_glm_0 <- predict(model_0, newdata=dataTrain)
 dataTrain$predict_glm_1 <- predict(model_1, newdata=dataTrain)
 
-dataTrain$predicted_glm_E <- factor(max.col(dataTrain[,c("predict_glm_0","predict_glm_1")]))
+dataTrain$predicted_glm_E <- factor(max.col(dataTrain[,c("predict_glm_0","predict_glm_1")])-1)
 
 
 print("Error GLM Test:")
