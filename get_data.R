@@ -18,26 +18,45 @@ T7.time as last_view_time,
 T4.nb_views,
 -- T1.location as first_view_location,
 T5.location_popularity,
+T4.nb_distinct_location,
 T1.group_size as first_view_group_size,
 T7.group_size as last_view_group_size,
 T1.homeowner as first_view_homeowner,
+T7.homeowner as last_view_homeowner,
 T1.car_age as first_view_car_age,
+T7.car_age as last_view_car_age,
 T1.car_value as first_view_car_value,
+T7.car_value as last_view_car_value,
 case
 when T1.risk_factor is null then 'Not available'
 else T1.risk_factor || ''
 end as first_view_risk_factor,
+case
+when T7.risk_factor is null then 'Not available'
+else T7.risk_factor || ''
+end as last_view_risk_factor,
 T1.age_oldest as first_view_age_oldest,
+T7.age_oldest as last_view_age_oldest,
 T1.age_youngest as first_view_age_youngest,
+T7.age_youngest as last_view_age_youngest,
 T1.married_couple as first_view_married_couple,
+T7.married_couple as last_view_married_couple,
 case
 when T1.C_previous is null then 'Not available'
 else T1.C_previous || ''
 end as first_view_C_previous,
 case
+when T7.C_previous is null then 'Not available'
+else T7.C_previous || ''
+end as last_view_C_previous,
+case
 when T1.duration_previous is null then 'Not available'
 else T1.duration_previous || ''
 end as first_view_duration_previous,
+case
+when T7.duration_previous is null then 'Not available'
+else T7.duration_previous || ''
+end as last_view_duration_previous,
 T1.cost as first_view_cost,
 T7.cost as last_view_cost,
 T1.A as first_view_A,
@@ -66,7 +85,8 @@ transactions T1, transactions T2, customers T3,
 (
 select
 customer_ID,
-count(*) as nb_views
+count(*) as nb_views,
+count(distinct location) as nb_distinct_location
 from
 transactions
 where
@@ -118,13 +138,20 @@ T1.customer_ID = T3.customer_ID
 dbDisconnect(con)
 
 # Préparation des données
+
+# customer_ID en nom de ligne
 print("Préparation des données")
 rownames(data) <- as.character(data$customer_ID)
 data <- data[,colnames(data) != "customer_ID"]
+
+# state factor
 data$state <- factor(data$state)
+
+# day
 data$first_view_day <- factor(data$first_view_day)
 data$last_view_day <- factor(data$last_view_day)
 
+# time
 data$first_view_hour <- as.numeric(str_sub(data$first_view_time, 0, 2))
 data$minutes_elapsed <- ifelse(
   data$first_view_day == data$last_view_day,
@@ -135,42 +162,66 @@ data$minutes_elapsed <- ifelse(
 
 data <- data[,! colnames(data) %in% c("first_view_time","last_view_time")]
 
+# homeowner
 data$first_view_homeowner <- factor(ifelse(data$first_view_homeowner == 1, "Yes", "No"))
+data$last_view_homeowner <- factor(ifelse(data$last_view_homeowner == 1, "Yes", "No"))
+
+# car_value
 data$first_view_car_value <- factor(data$first_view_car_value)
-data$first_view_married_couple <- factor(ifelse(data$first_view_married_couple == 1, "Yes", "No"))
+data$last_view_car_value <- factor(data$last_view_car_value)
 
+# risk_factor
 data$first_view_risk_factor <- factor(data$first_view_risk_factor)
-data$first_view_C_previous <- factor(data$first_view_C_previous)
-data$first_view_duration_previous <- factor(data$first_view_duration_previous)
+data$last_view_risk_factor <- factor(data$last_view_risk_factor)
 
+# married_couple
+data$first_view_married_couple <- factor(ifelse(data$first_view_married_couple == 1, "Yes", "No"))
+data$last_view_married_couple <- factor(ifelse(data$last_view_married_couple == 1, "Yes", "No"))
+
+# C_previous
+data$first_view_C_previous <- factor(data$first_view_C_previous)
+data$last_view_C_previous <- factor(data$last_view_C_previous)
+
+# duration_previous
+data$first_view_duration_previous <- factor(data$first_view_duration_previous)
+data$last_view_duration_previous <- factor(data$last_view_duration_previous)
+
+# A
 data$first_view_A <- factor(data$first_view_A)
 data$last_view_A <- factor(data$last_view_A)
 data$real_A <- factor(data$real_A)
 
+# B
 data$first_view_B <- factor(data$first_view_B)
 data$last_view_B <- factor(data$last_view_B)
 data$real_B <- factor(data$real_B)
 
+# C
 data$first_view_C <- factor(data$first_view_C)
 data$last_view_C <- factor(data$last_view_C)
 data$real_C <- factor(data$real_C)
 
+# D
 data$first_view_D <- factor(data$first_view_D)
 data$last_view_D <- factor(data$last_view_D)
 data$real_D <- factor(data$real_D)
 
+# E
 data$first_view_E <- factor(data$first_view_E)
 data$last_view_E <- factor(data$last_view_E)
 data$real_E <- factor(data$real_E)
 
+# F
 data$first_view_F <- factor(data$first_view_F)
 data$last_view_F <- factor(data$last_view_F)
 data$real_F <- factor(data$real_F)
 
+# G
 data$first_view_G <- factor(data$first_view_G)
 data$last_view_G <- factor(data$last_view_G)
 data$real_G <- factor(data$real_G)
 
+# functions
 select.final.variable <- function(data, letter) {
   col <- ! (grepl("real",colnames(data)) & ! grepl(paste("real","A", sep="_"), colnames(data)))
   return(data[,col])
