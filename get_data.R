@@ -307,7 +307,7 @@ data$real_G <- factor(data$real_G)
 
 # functions
 select.final.variable <- function(data, letter) {
-  col <- ! (grepl("real",colnames(data)) & ! grepl(paste("real","A", sep="_"), colnames(data)))
+  col <- ! (grepl("real",colnames(data)) & ! grepl(paste("real",letter, sep="_"), colnames(data)))
   return(data[,col])
 }
 
