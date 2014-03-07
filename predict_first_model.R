@@ -174,6 +174,6 @@ dataTest$predicted_ABCDEFG <- paste(
   sep=""
 )
 
-cat("prediction error ABCDEF  : ", prediction_error(dataTest$real_ABCDEF, dataTest$predicted_ABCDEF))
+cat("prediction error ABCDEF  : ", prediction_error(dataTest$real_ABCDEF, dataTest$predicted_ABCDEF),"\n")
 
-cat("prediction error ABCDEFG : ", prediction_error(dataTest$real_ABCDEFG, dataTest$predicted_ABCDEFG))
+cat("prediction error ABCDEFG : ", prediction_error(dataTest$real_ABCDEFG, dataTest$predicted_ABCDEFG),"\n")
