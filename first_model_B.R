@@ -102,3 +102,10 @@ model_1_final_B <- glm(
 
 # Sauvegarde des modeles
 save(model_0_final_B, model_1_final_B, file=file.path("DATA","OUTPUT","first_model_B.RData"))
+
+rm(list=c(
+  "model_0_final_B",
+  "model_1_final_B"
+))
+
+gc(TRUE)
