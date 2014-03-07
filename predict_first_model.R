@@ -109,21 +109,28 @@ predict_G <- function(data) {
   
 }
 
+predict_ALL <- function(data) {
+  print("predicting A...")
+  data$predicted_A <- predict_A(data)
+  print("predicting B...")
+  data$predicted_B <- predict_B(data)
+  print("predicting C...")
+  data$predicted_C <- predict_C(data)
+  print("predicting D...")
+  data$predicted_D <- predict_D(data)
+  print("predicting E...")
+  data$predicted_E <- predict_E(data)
+  print("predicting F...")
+  data$predicted_F <- predict_F(data)
+  print("predicting G...")
+  data$predicted_G <- predict_G(data)
+  
+  return(data)
+}
+
 # Prediction globale
-print("predicting A...")
-dataTest$predicted_A <- predict_A(dataTest)
-print("predicting B...")
-dataTest$predicted_B <- predict_B(dataTest)
-print("predicting C...")
-dataTest$predicted_C <- predict_C(dataTest)
-print("predicting D...")
-dataTest$predicted_D <- predict_D(dataTest)
-print("predicting E...")
-dataTest$predicted_E <- predict_E(dataTest)
-print("predicting F...")
-dataTest$predicted_F <- predict_F(dataTest)
-print("predicting G...")
-dataTest$predicted_G <- predict_G(dataTest)
+dataTest <- predict_ALL(dataTest)
+
 
 dataTest$real_ABCDEF <- paste(
   as.character(dataTest$real_A),
