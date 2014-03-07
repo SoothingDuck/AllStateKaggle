@@ -1,6 +1,9 @@
 library(caret)
 library(randomForest)
 
+# fonctions
+source("functions.R")
+
 # Chargement des données d'entrainement
 source("get_data.R")
 
@@ -8,28 +11,19 @@ source("get_data.R")
 data <- select.final.variable(data, "A")
 
 # Separation train, test
-trainIndex <- createDataPartition(data$real_A, p = .8,
-                                  list = FALSE,
-                                  times = 1)
+set.seed(42)
+tmp <- get.base.train.test(data, "real_A", .8)
 
-dataTrain <- data[trainIndex,]
-dataTest <- data[-trainIndex,]
-
+dataTrainBase <- tmp$train
+dataTest <- tmp$test
 
 # Estimation modeles
-prediction_error <- function(true_data, predicted_data) {
-  
-  ok_prediction <- sum(true_data == predicted_data)
-  ko_prediction <- sum(true_data != predicted_data)
-  
-  return ((ko_prediction)/(ok_prediction+ko_prediction))
-}
 
 # Test
 list_prob <- c(.8)
 prob <- .8
 
-list_prob <- seq(.2, .8, .1)
+list_prob <- seq(.1, .9, .2)
 
 result <- data.frame()
 
@@ -37,11 +31,8 @@ for(prob in list_prob) {
   
 cat("Taille train : ", prob, "\n")
 
-trainIndex <- createDataPartition(data$real_A, p = prob,
-                                  list = FALSE,
-                                  times = 1)
-
-dataTrain <- data[trainIndex,]
+tmp <- get.base.train.test(dataTrainBase, "real_A", prob)
+dataTrain <- tmp$train
   
 # Evaluation modeles
 print("Entrainement modele GLM 0")
@@ -66,28 +57,17 @@ model_2 <- glm(
   - first_view_duration_previous - last_view_duration_previous - min_cost_view_duration_previous
   , family = binomial, data=dataTrain)
 
-# model_rf <- randomForest(
-#   last_view_A ~ . - state
-#   + I(first_view_day == last_view_day),
-#   data=dataTrain,
-#   importance=TRUE,
-#   do.trace=TRUE,
-#   ntree=20
-#   )
-
 dataTest$predict_glm_0 <- predict(model_0, newdata=dataTest)
 dataTest$predict_glm_1 <- predict(model_1, newdata=dataTest)
 dataTest$predict_glm_2 <- predict(model_2, newdata=dataTest)
 
 dataTest$predicted_glm_A <- factor(max.col(dataTest[,c("predict_glm_0","predict_glm_1", "predict_glm_2")])-1)
-# dataTest$predicted_rf_A <- predict(model_rf, newdata=dataTest)
 
 dataTrain$predict_glm_0 <- predict(model_0, newdata=dataTrain)
 dataTrain$predict_glm_1 <- predict(model_1, newdata=dataTrain)
 dataTrain$predict_glm_2 <- predict(model_2, newdata=dataTrain)
 
 dataTrain$predicted_glm_A <- factor(max.col(dataTrain[,c("predict_glm_0","predict_glm_1", "predict_glm_2")])-1)
-
 
 print("Error GLM Test:")
 print(prediction_error(dataTest$real_A, dataTest$predicted_glm_A))
@@ -121,14 +101,14 @@ model_0_final_A <- glm(
   I(real_A == "0") ~ .
   + I(first_view_day == last_view_day) 
   - first_view_day - last_view_day - min_cost_view_day
-  , family = binomial, data=data)
+  , family = binomial, data=dataTrainBase)
 
 print("Entrainement modele GLM 1 final")
 model_1_final_A <- glm(
   I(real_A == "1") ~ . 
   + I(first_view_day == last_view_day) 
   - first_view_day - last_view_day - min_cost_view_day
-  , family = binomial, data=data)
+  , family = binomial, data=dataTrainBase)
 
 print("Entrainement modele GLM 2 final")
 model_2_final_A <- glm(
@@ -136,7 +116,7 @@ model_2_final_A <- glm(
   + I(first_view_day == last_view_day) 
   - first_view_day - last_view_day - min_cost_view_day
   - first_view_duration_previous - last_view_duration_previous - min_cost_view_duration_previous
-  , family = binomial, data=data)
+  , family = binomial, data=dataTrainBase)
 
 # Sauvegarde des modeles
 save(model_0_final_A, model_1_final_A, model_2_final_A, file=file.path("DATA","OUTPUT","first_model_A.RData"))

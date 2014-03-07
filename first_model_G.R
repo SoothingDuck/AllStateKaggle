@@ -1,6 +1,9 @@
 library(caret)
 library(randomForest)
 
+# fonctions
+source("functions.R")
+
 # Chargement des données d'entrainement
 source("get_data.R")
 
@@ -8,28 +11,20 @@ source("get_data.R")
 data <- select.final.variable(data, "G")
 
 # Separation train, test
-trainIndex <- createDataPartition(data$real_G, p = .8,
-                                  list = FALSE,
-                                  times = 1)
+set.seed(42)
+tmp <- get.base.train.test(data, "real_G", .8)
 
-dataTrain <- data[trainIndex,]
-dataTest <- data[-trainIndex,]
+dataTrainBase <- tmp$train
+dataTest <- tmp$test
 
 
 # Estimation modeles
-prediction_error <- function(true_data, predicted_data) {
-  
-  ok_prediction <- sum(true_data == predicted_data)
-  ko_prediction <- sum(true_data != predicted_data)
-  
-  return ((ko_prediction)/(ok_prediction+ko_prediction))
-}
 
 # Test
 list_prob <- c(.8)
 prob <- .8
 
-list_prob <- seq(.2, .8, .1)
+list_prob <- seq(.1, .9, .2)
 
 result <- data.frame()
 
@@ -37,11 +32,8 @@ for(prob in list_prob) {
   
 cat("Taille train : ", prob, "\n")
 
-trainIndex <- createDataPartition(data$real_G, p = prob,
-                                  list = FALSE,
-                                  times = 1)
-
-dataTrain <- data[trainIndex,]
+tmp <- get.base.train.test(dataTrainBase, "real_G", prob)
+dataTrain <- tmp$train
   
 # Evaluation modeles
 print("Entrainement modele GLM 1")
@@ -121,28 +113,28 @@ model_1_final_G <- glm(
   I(real_G == "1") ~ .
   + I(first_view_day == last_view_day) 
   - first_view_day - last_view_day - min_cost_view_day
-  , family = binomial, data=data)
+  , family = binomial, data=dataTrainBase)
 
 print("Entrainement modele GLM 2 final")
 model_2_final_G <- glm(
   I(real_G == "2") ~ . 
   + I(first_view_day == last_view_day) 
   - first_view_day - last_view_day - min_cost_view_day
-  , family = binomial, data=data)
+  , family = binomial, data=dataTrainBase)
 
 print("Entrainement modele GLM 3 final")
 model_3_final_G <- glm(
   I(real_G == "3") ~ . 
   + I(first_view_day == last_view_day) 
   - first_view_day - last_view_day - min_cost_view_day
-  , family = binomial, data=data)
+  , family = binomial, data=dataTrainBase)
 
 print("Entrainement modele GLM 4 final")
 model_4_final_G <- glm(
   I(real_G == "4") ~ . 
   + I(first_view_day == last_view_day) 
   - first_view_day - last_view_day - min_cost_view_day
-  , family = binomial, data=data)
+  , family = binomial, data=dataTrainBase)
 
 # Sauvegarde des modeles
 save(model_1_final_G, model_2_final_G, model_3_final_G, model_4_final_G, file=file.path("DATA","OUTPUT","first_model_G.RData"))

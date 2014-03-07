@@ -1,17 +1,20 @@
 library(ggplot2)
+library(reshape2)
 
 data <- data.frame()
 
 for (letter in c("A","B","C","D","E","F","G")) {
   tmp <- read.csv(file.path("DATA","OUTPUT", paste(paste("result_model", letter, sep="_"), "csv", sep=".")))
-  tmp <- tmp[,2:4]
+  tmp$letter <- letter
+  tmp <- tmp[,2:ncol(tmp)]
   tmp <- cbind(letter, tmp)
   
-  data <- rbind(data, tmp)
+  tmp.bis <- melt(tmp, id.vars=c("size.train","letter"))
+  
+  data <- rbind(data, tmp.bis)
 }
 
 ggplot(data) + 
-  geom_line(aes(x=size.train, y=error.glm.test, color="test")) + 
-  geom_line(aes(x=size.train, y=error.glm.train, color="train")) + 
+  geom_line(aes(x=size.train, y=value, color=variable)) +
   facet_wrap(~ letter)
 
