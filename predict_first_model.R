@@ -9,12 +9,8 @@ source("get_data.R")
 
 # Separation train, test
 set.seed(42)
-tmp <- get.base.train.test(data, "real_E", .8)
-
-dataTrainBase <- tmp$train
-dataTest <- tmp$test
-
-data <- dataTest
+dataTest <- get.data.test()
+dataTest <- normalize.test.data(dataTest)
 
 # Funcions
 predict_A <- function(data) {
@@ -131,17 +127,6 @@ predict_ALL <- function(data) {
 # Prediction globale
 dataTest <- predict_ALL(dataTest)
 
-
-dataTest$real_ABCDEF <- paste(
-  as.character(dataTest$real_A),
-  as.character(dataTest$real_B),
-  as.character(dataTest$real_C),
-  as.character(dataTest$real_D),
-  as.character(dataTest$real_E),
-  as.character(dataTest$real_F),
-  sep=""
-  )
-
 dataTest$predicted_ABCDEF <- paste(
   as.character(dataTest$predicted_A),
   as.character(dataTest$predicted_B),
@@ -149,17 +134,6 @@ dataTest$predicted_ABCDEF <- paste(
   as.character(dataTest$predicted_D),
   as.character(dataTest$predicted_E),
   as.character(dataTest$predicted_F),
-  sep=""
-)
-
-dataTest$real_ABCDEFG <- paste(
-  as.character(dataTest$real_A),
-  as.character(dataTest$real_B),
-  as.character(dataTest$real_C),
-  as.character(dataTest$real_D),
-  as.character(dataTest$real_E),
-  as.character(dataTest$real_F),
-  as.character(dataTest$real_G),
   sep=""
 )
 
@@ -174,6 +148,9 @@ dataTest$predicted_ABCDEFG <- paste(
   sep=""
 )
 
-cat("prediction error ABCDEF  : ", prediction_error(dataTest$real_ABCDEF, dataTest$predicted_ABCDEF),"\n")
+dataTest$plan <- dataTest$predicted_ABCDEFG
 
-cat("prediction error ABCDEFG : ", prediction_error(dataTest$real_ABCDEFG, dataTest$predicted_ABCDEFG),"\n")
+df.submission <- cbind(rownames(dataTest), dataTest$plan)
+colnames(df.submission) <- c("customer_ID","plan")
+submission.filename <- file.path("DATA", "first_model_submission.csv")
+write.table(df.submission, file = submission.filename, quote = FALSE, sep=",", row.names = FALSE, col.names=TRUE)
