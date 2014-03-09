@@ -46,8 +46,6 @@ model_1 <- glm(
 print("Entrainement modele GLM 2")
 model_2 <- glm(
   I(real_G == "2") ~ . 
-  + I(first_view_day == last_view_day) 
-  - first_view_day - last_view_day - min_cost_view_day
   , family = binomial, data=dataTrain)
 
 print("Entrainement modele GLM 3")

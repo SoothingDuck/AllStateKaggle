@@ -432,19 +432,13 @@ normalize.data <- function(data) {
   data$state <- factor(data$state)
   
   # day
-  data$first_view_day <- factor(data$first_view_day)
+  # data$first_view_day <- factor(data$first_view_day)
   data$last_view_day <- factor(data$last_view_day)
-  data$min_cost_view_day <- factor(data$min_cost_view_day)
+  # data$min_cost_view_day <- factor(data$min_cost_view_day)
   
   # time
   data$first_view_hour <- as.numeric(str_sub(data$first_view_time, 0, 2))
-  data$minutes_elapsed <- ifelse(
-    data$first_view_day == data$last_view_day,
-    (as.numeric(str_sub(data$last_view_time, 0, 2))*60 + as.numeric(str_sub(data$last_view_time, 4, 6))) -  
-      (as.numeric(str_sub(data$first_view_time, 0, 2))*60 + as.numeric(str_sub(data$first_view_time, 4, 6))),
-    60*60*24
-  )
-  
+  data$minutes_elapsed <- (as.numeric(str_sub(data$last_view_time, 0, 2))*60 + as.numeric(str_sub(data$last_view_time, 4, 6))) - (as.numeric(str_sub(data$first_view_time, 0, 2))*60 + as.numeric(str_sub(data$first_view_time, 4, 6)))
   data <- data[,! colnames(data) %in% c("first_view_time","last_view_time","min_cost_view_time")]
   
   # homeowner
