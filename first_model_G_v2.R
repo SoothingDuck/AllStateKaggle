@@ -24,7 +24,7 @@ dataTest <- tmp$test
 list_prob <- c(.5)
 prob <- .5
 
-list_prob <- seq(.1, .9, .2)
+list_prob <- seq(.1, .5, .2)
 
 result <- data.frame()
 
@@ -46,6 +46,10 @@ model_2 <- glm(
   I(real_G == "2") ~ 
   state
   + location_popularity
+  + G1_count
+  + G2_count
+  + G3_count
+  + G4_count
   + last_view_car_value
   + last_view_C_previous
   + min_cost_view_cost

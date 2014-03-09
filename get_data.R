@@ -312,6 +312,10 @@ get.data.train <- function() {
   T1.G as first_view_G,
   T7.G as last_view_G,
   T9.G as min_cost_view_G,
+  T10.G1_count,
+  T10.G2_count,
+  T10.G3_count,
+  T10.G4_count,
   T2.A as real_A,
   T2.B as real_B,
   T2.C as real_C,
@@ -390,8 +394,23 @@ get.data.train <- function() {
     A.min_cost = B.cost
     group by 1
   ) T8,
-  transactions T9
+  transactions T9,
+  (
+    select
+    customer_ID,
+    sum(case when G = 1 then 1 else 0 end) as G1_count,
+    sum(case when G = 2 then 1 else 0 end) as G2_count,
+    sum(case when G = 3 then 1 else 0 end) as G3_count,
+    sum(case when G = 4 then 1 else 0 end) as G4_count
+    from 
+    transactions
+    where
+    record_type = 0
+    group by 1
+  ) T10
   where
+  T1.customer_ID = T10.customer_ID
+  and
   T1.customer_ID = T8.customer_ID
   and
   T8.customer_ID = T9.customer_ID
