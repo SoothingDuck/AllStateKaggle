@@ -39,27 +39,30 @@ dataTrain <- tmp$train
 print("Entrainement modele GLM 1")
 model_1 <- glm(
   I(real_G == "1") ~ .
-  + I(first_view_day == last_view_day) 
-  - first_view_day - last_view_day - min_cost_view_day
   , family = binomial, data=dataTrain)
 
 print("Entrainement modele GLM 2")
 model_2 <- glm(
-  I(real_G == "2") ~ . 
+  I(real_G == "2") ~ 
+  state
+  + location_popularity
+  + last_view_car_value
+  + last_view_C_previous
+  + min_cost_view_cost
+  + min_cost_view_A
+  + last_view_C
+  + last_view_G
+  + min_cost_view_G
   , family = binomial, data=dataTrain)
 
 print("Entrainement modele GLM 3")
 model_3 <- glm(
   I(real_G == "3") ~ . 
-  + I(first_view_day == last_view_day) 
-  - first_view_day - last_view_day - min_cost_view_day
   , family = binomial, data=dataTrain)
 
 print("Entrainement modele GLM 4")
 model_4 <- glm(
   I(real_G == "4") ~ . 
-  + I(first_view_day == last_view_day) 
-  - first_view_day - last_view_day - min_cost_view_day
   , family = binomial, data=dataTrain)
 
 dataTest$predict_glm_1 <- predict(model_1, newdata=dataTest)
@@ -103,7 +106,9 @@ result <- rbind(result, data.frame(
 # Sauvegarde CR erreurs
 print(result)
 
-write.csv(result, file.path("DATA","OUTPUT","result_model_G.csv"))
+write.csv(result, file.path("DATA","OUTPUT","result_model_G_v2.csv"))
+
+stop("Model à ajuster")
 
 # Entrainement final
 print("Entrainement modele GLM 1 final")
@@ -113,6 +118,7 @@ model_1_final_G <- glm(
   - first_view_day - last_view_day - min_cost_view_day
   , family = binomial, data=dataTrainBase)
 
+stop("a modifier")
 print("Entrainement modele GLM 2 final")
 model_2_final_G <- glm(
   I(real_G == "2") ~ . 
