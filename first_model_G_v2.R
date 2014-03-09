@@ -37,14 +37,18 @@ dataTrain <- tmp$train
   
 # Evaluation modeles
 print("Entrainement modele GLM 1")
+formula_1 <- formula(
+  I(real_G == "1") ~ .  
+  )
+
 model_1 <- glm(
-  I(real_G == "1") ~ .
+  formula_1
   , family = binomial, data=dataTrain)
 
 print("Entrainement modele GLM 2")
-model_2 <- glm(
+formula_2 <- formula(
   I(real_G == "2") ~ 
-  state
+    state
   + location_popularity
   + G1_count
   + G2_count
@@ -56,17 +60,29 @@ model_2 <- glm(
   + min_cost_view_A
   + last_view_C
   + last_view_G
-  + min_cost_view_G
+  + min_cost_view_G  
+  )
+
+model_2 <- glm(
+  formula_2
   , family = binomial, data=dataTrain)
 
 print("Entrainement modele GLM 3")
+formula_3 <- formula(
+  I(real_G == "3") ~ .   
+  )
+
 model_3 <- glm(
-  I(real_G == "3") ~ . 
+  formula_3
   , family = binomial, data=dataTrain)
 
 print("Entrainement modele GLM 4")
+formula_4 <- formula(
+  I(real_G == "4") ~ .   
+  )
+
 model_4 <- glm(
-  I(real_G == "4") ~ . 
+  formula_4
   , family = binomial, data=dataTrain)
 
 dataTest$predict_glm_1 <- predict(model_1, newdata=dataTest)
@@ -112,46 +128,26 @@ print(result)
 
 write.csv(result, file.path("DATA","OUTPUT","result_model_G_v2.csv"))
 
-stop("Model à ajuster")
-
 # Entrainement final
 print("Entrainement modele GLM 1 final")
 model_1_final_G <- glm(
-  I(real_G == "1") ~ .
-  + I(first_view_day == last_view_day) 
-  - first_view_day - last_view_day - min_cost_view_day
+  formula_1
   , family = binomial, data=dataTrainBase)
 
-stop("a modifier")
 print("Entrainement modele GLM 2 final")
 model_2_final_G <- glm(
-  I(real_G == "2") ~ . 
-  + I(first_view_day == last_view_day) 
-  - first_view_day - last_view_day - min_cost_view_day
+  formula_2
   , family = binomial, data=dataTrainBase)
 
 print("Entrainement modele GLM 3 final")
 model_3_final_G <- glm(
-  I(real_G == "3") ~ . 
-  + I(first_view_day == last_view_day) 
-  - first_view_day - last_view_day - min_cost_view_day
+  formula_3
   , family = binomial, data=dataTrainBase)
 
 print("Entrainement modele GLM 4 final")
 model_4_final_G <- glm(
-  I(real_G == "4") ~ . 
-  + I(first_view_day == last_view_day) 
-  - first_view_day - last_view_day - min_cost_view_day
+  formula_4
   , family = binomial, data=dataTrainBase)
 
 # Sauvegarde des modeles
 save(model_1_final_G, model_2_final_G, model_3_final_G, model_4_final_G, file=file.path("DATA","OUTPUT","first_model_G.RData"))
-
-rm(list=c(
-  "model_1_final_G",
-  "model_2_final_G",
-  "model_3_final_G",
-  "model_4_final_G"  
-))
-
-gc(TRUE)

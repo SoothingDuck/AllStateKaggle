@@ -20,10 +20,10 @@ dataTest <- tmp$test
 # Estimation modeles
 
 # Test
-list_prob <- c(.8)
-prob <- .8
+list_prob <- c(.5)
+prob <- .5
 
-list_prob <- seq(.1, .9, .2)
+list_prob <- seq(.1, .5, .2)
 
 result <- data.frame()
 
@@ -36,17 +36,21 @@ dataTrain <- tmp$train
   
 # Evaluation modeles
 print("Entrainement modele GLM 0")
+formula_0 <- formula(
+  I(real_E == "0") ~ .  
+  )
+
 model_0 <- glm(
-  I(real_E == "0") ~ .
-  + I(first_view_day == last_view_day) 
-  - first_view_day - last_view_day - min_cost_view_day
+  formula_0
   , family = binomial, data=dataTrain)
 
 print("Entrainement modele GLM 1")
+formula_1 <- formula(
+  I(real_E == "1") ~ .  
+)
+
 model_1 <- glm(
-  I(real_E == "1") ~ . 
-  + I(first_view_day == last_view_day) 
-  - first_view_day - last_view_day - min_cost_view_day
+  formula_1
   , family = binomial, data=dataTrain)
 
 dataTest$predict_glm_0 <- predict(model_0, newdata=dataTest)
@@ -87,24 +91,13 @@ write.csv(result, file.path("DATA","OUTPUT","result_model_E.csv"))
 # Entrainement final
 print("Entrainement modele GLM 0 final")
 model_0_final_E <- glm(
-  I(real_E == "0") ~ .
-  + I(first_view_day == last_view_day) 
-  - first_view_day - last_view_day - min_cost_view_day
+  formula_0
   , family = binomial, data=dataTrainBase)
 
 print("Entrainement modele GLM 1 final")
 model_1_final_E <- glm(
-  I(real_E == "1") ~ . 
-  + I(first_view_day == last_view_day) 
-  - first_view_day - last_view_day - min_cost_view_day
+  formula_1
   , family = binomial, data=dataTrainBase)
 
 # Sauvegarde des modeles
 save(model_0_final_E, model_1_final_E, file=file.path("DATA","OUTPUT","first_model_E.RData"))
-
-rm(list=c(
-  "model_0_final_E",
-  "model_1_final_E"
-))
-
-gc(TRUE)

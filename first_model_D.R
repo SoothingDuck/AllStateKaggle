@@ -20,10 +20,10 @@ dataTest <- tmp$test
 # Estimation modeles
 
 # Test
-list_prob <- c(.8)
-prob <- .8
+list_prob <- c(.5)
+prob <- .5
 
-list_prob <- seq(.1, .9, .2)
+list_prob <- seq(.1, .5, .2)
 
 result <- data.frame()
 
@@ -36,24 +36,30 @@ dataTrain <- tmp$train
   
 # Evaluation modeles
 print("Entrainement modele GLM 1")
-model_1 <- glm(
+formula_1 <- formula(
   I(real_D == "1") ~ .
-  + I(first_view_day == last_view_day) 
-  - first_view_day - last_view_day - min_cost_view_day
+  )
+
+model_1 <- glm(
+  formula_1
   , family = binomial, data=dataTrain)
 
 print("Entrainement modele GLM 2")
+formula_2 <- formula(
+  I(real_D == "2") ~ .
+)
+
 model_2 <- glm(
-  I(real_D == "2") ~ . 
-  + I(first_view_day == last_view_day) 
-  - first_view_day - last_view_day - min_cost_view_day
+  formula_2
   , family = binomial, data=dataTrain)
 
 print("Entrainement modele GLM 3")
+formula_3 <- formula(
+  I(real_D == "3") ~ .
+)
+
 model_3 <- glm(
-  I(real_D == "3") ~ . 
-  + I(first_view_day == last_view_day) 
-  - first_view_day - last_view_day - min_cost_view_day
+  formula_3
   , family = binomial, data=dataTrain)
 
 dataTest$predict_glm_1 <- predict(model_1, newdata=dataTest)
@@ -98,32 +104,19 @@ write.csv(result, file.path("DATA","OUTPUT","result_model_D.csv"))
 # Entrainement final
 print("Entrainement modele GLM 1 final")
 model_1_final_D <- glm(
-  I(real_D == "1") ~ .
-  + I(first_view_day == last_view_day) 
-  - first_view_day - last_view_day - min_cost_view_day
+  formula_1
   , family = binomial, data=dataTrainBase)
 
 print("Entrainement modele GLM 2 final")
 model_2_final_D <- glm(
-  I(real_D == "2") ~ . 
-  + I(first_view_day == last_view_day) 
-  - first_view_day - last_view_day - min_cost_view_day
+  formula_2
   , family = binomial, data=dataTrainBase)
 
 print("Entrainement modele GLM 3 final")
 model_3_final_D <- glm(
-  I(real_D == "3") ~ . 
-  + I(first_view_day == last_view_day) 
-  - first_view_day - last_view_day - min_cost_view_day
+  formula_3
   , family = binomial, data=dataTrainBase)
 
 # Sauvegarde des modeles
 save(model_1_final_D, model_2_final_D, model_3_final_D, file=file.path("DATA","OUTPUT","first_model_D.RData"))
 
-rm(list=c(
-  "model_1_final_D",
-  "model_2_final_D",
-  "model_3_final_D"
-))
-
-gc(TRUE)
