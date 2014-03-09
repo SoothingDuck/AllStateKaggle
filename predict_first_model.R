@@ -7,11 +7,6 @@ source("functions.R")
 # Chargement des données d'entrainement
 source("get_data.R")
 
-# Separation train, test
-set.seed(42)
-dataTest <- get.data.test()
-dataTest <- normalize.test.data(dataTest)
-
 # Funcions
 predict_A <- function(data) {
   load(file=file.path("DATA","OUTPUT","first_model_A.RData"))
@@ -123,6 +118,22 @@ predict_ALL <- function(data) {
   
   return(data)
 }
+
+# Separation train, test
+set.seed(42)
+tmp <- get.base.train.test(data, "real_G", .8)
+
+dataTrainBase <- tmp$train
+dataTestBase <- tmp$test
+
+dataTrainBase <- predict_ALL(dataTrainBase)
+dataTestBase <- predict_ALL(dataTestBase)
+
+
+# Separation train, test
+set.seed(42)
+dataTest <- get.data.test()
+dataTest <- normalize.test.data(dataTest)
 
 # Prediction globale
 dataTest <- predict_ALL(dataTest)
