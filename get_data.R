@@ -277,16 +277,16 @@ get.data.train <- function() {
   else T9.C_previous || ''
   end as min_cost_view_C_previous,
   case
-  when T1.duration_previous is null then 'Not available'
-  else T1.duration_previous || ''
+  when T1.duration_previous is null then 6
+  else T1.duration_previous
   end as first_view_duration_previous,
   case
-  when T7.duration_previous is null then 'Not available'
-  else T7.duration_previous || ''
+  when T7.duration_previous is null then 6
+  else T7.duration_previous
   end as last_view_duration_previous,
   case
-  when T9.duration_previous is null then 'Not available'
-  else T9.duration_previous || ''
+  when T9.duration_previous is null then 6
+  else T9.duration_previous
   end as min_cost_view_duration_previous,
   T1.cost as first_view_cost,
   T7.cost as last_view_cost,
@@ -330,11 +330,10 @@ get.data.train <- function() {
   T2.D as real_D,
   T2.E as real_E,
   T2.F as real_F,
-  T2.G as real_G,
-  T2.car_value as next_car_value
+  T2.G as real_G
+  --T2.car_value as next_car_value
   --T1.A || T1.B || T1.C || T1.D || T1.E || T1.F as first_view_ABCDEF,
   --T7.A || T7.B || T7.C || T7.D || T7.E || T7.F as last_view_ABCDEF,
-  --T9.A || T9.B || T9.C || T9.D || T9.E || T9.F as min_cost_view_ABCDEF,
   --T2.A || T2.B || T2.C || T2.D || T2.E || T2.F as real_ABCDEF
   from
   transactions T1, transactions T2, customers T3,
