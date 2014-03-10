@@ -47,20 +47,7 @@ model_1 <- glm(
 
 print("Entrainement modele GLM 2")
 formula_2 <- formula(
-  I(real_G == "2") ~ 
-    state
-  + location_popularity
-  + G1_count
-  + G2_count
-  + G3_count
-  + G4_count
-  + last_view_car_value
-  + last_view_C_previous
-  + min_cost_view_cost
-  + min_cost_view_A
-  + last_view_C
-  + last_view_G
-  + min_cost_view_G  
+  I(real_G == "2") ~ .
   )
 
 model_2 <- glm(
