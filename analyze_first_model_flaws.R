@@ -1,5 +1,4 @@
-library(caret)
-library(randomForest)
+library(ggplot2)
 
 # fonctions
 source("functions.R")
@@ -48,3 +47,7 @@ data$percent <- data$num_occurence/sum(data$num_occurence)
 # Wrong G
 wrong_G <- dataTestBase[dataTestBase$predicted_ABCDEF == dataTestBase$real_ABCDEF & dataTestBase$predicted_G != dataTestBase$real_G,]
 
+dataTestBase$OK_ABCDEF <- (dataTestBase$predicted_ABCDEF == dataTestBase$real_ABCDEF)
+dataTestBase$OK_G <- (dataTestBase$predicted_G == dataTestBase$real_G)
+
+dataTestBase$num_error_ABCDEFG <- num.errors(dataTestBase$predicted_ABCDEFG, dataTestBase$real_ABCDEFG)

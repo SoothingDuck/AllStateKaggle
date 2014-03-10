@@ -21,11 +21,45 @@ dataTest <- tmp$test
 # Estimation modeles
 
 # Test
-list_prob <- c(.5)
-prob <- .5
+list_prob <- c(.8)
+prob <- .8
 
-list_prob <- seq(.1, .5, .2)
+list_prob <- seq(.3, .9, .1)
 
+# Formules
+formula_a <- formula(
+  I(next_car_value == "a") ~ .  
+)
+
+formula_b <- formula(
+  I(next_car_value == "b") ~ .  
+)
+
+formula_c <- formula(
+  I(next_car_value == "c") ~ .  
+)
+
+formula_d <- formula(
+  I(next_car_value == "d") ~ .  
+)
+
+formula_e <- formula(
+  I(next_car_value == "e") ~ .  
+)
+
+formula_f <- formula(
+  I(next_car_value == "f") ~ .  
+)
+
+formula_h <- formula(
+  I(next_car_value == "h") ~ .  
+)
+
+formula_i <- formula(
+  I(next_car_value == "i") ~ .  
+)
+
+# Calcul
 result <- data.frame()
 
 for(prob in list_prob) {
@@ -37,74 +71,46 @@ dataTrain <- tmp$train
   
 # Evaluation modeles
 print("Entrainement modele GLM a")
-formula_a <- formula(
-  I(next_car_value == "a") ~ .  
-  )
-
 model_a <- glm(
   formula_a
   , family = binomial, data=dataTrain)
 
 print("Entrainement modele GLM b")
-formula_b <- formula(
-  I(next_car_value == "b") ~ .  
-)
 model_b <- glm(
   formula_b
   , family = binomial, data=dataTrain)
 
 print("Entrainement modele GLM c")
-formula_c <- formula(
-  I(next_car_value == "c") ~ .  
-)
 model_c <- glm(
   formula_c
   , family = binomial, data=dataTrain)
 
 print("Entrainement modele GLM d")
-formula_d <- formula(
-  I(next_car_value == "d") ~ .  
-)
 model_d <- glm(
   formula_d
   , family = binomial, data=dataTrain)
 
 print("Entrainement modele GLM e")
-formula_e <- formula(
-  I(next_car_value == "e") ~ .  
-)
 model_e <- glm(
   formula_e
   , family = binomial, data=dataTrain)
 
 print("Entrainement modele GLM f")
-formula_f <- formula(
-  I(next_car_value == "f") ~ .  
-)
 model_f <- glm(
   formula_f
   , family = binomial, data=dataTrain)
 
 print("Entrainement modele GLM g")
-formula_g <- formula(
-  I(next_car_value == "g") ~ .  
-)
 model_g <- glm(
   formula_g
   , family = binomial, data=dataTrain)
 
 print("Entrainement modele GLM h")
-formula_h <- formula(
-  I(next_car_value == "h") ~ .  
-)
 model_h <- glm(
   formula_h
   , family = binomial, data=dataTrain)
 
 print("Entrainement modele GLM i")
-formula_i <- formula(
-  I(next_car_value == "i") ~ .  
-)
 model_i <- glm(
   formula_i
   , family = binomial, data=dataTrain)
@@ -193,61 +199,87 @@ write.csv(result, file.path("DATA","OUTPUT","result_model_next_car_value.csv"))
 
 # Entrainement final
 print("Entrainement modele GLM a final")
-model_a_final_next_car_value <- glm(
+model_a_final_next_car_value_value <- glm(
   formula_a
   , family = binomial, data=dataTrainBase)
 
 print("Entrainement modele GLM b final")
-model_b_final_next_car_value <- glm(
+model_b_final_next_car_value_value <- glm(
   formula_b
   , family = binomial, data=dataTrainBase)
 
 print("Entrainement modele GLM c final")
-model_c_final_next_car_value <- glm(
+model_c_final_next_car_value_value <- glm(
   formula_c
   , family = binomial, data=dataTrainBase)
 
 print("Entrainement modele GLM d final")
-model_d_final_next_car_value <- glm(
+model_d_final_next_car_value_value <- glm(
   formula_d
   , family = binomial, data=dataTrainBase)
 
 print("Entrainement modele GLM e final")
-model_e_final_next_car_value <- glm(
+model_e_final_next_car_value_value <- glm(
   formula_e
   , family = binomial, data=dataTrainBase)
 
 print("Entrainement modele GLM f final")
-model_f_final_next_car_value <- glm(
+model_f_final_next_car_value_value <- glm(
   formula_f
   , family = binomial, data=dataTrainBase)
 
 print("Entrainement modele GLM g final")
-model_g_final_next_car_value <- glm(
+model_g_final_next_car_value_value <- glm(
   formula_g
   , family = binomial, data=dataTrainBase)
 
 print("Entrainement modele GLM h final")
-model_h_final_next_car_value <- glm(
+model_h_final_next_car_value_value <- glm(
   formula_h
   , family = binomial, data=dataTrainBase)
 
 print("Entrainement modele GLM i final")
-model_i_final_next_car_value <- glm(
+model_i_final_next_car_value_value <- glm(
   formula_i
   , family = binomial, data=dataTrainBase)
 
 
 # Sauvegarde des modeles
 save(
-  model_a_final_next_car_value, 
-  model_b_final_next_car_value, 
-  model_c_final_next_car_value, 
-  model_d_final_next_car_value, 
-  model_e_final_next_car_value, 
-  model_f_final_next_car_value, 
-  model_g_final_next_car_value, 
-  model_h_final_next_car_value, 
-  model_i_final_next_car_value, 
+  model_a_final_next_car_value_value, 
+  model_b_final_next_car_value_value, 
+  model_c_final_next_car_value_value, 
+  model_d_final_next_car_value_value, 
+  model_e_final_next_car_value_value, 
+  model_f_final_next_car_value_value, 
+  model_g_final_next_car_value_value, 
+  model_h_final_next_car_value_value, 
+  model_i_final_next_car_value_value, 
   file=file.path("DATA","OUTPUT","first_model_next_car_value.RData"))
 
+# predict
+predict.next_car_value <- function(data) {
+  data$predict_glm_a <- predict(model_a_final_next_car_value, newdata=data)
+  data$predict_glm_b <- predict(model_b_final_next_car_value, newdata=data)
+  data$predict_glm_c <- predict(model_c_final_next_car_value, newdata=data)
+  data$predict_glm_d <- predict(model_d_final_next_car_value, newdata=data)
+  data$predict_glm_e <- predict(model_e_final_next_car_value, newdata=data)
+  data$predict_glm_f <- predict(model_f_final_next_car_value, newdata=data)
+  data$predict_glm_g <- predict(model_g_final_next_car_value, newdata=data)
+  data$predict_glm_h <- predict(model_h_final_next_car_value, newdata=data)
+  data$predict_glm_i <- predict(model_i_final_next_car_value, newdata=data)
+  
+  data$predicted_glm_next_car_value <- factor(letters[1:9][max.col(data[,c(
+    "predict_glm_a",
+    "predict_glm_b",
+    "predict_glm_c",
+    "predict_glm_d",
+    "predict_glm_e",
+    "predict_glm_f",
+    "predict_glm_g",
+    "predict_glm_h",
+    "predict_glm_i"
+  )])])
+  
+  return(data)
+}

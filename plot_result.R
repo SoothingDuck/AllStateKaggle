@@ -18,3 +18,15 @@ ggplot(data) +
   geom_line(aes(x=size.train, y=value, color=variable)) +
   facet_wrap(~ letter)
 
+# next_car_value
+data <- data.frame()
+
+tmp <- read.csv(file.path("DATA","OUTPUT", "result_model_next_car_value.csv"))
+tmp <- tmp[,2:ncol(tmp)]
+  
+tmp.bis <- melt(tmp, id.vars=c("size.train"))
+  
+data <- rbind(data, tmp.bis)
+
+ggplot(data) + 
+  geom_line(aes(x=size.train, y=value, color=variable))
