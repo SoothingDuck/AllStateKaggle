@@ -322,7 +322,8 @@ get.data.train <- function() {
   T2.D as real_D,
   T2.E as real_E,
   T2.F as real_F,
-  T2.G as real_G
+  T2.G as real_G,
+  T2.car_value as next_car_value
   --T1.A || T1.B || T1.C || T1.D || T1.E || T1.F as first_view_ABCDEF,
   --T7.A || T7.B || T7.C || T7.D || T7.E || T7.F as last_view_ABCDEF,
   --T9.A || T9.B || T9.C || T9.D || T9.E || T9.F as min_cost_view_ABCDEF,
@@ -545,6 +546,7 @@ normalize.train.data <- function(data) {
   data$real_F <- factor(data$real_F)
   data$real_G <- factor(data$real_G)
 
+  data$next_car_value <- factor(data$next_car_value)
   # data$real_ABCDEF <- factor(data$real_ABCDEF)
   
   return(data)

@@ -17,3 +17,34 @@ dataTestBase <- compute.ABCDEF(dataTestBase)
 
 dataTrainBase <- compute.ABCDEFG(dataTrainBase)
 dataTestBase <- compute.ABCDEFG(dataTestBase)
+
+# List most common
+library(RSQLite)
+
+sqlitedb.filename <- "allstate_data.sqlite3"
+
+drv <- dbDriver("SQLite")
+con <- dbConnect(drv, dbname=sqlitedb.filename)
+
+data <- dbGetQuery(con,
+"
+select
+A || B || C || D || E || F as ABCDEF,
+G,
+count(*) as num_occurence
+from
+transactions
+where
+record_type = 1
+group by 1,2
+"
+)
+
+dbDisconnect(con)
+
+data <- data[order(-data$num_occurence),]
+data$percent <- data$num_occurence/sum(data$num_occurence)
+
+# Wrong G
+wrong_G <- dataTestBase[dataTestBase$predicted_ABCDEF == dataTestBase$real_ABCDEF & dataTestBase$predicted_G != dataTestBase$real_G,]
+
