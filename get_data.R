@@ -316,14 +316,15 @@ get.data.train <- function() {
   T10.min_cost,
   T10.max_cost,
   T10.avg_cost,
-  T10.G1_count,
-  T10.G2_count,
-  T10.G3_count,
-  T10.G4_count,
-  T10.G1_percent,
-  T10.G2_percent,
-  T10.G3_percent,
-  T10.G4_percent,
+  -- G
+  T10.G1_count_customer_view,
+  T10.G2_count_customer_view,
+  T10.G3_count_customer_view,
+  T10.G4_count_customer_view,
+  T10.G1_percent_customer_view,
+  T10.G2_percent_customer_view,
+  T10.G3_percent_customer_view,
+  T10.G4_percent_customer_view,
   -- A
   coalesce(T11.A0_count_location_view, 0) as A0_count_location_view,
   coalesce(T11.A1_count_location_view, 0) as A1_count_location_view,
@@ -563,14 +564,14 @@ get.data.train <- function() {
     min(cost) as min_cost,
     max(cost) as max_cost,
     avg(cost) as avg_cost,
-    sum(case when G = 1 then 1 else 0 end) as G1_count,
-    sum(case when G = 2 then 1 else 0 end) as G2_count,
-    sum(case when G = 3 then 1 else 0 end) as G3_count,
-    sum(case when G = 4 then 1 else 0 end) as G4_count,
-    sum(case when G = 1 then 1 else 0 end)*1.0/count(*) as G1_percent,
-    sum(case when G = 2 then 1 else 0 end)*1.0/count(*) as G2_percent,
-    sum(case when G = 3 then 1 else 0 end)*1.0/count(*) as G3_percent,
-    sum(case when G = 4 then 1 else 0 end)*1.0/count(*) as G4_percent
+    sum(case when G = 1 then 1 else 0 end) as G1_count_customer_view,
+    sum(case when G = 2 then 1 else 0 end) as G2_count_customer_view,
+    sum(case when G = 3 then 1 else 0 end) as G3_count_customer_view,
+    sum(case when G = 4 then 1 else 0 end) as G4_count_customer_view,
+    sum(case when G = 1 then 1 else 0 end)*1.0/count(*) as G1_percent_customer_view,
+    sum(case when G = 2 then 1 else 0 end)*1.0/count(*) as G2_percent_customer_view,
+    sum(case when G = 3 then 1 else 0 end)*1.0/count(*) as G3_percent_customer_view,
+    sum(case when G = 4 then 1 else 0 end)*1.0/count(*) as G4_percent_customer_view
     from 
     transactions
     where
