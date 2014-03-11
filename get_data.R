@@ -446,11 +446,15 @@ get.data.train <- function() {
     sum(case when G = 3 then 1 else 0 end)*1.0/count(*) as G3_percent_location_view,
     sum(case when G = 4 then 1 else 0 end)*1.0/count(*) as G4_percent_location_view
     from
-    transactions T1
+    transactions T1, customers T2
     where
-    record_type = 0
+    T1.record_type = 0
     and
-    location <> ''
+    T1.location <> ''
+    and
+    T1.customer_ID = T2.customer_ID
+    and
+    T2.dataset = 'train'
     group by 1
     ) T1 inner join
     (
