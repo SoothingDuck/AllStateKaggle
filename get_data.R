@@ -211,14 +211,14 @@ coalesce(T11.G4_count_location_buy, 0) as G4_count_location_buy,
 coalesce(T11.G1_percent_location_buy, 0) as G1_percent_location_buy,
 coalesce(T11.G2_percent_location_buy, 0) as G2_percent_location_buy,
 coalesce(T11.G3_percent_location_buy, 0) as G3_percent_location_buy,
-coalesce(T11.G4_percent_location_buy, 0) as G4_percent_location_buy,
-T2.A as real_A,
-T2.B as real_B,
-T2.C as real_C,
-T2.D as real_D,
-T2.E as real_E,
-T2.F as real_F,
-T2.G as real_G
+coalesce(T11.G4_percent_location_buy, 0) as G4_percent_location_buy
+--T2.A as real_A,
+--T2.B as real_B,
+--T2.C as real_C,
+--T2.D as real_D,
+--T2.E as real_E,
+--T2.F as real_F,
+--T2.G as real_G
 --T2.car_value as next_car_value
 --T1.A || T1.B || T1.C || T1.D || T1.E || T1.F as first_view_ABCDEF,
 --T7.A || T7.B || T7.C || T7.D || T7.E || T7.F as last_view_ABCDEF,
@@ -458,7 +458,17 @@ and
 location <> ''
 group by 1
 ) T2 on (T1.location = T2.location)
-) T11 ON T1.location = T11.location, transactions T2, customers T3,
+) T11 ON T1.location = T11.location left outer join
+(
+select
+location,
+count(distinct customer_ID) as location_popularity
+from
+transactions
+group by 1
+) T5 on T1.location = T5.location, 
+--transactions T2, 
+customers T3,
 (
 select
 customer_ID,
@@ -470,14 +480,6 @@ where
 record_type = 0
 group by 1
 ) T4,
-(
-select
-location,
-count(distinct customer_ID) as location_popularity
-from
-transactions
-group by 1
-) T5,
 (
 select
 customer_ID,
@@ -565,12 +567,12 @@ T1.location = T5.location
 and
 T1.customer_ID = T4.customer_ID
 and
-T1.customer_ID = T2.customer_ID
-and
+--T1.customer_ID = T2.customer_ID
+--and
 T1.line_number = 1
 and
-T2.record_type = 1
-and
+--T2.record_type = 1
+--and
 T3.dataset = 'test'
 and
 T1.customer_ID = T3.customer_ID                     
