@@ -337,6 +337,15 @@ get.data.train <- function() {
   coalesce(T11.A0_percent_location_buy, 0) as A0_percent_location_buy,
   coalesce(T11.A1_percent_location_buy, 0) as A1_percent_location_buy,
   coalesce(T11.A2_percent_location_buy, 0) as A2_percent_location_buy,
+  -- B
+  coalesce(T11.B0_count_location_view, 0) as B0_count_location_view,
+  coalesce(T11.B1_count_location_view, 0) as B1_count_location_view,
+  coalesce(T11.B0_percent_location_view, 0) as B0_percent_location_view,
+  coalesce(T11.B1_percent_location_view, 0) as B1_percent_location_view,
+  coalesce(T11.B0_count_location_buy, 0) as B0_count_location_buy,
+  coalesce(T11.B1_count_location_buy, 0) as B1_count_location_buy,
+  coalesce(T11.B0_percent_location_buy, 0) as B0_percent_location_buy,
+  coalesce(T11.B1_percent_location_buy, 0) as B1_percent_location_buy,
   -- G
   coalesce(T11.G1_count_location_view, 0) as G1_count_location_view,
   coalesce(T11.G2_count_location_view, 0) as G2_count_location_view,
@@ -369,12 +378,19 @@ get.data.train <- function() {
   transactions T1 left outer join (
     select
     T1.location,
+    -- A
     T1.A0_count_location_view,
     T1.A1_count_location_view,
     T1.A2_count_location_view,
     T1.A0_percent_location_view,
     T1.A1_percent_location_view,
     T1.A2_percent_location_view,
+    -- B
+    T1.B0_count_location_view,
+    T1.B1_count_location_view,
+    T1.B0_percent_location_view,
+    T1.B1_percent_location_view,
+    -- G
     T1.G1_count_location_view,
     T1.G2_count_location_view,
     T1.G3_count_location_view,
@@ -383,12 +399,19 @@ get.data.train <- function() {
     T1.G2_percent_location_view,
     T1.G3_percent_location_view,
     T1.G4_percent_location_view,
+    -- A
     T2.A0_count_location_buy,
     T2.A1_count_location_buy,
     T2.A2_count_location_buy,
     T2.A0_percent_location_buy,
     T2.A1_percent_location_buy,
     T2.A2_percent_location_buy,
+    -- B
+    T2.B0_count_location_buy,
+    T2.B1_count_location_buy,
+    T2.B0_percent_location_buy,
+    T2.B1_percent_location_buy,
+    -- G
     T2.G1_count_location_buy,
     T2.G2_count_location_buy,
     T2.G3_count_location_buy,
@@ -408,6 +431,11 @@ get.data.train <- function() {
     sum(case when A = 0 then 1 else 0 end)*1.0/count(*) as A0_percent_location_view,
     sum(case when A = 1 then 1 else 0 end)*1.0/count(*) as A1_percent_location_view,
     sum(case when A = 2 then 1 else 0 end)*1.0/count(*) as A2_percent_location_view,
+    -- B
+    sum(case when B = 0 then 1 else 0 end) as B0_count_location_view,
+    sum(case when B = 1 then 1 else 0 end) as B1_count_location_view,
+    sum(case when B = 0 then 1 else 0 end)*1.0/count(*) as B0_percent_location_view,
+    sum(case when B = 1 then 1 else 0 end)*1.0/count(*) as B1_percent_location_view,
     -- G
     sum(case when G = 1 then 1 else 0 end) as G1_count_location_view,
     sum(case when G = 2 then 1 else 0 end) as G2_count_location_view,
@@ -435,6 +463,11 @@ get.data.train <- function() {
     sum(case when A = 0 then 1 else 0 end)*1.0/count(*) as A0_percent_location_buy,
     sum(case when A = 1 then 1 else 0 end)*1.0/count(*) as A1_percent_location_buy,
     sum(case when A = 2 then 1 else 0 end)*1.0/count(*) as A2_percent_location_buy,
+    -- B
+    sum(case when B = 0 then 1 else 0 end) as B0_count_location_buy,
+    sum(case when B = 1 then 1 else 0 end) as B1_count_location_buy,
+    sum(case when B = 0 then 1 else 0 end)*1.0/count(*) as B0_percent_location_buy,
+    sum(case when B = 1 then 1 else 0 end)*1.0/count(*) as B1_percent_location_buy,
     -- G
     sum(case when G = 1 then 1 else 0 end) as G1_count_location_buy,
     sum(case when G = 2 then 1 else 0 end) as G2_count_location_buy,
