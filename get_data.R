@@ -324,6 +324,22 @@ get.data.train <- function() {
   T10.G2_percent,
   T10.G3_percent,
   T10.G4_percent,
+  coalesce(T11.G1_count_location_view, 0) as G1_count_location_view,
+  coalesce(T11.G2_count_location_view, 0) as G2_count_location_view,
+  coalesce(T11.G3_count_location_view, 0) as G3_count_location_view,
+  coalesce(T11.G4_count_location_view, 0) as G4_count_location_view,
+  coalesce(T11.G1_percent_location_view, 0) as G1_percent_location_view,
+  coalesce(T11.G2_percent_location_view, 0) as G2_percent_location_view,
+  coalesce(T11.G3_percent_location_view, 0) as G3_percent_location_view,
+  coalesce(T11.G4_percent_location_view, 0) as G4_percent_location_view,
+  coalesce(T11.G1_count_location_buy, 0) as G1_count_location_buy,
+  coalesce(T11.G2_count_location_buy, 0) as G2_count_location_buy,
+  coalesce(T11.G3_count_location_buy, 0) as G3_count_location_buy,
+  coalesce(T11.G4_count_location_buy, 0) as G4_count_location_buy,
+  coalesce(T11.G1_percent_location_buy, 0) as G1_percent_location_buy,
+  coalesce(T11.G2_percent_location_buy, 0) as G2_percent_location_buy,
+  coalesce(T11.G3_percent_location_buy, 0) as G3_percent_location_buy,
+  coalesce(T11.G4_percent_location_buy, 0) as G4_percent_location_buy,
   T2.A as real_A,
   T2.B as real_B,
   T2.C as real_C,
@@ -336,7 +352,65 @@ get.data.train <- function() {
   --T7.A || T7.B || T7.C || T7.D || T7.E || T7.F as last_view_ABCDEF,
   --T2.A || T2.B || T2.C || T2.D || T2.E || T2.F as real_ABCDEF
   from
-  transactions T1, transactions T2, customers T3,
+  transactions T1 left outer join (
+    select
+    T1.location,
+    T1.G1_count_location_view,
+    T1.G2_count_location_view,
+    T1.G3_count_location_view,
+    T1.G4_count_location_view,
+    T1.G1_percent_location_view,
+    T1.G2_percent_location_view,
+    T1.G3_percent_location_view,
+    T1.G4_percent_location_view,
+    T2.G1_count_location_buy,
+    T2.G2_count_location_buy,
+    T2.G3_count_location_buy,
+    T2.G4_count_location_buy,
+    T2.G1_percent_location_buy,
+    T2.G2_percent_location_buy,
+    T2.G3_percent_location_buy,
+    T2.G4_percent_location_buy
+    from
+    (
+    select
+    location,
+    sum(case when G = 1 then 1 else 0 end) as G1_count_location_view,
+    sum(case when G = 2 then 1 else 0 end) as G2_count_location_view,
+    sum(case when G = 3 then 1 else 0 end) as G3_count_location_view,
+    sum(case when G = 4 then 1 else 0 end) as G4_count_location_view,
+    sum(case when G = 1 then 1 else 0 end)*1.0/count(*) as G1_percent_location_view,
+    sum(case when G = 2 then 1 else 0 end)*1.0/count(*) as G2_percent_location_view,
+    sum(case when G = 3 then 1 else 0 end)*1.0/count(*) as G3_percent_location_view,
+    sum(case when G = 4 then 1 else 0 end)*1.0/count(*) as G4_percent_location_view
+    from
+    transactions T1
+    where
+    record_type = 0
+    and
+    location <> ''
+    group by 1
+    ) T1 inner join
+    (
+    select
+    location,
+    sum(case when G = 1 then 1 else 0 end) as G1_count_location_buy,
+    sum(case when G = 2 then 1 else 0 end) as G2_count_location_buy,
+    sum(case when G = 3 then 1 else 0 end) as G3_count_location_buy,
+    sum(case when G = 4 then 1 else 0 end) as G4_count_location_buy,
+    sum(case when G = 1 then 1 else 0 end)*1.0/count(*) as G1_percent_location_buy,
+    sum(case when G = 2 then 1 else 0 end)*1.0/count(*) as G2_percent_location_buy,
+    sum(case when G = 3 then 1 else 0 end)*1.0/count(*) as G3_percent_location_buy,
+    sum(case when G = 4 then 1 else 0 end)*1.0/count(*) as G4_percent_location_buy
+    from
+    transactions T1
+    where
+    record_type = 1
+    and
+    location <> ''
+    group by 1
+    ) T2 on (T1.location = T2.location)
+  ) T11 ON T1.location = T11.location, transactions T2, customers T3,
   (
   select
   customer_ID,
@@ -561,7 +635,7 @@ normalize.train.data <- function(data) {
   data$real_F <- factor(data$real_F)
   data$real_G <- factor(data$real_G)
 
-  data$next_car_value <- factor(data$next_car_value)
+  # data$next_car_value <- factor(data$next_car_value)
   # data$real_ABCDEF <- factor(data$real_ABCDEF)
   
   return(data)
