@@ -480,7 +480,10 @@ group by 1
 (
 select
 customer_ID,
-max(shopping_pt) as last_view_shopping_pt
+case
+  when max(shopping_pt) = 1 then 1
+  else max(shopping_pt) - 1
+end as last_view_shopping_pt
 from
 transactions
 group by 1
