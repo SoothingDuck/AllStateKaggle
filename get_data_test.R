@@ -222,7 +222,16 @@ coalesce(T11.G4_percent_location_buy, 0) as G4_percent_location_buy
 --T7.A || T7.B || T7.C || T7.D || T7.E || T7.F as last_view_ABCDEF,
 --T2.A || T2.B || T2.C || T2.D || T2.E || T2.F as real_ABCDEF
 from
-transactions T1 left outer join (
+transactions T1 left outer join
+(
+  select
+  location,
+  count(distinct customer_ID) as location_popularity
+  from
+  transactions
+  group by 1
+) T5 on (T1.location = T5.location)
+left outer join (
   select
   T1.location,
   -- A
@@ -456,7 +465,7 @@ transactions T1 left outer join (
     location <> ''
     group by 1
   ) T2 on (T1.location = T2.location)
-) T11 ON T1.location = T11.location, 
+) T11 ON (T1.location = T11.location), 
 -- transactions T2, 
 customers T3,
 (
@@ -470,14 +479,6 @@ customers T3,
   record_type = 0
   group by 1
 ) T4,
-(
-  select
-  location,
-  count(distinct customer_ID) as location_popularity
-  from
-  transactions
-  group by 1
-) T5,
 (
   select
   customer_ID,
@@ -557,8 +558,8 @@ and
 T6.customer_ID = T7.customer_ID
 and
 T6.last_view_shopping_pt = T7.shopping_pt
-and
-T1.location = T5.location
+--and
+--T1.location = T5.location
 and
 T1.customer_ID = T4.customer_ID
 --and
