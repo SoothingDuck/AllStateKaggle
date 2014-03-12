@@ -23,7 +23,7 @@ dataTest <- tmp$test
 list_prob <- c(.8)
 prob <- .8
 
-list_prob <- seq(.1, .5, .2)
+list_prob <- seq(.1, .9, .1)
 
 result <- data.frame()
 
@@ -97,7 +97,13 @@ model_1 <- glm(
 
 print("Entrainement modele GLM 2")
 formula_2 <- formula(
-  I(real_A == "2") ~ .  
+  I(real_A == "2") ~ 
+    first_view_A
+  + last_view_A
+  + A0_percent_location_view
+  + A1_percent_location_view
+  + A0_percent_location_buy
+  + A1_percent_location_buy
 )
 
 model_2 <- glm(
