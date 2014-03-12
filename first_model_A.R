@@ -37,8 +37,28 @@ dataTrain <- tmp$train
 # Evaluation modeles
 print("Entrainement modele GLM 0")
 formula_0 <- formula(
-  I(real_A == "0") ~ .  
-  )
+  I(real_A == "0") ~ 
+    state
+  + first_view_car_age
+  + last_view_car_age
+  + first_view_cost
+  + last_view_cost
+  + first_view_A
+  + last_view_A
+  + min_cost_view_A
+  + last_view_E
+  + last_view_F
+  + first_view_G
+  + last_view_G
+  + count_distinct_car_value
+  + avg_cost
+  + A0_percent_location_view
+  + A1_percent_location_view
+  # + A2_percent_location_view
+  + A0_percent_location_buy
+  + A1_percent_location_buy
+  # + A2_percent_location_buy
+)
 
 model_0 <- glm(
   formula_0
