@@ -23,7 +23,7 @@ dataTest <- tmp$test
 list_prob <- c(.5)
 prob <- .5
 
-list_prob <- seq(.1, .9, .1)
+list_prob <- seq(.1, .5, .2)
 
 result <- data.frame()
 
@@ -37,13 +37,7 @@ dataTrain <- tmp$train
 # Evaluation modeles
 print("Entrainement modele GLM 1")
 formula_1 <- formula(
-  I(real_C == "1") ~ 
-    I(last_view_C_previous == "2")
-  + I(last_view_C_previous == "3")
-  + I(last_view_C_previous == "4")
-  + last_view_C
-  + C1_percent_location_view
-  + C1_percent_location_buy
+  I(real_C == "1") ~ .
   )
 
 model_1 <- glm(
@@ -52,12 +46,7 @@ model_1 <- glm(
 
 print("Entrainement modele GLM 2")
 formula_2 <- formula(
-  I(real_C == "2") ~ 
-  + I(last_view_C_previous == "2")
-  + I(first_view_C == "2")
-  + I(last_view_C == "2")
-  + C2_percent_location_view
-  + C2_percent_location_buy
+  I(real_C == "2") ~ .
 )
 
 model_2 <- glm(
@@ -66,13 +55,7 @@ model_2 <- glm(
 
 print("Entrainement modele GLM 3")
 formula_3 <- formula(
-  I(real_C == "3") ~ 
-    I(first_view_C == "2")
-  + I(last_view_C == "3")
-  + I(min_cost_view_C == "2")
-  + I(min_cost_view_C == "3")
-  + C3_percent_location_view
-  + C3_percent_location_buy
+  I(real_C == "3") ~ .
 )
 
 model_3 <- glm(
@@ -81,14 +64,7 @@ model_3 <- glm(
 
 print("Entrainement modele GLM 4")
 formula_4 <- formula(
-  I(real_C == "4") ~ 
-    I(last_view_C == "4")
-  + C1_percent_location_view
-  + C2_percent_location_view
-  + C3_percent_location_view
-  + C1_percent_location_buy
-  + C2_percent_location_buy
-  + C3_percent_location_buy
+  I(real_C == "4") ~ .
 )
 
 model_4 <- glm(

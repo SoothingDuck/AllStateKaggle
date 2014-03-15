@@ -24,7 +24,7 @@ dataTest <- tmp$test
 list_prob <- c(.5)
 prob <- .5
 
-list_prob <- seq(.1, .9, .1)
+list_prob <- seq(.1, .5, .2)
 
 result <- data.frame()
 
@@ -38,13 +38,7 @@ dataTrain <- tmp$train
 # Evaluation modeles
 print("Entrainement modele GLM 0")
 formula_0 <- formula(
-  I(real_B == "0") ~ 
-    first_view_B
-  + last_view_B
-  + first_view_E
-  + last_view_E
-  + B0_percent_location_view
-  + B0_percent_location_buy
+  I(real_B == "0") ~ .
   )
 
 model_0 <- glm(
@@ -53,11 +47,7 @@ model_0 <- glm(
 
 print("Entrainement modele GLM 1")
 formula_1 <- formula(
-  I(real_B == "1") ~
-    first_view_B
-  + last_view_B
-  + B0_percent_location_view
-  + B0_percent_location_buy
+  I(real_B == "1") ~ .
 )
 
 model_1 <- glm(
