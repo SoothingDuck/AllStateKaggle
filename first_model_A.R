@@ -52,13 +52,14 @@ formula_0 <- formula(
   + last_view_G
   + count_distinct_car_value
   + avg_cost
-  + A0_percent_location_view
-  + A1_percent_location_view
+  + I(A0_percent_location_view*log1p(A0_count_location_view))
+  + I(A1_percent_location_view*log1p(A1_count_location_view))
   # + A2_percent_location_view
-  + A0_percent_location_buy
-  + A1_percent_location_buy
+  + I(A0_percent_location_buy*log1p(A0_count_location_view))
+  + I(A1_percent_location_buy*log1p(A1_count_location_view))
   # + A2_percent_location_buy
 )
+
 
 model_0 <- glm(
   formula_0

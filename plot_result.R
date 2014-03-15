@@ -14,7 +14,7 @@ for (letter in c("A","B","C","D","E","F","G")) {
   data <- rbind(data, tmp.bis)
 }
 
-ggplot(data) + 
+ggplot(subset(data, letter == "G")) + 
   geom_line(aes(x=size.train, y=value, color=variable)) +
   facet_wrap(~ letter)
 
