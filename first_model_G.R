@@ -10,6 +10,9 @@ source("get_data.R")
 # Selection variable à estimer
 data <- select.final.variable(data, "G")
 
+# Suppression des outliers
+data <- subset(data, min_cost_view_cost < 700 & avg_cost > 500)
+
 # Separation train, test
 set.seed(42)
 tmp <- get.base.train.test(data, "real_G", .8)
@@ -39,11 +42,11 @@ dataTrain <- tmp$train
 print("Entrainement modele GLM 1")
 formula_1 <- formula(
   I(real_G == "1") ~ 
-    state
-  + I(last_view_C_previous == "Not available")
-  + last_view_cost
+    nb_views
   + last_view_G
-  + G1_count_customer_view*G1_percent_location_view*G1_percent_location_buy
+  + G1_count_customer_view
+  + G1_percent_location_view
+  + G1_percent_location_buy
   )
 
 model_1 <- glm(
@@ -53,12 +56,12 @@ model_1 <- glm(
 print("Entrainement modele GLM 2")
 formula_2 <- formula(
   I(real_G == "2") ~ 
-    nb_views
-  + last_view_car_value
-  + I(last_view_C_previous == "Not available")
+    last_view_car_value
+  + min_cost_view_A
   + last_view_G
   + G2_count_customer_view
-  + G2_percent_location_view*G2_percent_location_buy*G2_count_location_view
+  + G2_percent_location_view
+  + G2_percent_location_buy
 )
 
 model_2 <- glm(
@@ -69,7 +72,8 @@ print("Entrainement modele GLM 3")
 formula_3 <- formula(
   I(real_G == "3") ~ 
     nb_views
-  + I(last_view_G == "3")
+  + first_view_group_size
+  + last_view_G
   + G3_count_customer_view
   + G3_percent_location_view
   + G3_percent_location_buy
@@ -83,13 +87,16 @@ print("Entrainement modele GLM 4")
 formula_4 <- formula(
   I(real_G == "4") ~ 
     nb_views
-  + I(last_view_G == "4")
+  + last_view_G
   + G1_count_customer_view
   + G2_count_customer_view
   + G3_count_customer_view
-  + G1_percent_location_view + G1_percent_location_buy
-  + G2_percent_location_view + G2_percent_location_buy
-  + G3_percent_location_view + G3_percent_location_buy
+  + G1_percent_location_view
+  + G2_percent_location_view
+  + G3_percent_location_view
+  + G1_percent_location_buy
+  + G2_percent_location_buy
+  + G3_percent_location_buy
 )
 
 model_4 <- glm(

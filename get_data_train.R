@@ -1,5 +1,4 @@
-
-
+library(RSQLite)
 
 get.data.train <- function() {
   sqlitedb.filename <- "allstate_data.sqlite3"
