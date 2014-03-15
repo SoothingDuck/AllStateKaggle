@@ -210,11 +210,6 @@ coalesce(T11.G1_percent_location_buy, 0) as G1_percent_location_buy,
 coalesce(T11.G2_percent_location_buy, 0) as G2_percent_location_buy,
 coalesce(T11.G3_percent_location_buy, 0) as G3_percent_location_buy,
 coalesce(T11.G4_percent_location_buy, 0) as G4_percent_location_buy,
--- G state
-T20.G1_percent_state_buy,
-T20.G2_percent_state_buy,
-T20.G3_percent_state_buy,
-T20.G4_percent_state_buy,
 T2.A as real_A,
 T2.B as real_B,
 T2.C as real_C,
@@ -548,43 +543,7 @@ transactions
 where
 record_type = 0
 group by 1
-) T10,
-(
-  select
-  T1.state,
-  sum(case when T2.G == 1 then T2.num_subscribe_G else 0 end)*1.0/T1.num_subscribe as G1_percent_state_buy,
-  sum(case when T2.G == 2 then T2.num_subscribe_G else 0 end)*1.0/T1.num_subscribe as G2_percent_state_buy,
-  sum(case when T2.G == 3 then T2.num_subscribe_G else 0 end)*1.0/T1.num_subscribe as G3_percent_state_buy,
-  sum(case when T2.G == 4 then T2.num_subscribe_G else 0 end)*1.0/T1.num_subscribe as G4_percent_state_buy
-  from
-  (
-    select
-    A.state,
-    count(*) as num_subscribe
-    from customers A,
-    transactions B
-    where
-    A.customer_ID = B.customer_ID
-    and
-    B.record_type = 1
-    group by 1
-  ) T1,
-  (
-    select
-    A.state,
-    B.G,
-    count(*) as num_subscribe_G
-    from customers A,
-    transactions B
-    where
-    A.customer_ID = B.customer_ID
-    and
-    B.record_type = 1
-    group by 1,2
-  ) T2
-  where T1.state = T2.state
-  group by 1
-) T20
+) T10
 where
 T1.customer_ID = T10.customer_ID
 and
@@ -613,8 +572,6 @@ and
 T3.dataset = 'train'
 and
 T1.customer_ID = T3.customer_ID
-and
-T3.state = T20.state
                      ")
   
   dbDisconnect(con)
