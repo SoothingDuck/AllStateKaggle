@@ -25,5 +25,6 @@ dbDisconnect(con)
 # Affichage
 library(ggplot2)
 
-ggplot(subset(data, record_type %in% c(0,1)) + geom_boxplot(aes(x=state, y=cost)) + facet_grid(record_type ~ A)
+ggplot(subset(data, record_type %in% c(0,1))) + geom_boxplot(aes(x=state, y=cost)) + facet_grid(record_type ~ B)
+
 
