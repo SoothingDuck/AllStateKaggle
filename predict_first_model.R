@@ -131,7 +131,6 @@ dataTestBase <- predict_ALL(dataTestBase)
 
 write.csv(dataTrainBase, file=file.path("DATA","train_first_model_prediction_v2.csv"))
 write.csv(dataTestBase, file=file.path("DATA","test_first_model_prediction_v2.csv"))
-stop()
 
 # Separation train, test
 set.seed(42)

@@ -1,3 +1,6 @@
+# Big files
+*.gz
+
 # History files
 .Rhistory
 
