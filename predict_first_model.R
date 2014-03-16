@@ -129,8 +129,8 @@ dataTestBase <- tmp$test
 dataTrainBase <- predict_ALL(dataTrainBase)
 dataTestBase <- predict_ALL(dataTestBase)
 
-write.csv(dataTrainBase, file=file.path("DATA","train_first_model_prediction.csv"))
-write.csv(dataTestBase, file=file.path("DATA","test_first_model_prediction.csv"))
+write.csv(dataTrainBase, file=file.path("DATA","train_first_model_prediction_v2.csv"))
+write.csv(dataTestBase, file=file.path("DATA","test_first_model_prediction_v2.csv"))
 stop()
 
 # Separation train, test
@@ -166,5 +166,5 @@ dataTest$plan <- dataTest$predicted_ABCDEFG
 
 df.submission <- cbind(rownames(dataTest), dataTest$plan)
 colnames(df.submission) <- c("customer_ID","plan")
-submission.filename <- file.path("DATA", "first_model_submission.csv")
+submission.filename <- file.path("DATA", "first_model_submission_v2.csv")
 write.table(df.submission, file = submission.filename, quote = FALSE, sep=",", row.names = FALSE, col.names=TRUE)
