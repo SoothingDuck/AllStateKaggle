@@ -21,8 +21,8 @@ dataTest <- tmp$test
 # Estimation modeles
 
 # Test
-list_prob <- c(.5)
-prob <- .5
+list_prob <- c(.8)
+prob <- .8
 
 list_prob <- seq(.1, .5, .2)
 
