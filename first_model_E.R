@@ -23,7 +23,7 @@ dataTest <- tmp$test
 list_prob <- c(.8)
 prob <- .8
 
-list_prob <- seq(.1, .5, .2)
+list_prob <- seq(.1, .9, .1)
 
 result <- data.frame()
 
@@ -37,16 +37,46 @@ dataTrain <- tmp$train
 # Evaluation modeles
 print("Entrainement modele GLM 0")
 formula_0 <- formula(
-  I(real_E == "0") ~ .  
+  I(real_E == "0") ~
+    last_view_cost
+  + I(first_view_A == "1")
+  + last_view_A
+  + I(min_cost_view_A == "1")
+  + last_view_C
+  + first_view_E
+  + last_view_E
+  # + count_distinct_car_value
+  + avg_cost
+  + E0_percent_location_view  
+  + E0_percent_location_buy
   )
 
+formula_0 <- formula(
+  I(real_E == "0") ~ .
+)
+    
 model_0 <- glm(
   formula_0
   , family = binomial, data=dataTrain)
 
 print("Entrainement modele GLM 1")
 formula_1 <- formula(
-  I(real_E == "1") ~ .  
+  I(real_E == "1") ~
+    last_view_cost
+  + first_view_A
+  + last_view_A
+  + min_cost_view_A
+  + last_view_C
+  + first_view_E
+  + count_distinct_car_value
+  + avg_cost
+  + C2_percent_location_buy
+  + E0_percent_location_view
+  + E0_percent_location_buy
+)
+
+formula_1 <- formula(
+  I(real_E == "1") ~ .
 )
 
 model_1 <- glm(
