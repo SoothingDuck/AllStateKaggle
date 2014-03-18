@@ -10,10 +10,6 @@ source("get_data.R")
 # Selection variable à estimer
 data <- select.final.variable(data, "G")
 
-# Suppression des outliers
-data <- subset(data, ! state %in% c("NY","FL"))
-data$state <- factor(data$state)
-
 # Separation train, test
 set.seed(42)
 tmp <- get.base.train.test(data, "real_G", .8)

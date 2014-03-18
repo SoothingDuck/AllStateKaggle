@@ -1,5 +1,38 @@
 library(RSQLite)
 
+
+sqlitedb.filename <- "allstate_data.sqlite3"
+
+drv <- dbDriver("SQLite")
+con <- dbConnect(drv, dbname=sqlitedb.filename)
+
+data <- dbGetQuery(con,
+"
+select
+location,
+case when A0 > A1 then 
+  case when A0 > A2 then 0 else 2 end
+else -- A1 > A0
+  case when A1 > A2 then 1 else 2 end
+end as location_most_probable_A
+from
+(
+  select
+  location,
+  sum(case when A = 0 then 1 else 0 end) as A0,
+  sum(case when A = 1 then 1 else 0 end) as A1,
+  sum(case when A = 2 then 1 else 0 end) as A2
+  from
+  transactions
+  where
+  record_type = 0
+  group by 1
+) T1
+"
+)
+
+dbDisconnect(con)
+
 get.data.train <- function() {
   sqlitedb.filename <- "allstate_data.sqlite3"
   
