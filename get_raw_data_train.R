@@ -56,11 +56,27 @@ T3.G as G_final,
 T1.cost,
 T3.cost as cost_final,
 T1.line_number,
-T3.line_number as line_number_final
+T3.line_number as line_number_final,
+T4.min_time,
+T4.max_time,
+T4.min_day,
+T4.max_day
 from
 transactions T1,
 customers T2,
-transactions T3
+transactions T3,
+(
+  select
+  customer_ID,
+  substr(min(time), 1, 2)*60 + substr(min(time), 4, 2) as min_time,
+  substr(max(time), 1, 2)*60 + substr(max(time), 4, 2) as max_time,
+  min(day) as min_day,
+  max(day) as max_day
+  from transactions
+  where
+  record_type = 0
+  group by 1
+) T4
 where
 T1.customer_ID = T2.customer_ID
 and
@@ -71,6 +87,8 @@ and
 T1.record_type = 0
 and
 T3.record_type = 1
+and
+T3.customer_ID = T4.customer_ID
                      ")
   
   dbDisconnect(con)

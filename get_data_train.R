@@ -18,6 +18,7 @@ T1.time as first_view_time,
 T7.time as last_view_time,
 T9.time as min_cost_view_time,
 T4.nb_views,
+T4.elapsed_time,
 -- T1.location as first_view_location,
 T5.location_popularity,
 T4.nb_distinct_location,
@@ -461,7 +462,8 @@ group by 1
 select
 customer_ID,
 count(*) as nb_views,
-count(distinct location) as nb_distinct_location
+count(distinct location) as nb_distinct_location,
+(substr(max(time), 1, 2)*60 + substr(max(time), 4, 2)) - (substr(min(time), 1, 2)*60 + substr(min(time), 4, 2)) as elapsed_time 
 from
 transactions
 where

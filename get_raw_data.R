@@ -107,8 +107,8 @@ normalize.test.data <- function(data) {
 }
 
 # Préparation des données
-data <- get.raw.data.train()
-data <- normalize.raw.train.data(data)
+data.raw <- get.raw.data.train()
+data.raw <- normalize.raw.train.data(data.raw)
 
 # functions
 select.final.variable <- function(data, letter) {

@@ -11,8 +11,11 @@ source("get_data.R")
 data <- select.final.variable(data, "G")
 
 # Suppression des outliers
-data <- subset(data, ! state %in% c("NY","FL"))
-data$state <- factor(data$state)
+data <- subset(data, state %in% c("NY"))
+data <- data[,! colnames(data) %in% c("state")]
+data$real_G <- factor(data$real_G)
+#data$tranche_age <- cut(data$last_view_age_oldest, breaks=c(0,35,70,200), labels=c("0-35","35-70","70+"))
+#data$tranche_duration_previous <- cut(data$last_view_duration_previous, breaks=c(-1,0,14,15), labels=c("0", "1-14", "15+"))
 
 # Separation train, test
 set.seed(42)
@@ -28,7 +31,7 @@ dataTest <- tmp$test
 list_prob <- c(.8)
 prob <- .8
 
-list_prob <- seq(.1, .9, .1)
+list_prob <- seq(.5, .9, .1)
 
 result <- data.frame()
 
@@ -61,7 +64,7 @@ model_2 <- glm(
 print("Entrainement modele GLM 3")
 formula_3 <- formula(
   I(real_G == "3") ~ .
-  )
+)
 
 model_3 <- glm(
   formula_3
@@ -81,14 +84,14 @@ dataTest$predict_glm_2 <- predict(model_2, newdata=dataTest)
 dataTest$predict_glm_3 <- predict(model_3, newdata=dataTest)
 dataTest$predict_glm_4 <- predict(model_4, newdata=dataTest)
 
-dataTest$predicted_glm_G <- factor(max.col(dataTest[,c("predict_glm_1","predict_glm_2","predict_glm_3","predict_glm_4")]))
+dataTest$predicted_glm_G <- factor(max.col(dataTest[,c("predict_glm_1", "predict_glm_2", "predict_glm_3","predict_glm_4")]))
 
 dataTrain$predict_glm_1 <- predict(model_1, newdata=dataTrain)
 dataTrain$predict_glm_2 <- predict(model_2, newdata=dataTrain)
 dataTrain$predict_glm_3 <- predict(model_3, newdata=dataTrain)
 dataTrain$predict_glm_4 <- predict(model_4, newdata=dataTrain)
 
-dataTrain$predicted_glm_G <- factor(max.col(dataTrain[,c("predict_glm_1","predict_glm_2","predict_glm_3","predict_glm_4")]))
+dataTrain$predicted_glm_G <- factor(max.col(dataTrain[,c("predict_glm_1", "predict_glm_2", "predict_glm_3","predict_glm_4")]))
 
 
 print("Error GLM Test:")
