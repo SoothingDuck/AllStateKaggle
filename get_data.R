@@ -11,39 +11,32 @@ normalize.data <- function(data) {
   data$state <- factor(data$state)
   
   # day
-  # data$first_view_day <- factor(data$first_view_day)
-  data$last_view_day <- factor(data$last_view_day)
-  # data$min_cost_view_day <- factor(data$min_cost_view_day)
+  data$last_day <- factor(data$last_day)
   
   # time
-  data$first_view_hour <- as.numeric(str_sub(data$first_view_time, 0, 2))
-  data$minutes_elapsed <- (as.numeric(str_sub(data$last_view_time, 0, 2))*60 + as.numeric(str_sub(data$last_view_time, 4, 6))) - (as.numeric(str_sub(data$first_view_time, 0, 2))*60 + as.numeric(str_sub(data$first_view_time, 4, 6)))
-  data <- data[,! colnames(data) %in% c("first_view_time","last_view_time","min_cost_view_time")]
+  data$last_hour <- factor(as.numeric(str_sub(data$last_time, 0, 2)))
+  data <- data[,! colnames(data) %in% c("last_time")]
+  
+  # group_size
+  data$last_group_size <- factor(data$last_group_size)
   
   # homeowner
-  data$first_view_homeowner <- factor(ifelse(data$first_view_homeowner == 1, "Yes", "No"))
-  data$last_view_homeowner <- factor(ifelse(data$last_view_homeowner == 1, "Yes", "No"))
-  data$min_cost_view_homeowner <- factor(ifelse(data$min_cost_view_homeowner == 1, "Yes", "No"))
+  data$last_homeowner <- factor(ifelse(data$last_homeowner == 1, "Yes", "No"))
+  
+  # car_age
+  ## factor ????
   
   # car_value
-  data$first_view_car_value <- factor(data$first_view_car_value)
-  data$last_view_car_value <- factor(data$last_view_car_value)
-  data$min_cost_view_car_value <- factor(data$min_cost_view_car_value)
+  data$last_car_value <- factor(data$last_car_value)
   
   # risk_factor
-  data$first_view_risk_factor <- factor(data$first_view_risk_factor)
-  data$last_view_risk_factor <- factor(data$last_view_risk_factor)
-  data$min_cost_view_risk_factor <- factor(data$min_cost_view_risk_factor)
+  data$last_risk_factor <- factor(ifelse(is.na(data$last_risk_factor), "Not Available", data$last_risk_factor))
   
   # married_couple
-  data$first_view_married_couple <- factor(ifelse(data$first_view_married_couple == 1, "Yes", "No"))
-  data$last_view_married_couple <- factor(ifelse(data$last_view_married_couple == 1, "Yes", "No"))
-  data$min_cost_view_married_couple <- factor(ifelse(data$min_cost_view_married_couple == 1, "Yes", "No"))
+  data$last_married_couple <- factor(ifelse(data$last_married_couple == 1, "Yes", "No"))
   
   # C_previous
-  data$first_view_C_previous <- factor(data$first_view_C_previous)
-  data$last_view_C_previous <- factor(data$last_view_C_previous)
-  data$min_cost_view_C_previous <- factor(data$min_cost_view_C_previous)
+  data$last_C_previous <- factor(ifelse(is.na(data$last_C_previous), "Not Available", data$last_C_previous))
   
   # duration_previous
   # data$first_view_duration_previous <- factor(data$first_view_duration_previous)
