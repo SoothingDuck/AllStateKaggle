@@ -37,22 +37,14 @@ dataTrain <- tmp$train
 # Evaluation modeles
 print("Entrainement modele GLM 0")
 formula_0 <- formula(
-  I(real_E == "0") ~
-    last_view_cost
-  + I(first_view_A == "1")
-  + last_view_A
-  + I(min_cost_view_A == "1")
-  + last_view_C
-  + first_view_E
-  + last_view_E
-  # + count_distinct_car_value
-  + avg_cost
-  + E0_percent_location_view  
-  + E0_percent_location_buy
-  )
-
-formula_0 <- formula(
   I(real_E == "0") ~ .
+  - location_A_proba_3
+  - location_B_proba_2
+  - location_C_proba_4
+  - location_D_proba_3
+  - location_E_proba_2
+  - location_F_proba_4
+  - location_G_proba_4
 )
     
 model_0 <- glm(
@@ -61,18 +53,14 @@ model_0 <- glm(
 
 print("Entrainement modele GLM 1")
 formula_1 <- formula(
-  I(real_E == "1") ~
-    last_view_cost
-  + first_view_A
-  + last_view_A
-  + min_cost_view_A
-  + last_view_C
-  + first_view_E
-  + count_distinct_car_value
-  + avg_cost
-  + C2_percent_location_buy
-  + E0_percent_location_view
-  + E0_percent_location_buy
+  I(real_E == "1") ~ .
+  - location_A_proba_3
+  - location_B_proba_2
+  - location_C_proba_4
+  - location_D_proba_3
+  - location_E_proba_2
+  - location_F_proba_4
+  - location_G_proba_4
 )
 
 formula_1 <- formula(

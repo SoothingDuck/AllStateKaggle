@@ -37,21 +37,14 @@ dataTrain <- tmp$train
 # Evaluation modeles
 print("Entrainement modele GLM 1")
 formula_1 <- formula(
-  I(real_C == "1") ~ 
-    state
-  + last_view_homeowner
-  + last_view_C_previous
-  + first_view_cost
-  + last_view_cost
-  + first_view_C
-  + last_view_C
-  + min_cost_view_C
-  + max_cost
-  + C1_percent_location_view
-  + C2_percent_location_view
-  + C1_percent_location_buy
-  + C2_percent_location_buy
-  )
+  I(real_C == "1") ~ .
+  - location_A_proba_3
+  - location_B_proba_2
+  - location_C_proba_4
+  - location_D_proba_3
+  - location_E_proba_2
+  - location_F_proba_4
+  - location_G_proba_4  )
 
 model_1 <- glm(
   formula_1
@@ -59,17 +52,15 @@ model_1 <- glm(
 
 print("Entrainement modele GLM 2")
 formula_2 <- formula(
-  I(real_C == "2") ~ 
-    state
-  + first_view_car_age
-  + min_cost_view_car_age
-  + last_view_C_previous
-  + first_view_C
-  + last_view_C
-  + max_cost
-  + C2_percent_location_view
-  + C2_percent_location_buy
-)
+  I(real_C == "2") ~ .
+  - location_A_proba_3
+  - location_B_proba_2
+  - location_C_proba_4
+  - location_D_proba_3
+  - location_E_proba_2
+  - location_F_proba_4
+  - location_G_proba_4
+  )
 
 model_2 <- glm(
   formula_2
@@ -77,17 +68,15 @@ model_2 <- glm(
 
 print("Entrainement modele GLM 3")
 formula_3 <- formula(
-  I(real_C == "3") ~ 
-  last_view_car_age
-  + last_view_C_previous
-  + last_view_cost
-  + first_view_C
-  + last_view_C
-  + min_cost_view_C
-  + C3_percent_location_view
-  + C1_percent_location_buy
-  + C3_percent_location_buy
-)
+  I(real_C == "3") ~ .
+  - location_A_proba_3
+  - location_B_proba_2
+  - location_C_proba_4
+  - location_D_proba_3
+  - location_E_proba_2
+  - location_F_proba_4
+  - location_G_proba_4
+  )
 
 model_3 <- glm(
   formula_3
@@ -95,17 +84,15 @@ model_3 <- glm(
 
 print("Entrainement modele GLM 4")
 formula_4 <- formula(
-  I(real_C == "4") ~ 
-  last_view_cost
-  + last_view_C
-  + last_view_E
-  + C1_percent_location_view
-  + C2_percent_location_view
-  + C3_percent_location_view
-  + C1_percent_location_buy
-  + C2_percent_location_buy
-  + C3_percent_location_buy
-)
+  I(real_C == "4") ~ .
+  - location_A_proba_3
+  - location_B_proba_2
+  - location_C_proba_4
+  - location_D_proba_3
+  - location_E_proba_2
+  - location_F_proba_4
+  - location_G_proba_4
+  )
 
 model_4 <- glm(
   formula_4
