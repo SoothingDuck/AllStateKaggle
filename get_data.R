@@ -14,7 +14,7 @@ normalize.data <- function(data) {
   data$last_day <- factor(data$last_day)
   
   # time
-  data$last_hour <- factor(as.numeric(str_sub(data$last_time, 0, 2)))
+  data$last_hour <- as.numeric(str_sub(data$last_time, 0, 2))
   data <- data[,! colnames(data) %in% c("last_time")]
   
   # group_size

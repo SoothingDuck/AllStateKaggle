@@ -37,17 +37,19 @@ dataTrain <- tmp$train
 # Evaluation modeles
 print("Entrainement modele GLM 0")
 formula_0 <- formula(
-  I(real_A == "0") ~ 
-    state
-  + last_view_car_age
-  + first_view_cost
-  + last_view_cost
-  + first_view_A
-  + last_view_A
-  + min_cost_view_A
-  + avg_cost
-  + A0_percent_location_view
-  + A0_percent_location_buy
+  I(real_A == "0") ~ .
+  - last_day
+  - last_group_size
+  - last_hour
+
+  - location_A_proba_3
+  - location_B_proba_2
+  - location_C_proba_4
+  - location_D_proba_3
+  - location_E_proba_2
+  - location_F_proba_4
+  - location_G_proba_4
+  
 )
 
 model_0 <- glm(
@@ -56,16 +58,18 @@ model_0 <- glm(
 
 print("Entrainement modele GLM 1")
 formula_1 <- formula(
-  I(real_A == "1") ~ 
-    last_view_car_age
-  + first_view_cost
-  + last_view_cost
-  + first_view_A
-  + last_view_A
-  + min_cost_view_A
-  + avg_cost
-  + A1_percent_location_view
-  + A1_percent_location_buy
+  I(real_A == "1") ~ .
+  - last_day
+  - last_group_size
+  - last_hour
+
+  - location_A_proba_3
+  - location_B_proba_2
+  - location_C_proba_4
+  - location_D_proba_3
+  - location_E_proba_2
+  - location_F_proba_4
+  - location_G_proba_4
 )
 
 model_1 <- glm(
@@ -74,13 +78,19 @@ model_1 <- glm(
 
 print("Entrainement modele GLM 2")
 formula_2 <- formula(
-  I(real_A == "2") ~ 
-    first_view_A
-  + last_view_A
-  + A0_percent_location_view
-  + A1_percent_location_view
-  + A0_percent_location_buy
-  + A1_percent_location_buy
+  I(real_A == "2") ~ .
+  - last_day
+  - last_group_size
+  - last_hour
+
+  - location_A_proba_3
+  - location_B_proba_2
+  - location_C_proba_4
+  - location_D_proba_3
+  - location_E_proba_2
+  - location_F_proba_4
+  - location_G_proba_4
+  
 )
 
 model_2 <- glm(
