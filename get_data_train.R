@@ -54,6 +54,15 @@ T4.G_proba_1 as location_G_proba_1,
 T4.G_proba_2 as location_G_proba_2,
 T4.G_proba_3 as location_G_proba_3,
 T4.G_proba_4 as location_G_proba_4,
+-- Estimation G
+coalesce(T5.count_G1, 0) as ABCDEF_count_G1,
+coalesce(T5.count_G2, 0) as ABCDEF_count_G2,
+coalesce(T5.count_G3, 0) as ABCDEF_count_G3,
+coalesce(T5.count_G4, 0) as ABCDEF_count_G4,
+coalesce(T5.percent_G1, 0) as ABCDEF_percent_G1,
+coalesce(T5.percent_G2, 0) as ABCDEF_percent_G2,
+coalesce(T5.percent_G3, 0) as ABCDEF_percent_G3,
+coalesce(T5.percent_G4, 0) as ABCDEF_percent_G4,
 -- Objectifs
 T3.A as real_A,
 T3.B as real_B,
@@ -66,7 +75,10 @@ from
 transactions T1 inner join
 customers T2 on (T1.customer_ID = T2.customer_ID and T2.dataset = 'train') inner join
 transactions T3 on (T1.customer_ID = T3.customer_ID) left outer join
-location_agg T4 on (T1.location = T4.location)
+location_agg T4 on (T1.location = T4.location) left outer join
+ABCDEF_agg T5 on (
+T1.A || T1.B || T1.C || T1.D || T1.E || T1.F = T5.ABCDEF
+)
 where
 T1.record_type = 0
 and
