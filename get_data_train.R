@@ -63,6 +63,16 @@ coalesce(T5.percent_G1, 0) as ABCDEF_percent_G1,
 coalesce(T5.percent_G2, 0) as ABCDEF_percent_G2,
 coalesce(T5.percent_G3, 0) as ABCDEF_percent_G3,
 coalesce(T5.percent_G4, 0) as ABCDEF_percent_G4,
+-- Location agg
+coalesce(T6.nb_vente,24) as location_nb_vente,
+-- location big
+case
+  when T8.location is null then 'SmallLocation'
+  when T8.nb_achat < 80 then 'SmallLocation'
+  else T8.location
+end as big_location,
+-- Customer Agg
+coalesce(T7.nb_view, 6) as customer_nb_view,
 -- Objectifs
 T3.A as real_A,
 T3.B as real_B,
@@ -78,7 +88,33 @@ transactions T3 on (T1.customer_ID = T3.customer_ID) left outer join
 location_agg T4 on (T1.location = T4.location) left outer join
 ABCDEF_agg T5 on (
 T1.A || T1.B || T1.C || T1.D || T1.E || T1.F = T5.ABCDEF
-)
+) left outer join
+(
+  select
+  location,
+  count(*) as nb_vente
+  from transactions
+  where record_type = 1
+  group by 1
+) T6 on (T1.location = T6.location)
+inner join
+(
+  select
+  customer_ID,
+  count(*) as nb_view
+  from transactions
+  where record_type = 0
+  group by 1
+) T7 on (T1.customer_ID = T7.customer_ID)
+left outer join
+(
+  select
+  location,
+  count(*) as nb_achat
+  from transactions
+  where record_type = 1
+  group by 1
+) T8 on (T1.location = T8.location)
 where
 T1.record_type = 0
 and

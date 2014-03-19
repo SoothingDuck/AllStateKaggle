@@ -29,6 +29,9 @@ normalize.data <- function(data) {
   # car_value
   data$last_car_value <- factor(data$last_car_value)
   
+  # big_location
+  data$big_location <- factor(data$big_location)
+  
   # risk_factor
   data$last_risk_factor <- factor(ifelse(is.na(data$last_risk_factor), "Not Available", data$last_risk_factor))
   
