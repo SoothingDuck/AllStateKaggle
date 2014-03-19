@@ -39,49 +39,53 @@ normalize.data <- function(data) {
   data$last_C_previous <- factor(ifelse(is.na(data$last_C_previous), "Not Available", data$last_C_previous))
   
   # duration_previous
-  # data$first_view_duration_previous <- factor(data$first_view_duration_previous)
-  # data$last_view_duration_previous <- factor(data$last_view_duration_previous)
-  # data$min_cost_view_duration_previous <- factor(data$min_cost_view_duration_previous)
+  data$last_duration_previous <- factor(ifelse(is.na(data$last_duration_previous), "Not Available", data$last_duration_previous))
   
   # A
-  data$first_view_A <- factor(data$first_view_A)
-  data$last_view_A <- factor(data$last_view_A)
-  data$min_cost_view_A <- factor(data$min_cost_view_A)
+  data$last_A <- factor(data$last_A)
+  data$location_A_proba_1 <- factor(data$location_A_proba_1)
+  data$location_A_proba_2 <- factor(data$location_A_proba_2)
+  data$location_A_proba_3 <- factor(data$location_A_proba_3)  
   
   # B
-  data$first_view_B <- factor(data$first_view_B)
-  data$last_view_B <- factor(data$last_view_B)
-  data$min_cost_view_B <- factor(data$min_cost_view_B)
+  data$last_B <- factor(data$last_B)
+  data$location_B_proba_1 <- factor(data$location_B_proba_1)
+  data$location_B_proba_2 <- factor(data$location_B_proba_2)
   
   # C
-  data$first_view_C <- factor(data$first_view_C)
-  data$last_view_C <- factor(data$last_view_C)
-  data$min_cost_view_C <- factor(data$min_cost_view_C)
+  data$last_C <- factor(data$last_C)
+  data$location_C_proba_1 <- factor(data$location_C_proba_1)
+  data$location_C_proba_2 <- factor(data$location_C_proba_2)
+  data$location_C_proba_3 <- factor(data$location_C_proba_3)
+  data$location_C_proba_4 <- factor(data$location_C_proba_4)
   
   # D
-  data$first_view_D <- factor(data$first_view_D)
-  data$last_view_D <- factor(data$last_view_D)
-  data$min_cost_view_D <- factor(data$min_cost_view_D)
+  data$last_D <- factor(data$last_D)
+  data$location_D_proba_1 <- factor(data$location_D_proba_1)
+  data$location_D_proba_2 <- factor(data$location_D_proba_2)
+  data$location_D_proba_3 <- factor(data$location_D_proba_3)
   
   # E
-  data$first_view_E <- factor(data$first_view_E)
-  data$last_view_E <- factor(data$last_view_E)
-  data$min_cost_view_E <- factor(data$min_cost_view_E)
+  data$last_E <- factor(data$last_E)
+  data$location_E_proba_1 <- factor(data$location_E_proba_1)
+  data$location_E_proba_2 <- factor(data$location_E_proba_2)
   
   # F
-  data$first_view_F <- factor(data$first_view_F)
-  data$last_view_F <- factor(data$last_view_F)
-  data$min_cost_view_F <- factor(data$min_cost_view_F)
+  data$last_F <- factor(data$last_F)
+  data$location_F_proba_1 <- factor(data$location_F_proba_1)
+  data$location_F_proba_2 <- factor(data$location_F_proba_2)
+  data$location_F_proba_3 <- factor(data$location_F_proba_3)
+  data$location_F_proba_4 <- factor(data$location_F_proba_4)
   
   # G
-  data$first_view_G <- factor(data$first_view_G)
-  data$last_view_G <- factor(data$last_view_G)
-  data$min_cost_view_G <- factor(data$min_cost_view_G)
-  
-  # ABCDEF
-  # data$first_view_ABCDEF <- factor(data$first_view_ABCDEF)
-  # data$last_view_ABCDEF <- factor(data$last_view_ABCDEF)
-  # data$min_cost_view_ABCDEF <- factor(data$min_cost_view_ABCDEF)
+  data$last_G <- factor(data$last_G)
+  data$location_G_proba_1 <- factor(data$location_G_proba_1)
+  data$location_G_proba_2 <- factor(data$location_G_proba_2)
+  data$location_G_proba_3 <- factor(data$location_G_proba_3)
+  data$location_G_proba_4 <- factor(data$location_G_proba_4)
+
+  # Suppression NA Location
+  data <- data[! is.na(data$location_G_proba_4),]
   
   return(data)
 }
