@@ -23,7 +23,7 @@ dataTest <- tmp$test
 list_prob <- c(.8)
 prob <- .8
 
-list_prob <- seq(.1, .9, .1)
+list_prob <- seq(.5, .9, .1)
 
 result <- data.frame()
 

@@ -18,7 +18,7 @@ normalize.data <- function(data) {
   data <- data[,! colnames(data) %in% c("last_time")]
   
   # group_size
-  data$last_group_size <- factor(data$last_group_size)
+  # data$last_group_size <- factor(data$last_group_size, ordered=TRUE)
   
   # homeowner
   data$last_homeowner <- factor(ifelse(data$last_homeowner == 1, "Yes", "No"))
@@ -27,10 +27,10 @@ normalize.data <- function(data) {
   ## factor ????
   
   # car_value
-  data$last_car_value <- factor(data$last_car_value)
+  data$last_car_value <- factor(data$last_car_value, levels=c("","a","b","c","d","e","f","g","h","i"), ordered=TRUE)
   
   # big_location
-  data$big_location <- factor(data$big_location)
+  # data$big_location <- factor(data$big_location)
   
   # risk_factor
   data$last_risk_factor <- factor(ifelse(is.na(data$last_risk_factor), "Not Available", data$last_risk_factor))
@@ -39,10 +39,10 @@ normalize.data <- function(data) {
   data$last_married_couple <- factor(ifelse(data$last_married_couple == 1, "Yes", "No"))
   
   # C_previous
-  data$last_C_previous <- factor(ifelse(is.na(data$last_C_previous), "Not Available", data$last_C_previous))
+  # data$last_C_previous <- factor(ifelse(is.na(data$last_C_previous), "Not Available", data$last_C_previous))
   
   # duration_previous
-  data$last_duration_previous <- factor(ifelse(is.na(data$last_duration_previous), "Not Available", data$last_duration_previous))
+  # data$last_duration_previous <- factor(ifelse(is.na(data$last_duration_previous), "Not Available", data$last_duration_previous))
   
   # A
   data$last_A <- factor(data$last_A)

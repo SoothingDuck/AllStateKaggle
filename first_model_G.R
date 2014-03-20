@@ -21,10 +21,10 @@ dataTest <- tmp$test
 # Estimation modeles
 
 # Test
-list_prob <- c(.8)
-prob <- .8
+list_prob <- c(.3)
+prob <- .3
 
-list_prob <- seq(.1, .9, .1)
+list_prob <- seq(.5, .9, .1)
 
 result <- data.frame()
 
@@ -46,7 +46,6 @@ formula_1 <- formula(
   - location_E_proba_2
   - location_F_proba_4
   - location_G_proba_4
-  
   )
 
 model_1 <- glm(
@@ -63,7 +62,6 @@ formula_2 <- formula(
   - location_E_proba_2
   - location_F_proba_4
   - location_G_proba_4
-  
 )
 
 model_2 <- glm(
@@ -80,7 +78,6 @@ formula_3 <- formula(
   - location_E_proba_2
   - location_F_proba_4
   - location_G_proba_4
-  
   )
 
 model_3 <- glm(
@@ -97,7 +94,6 @@ formula_4 <- formula(
   - location_E_proba_2
   - location_F_proba_4
   - location_G_proba_4
-  
 )
 
 model_4 <- glm(
