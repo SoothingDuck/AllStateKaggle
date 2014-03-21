@@ -37,19 +37,7 @@ dataTrain <- tmp$train
 # Evaluation modeles
 print("Entrainement modele GLM 0")
 formula_0 <- formula(
-  I(real_A == "0") ~ .
-  - last_day
-  - last_group_size
-  - last_hour
-
-  - location_A_proba_3
-  - location_B_proba_2
-  - location_C_proba_4
-  - location_D_proba_3
-  - location_E_proba_2
-  - location_F_proba_4
-  - location_G_proba_4
-  
+  I(real_A == "0") ~ .  
 )
 
 model_0 <- glm(
@@ -59,17 +47,6 @@ model_0 <- glm(
 print("Entrainement modele GLM 1")
 formula_1 <- formula(
   I(real_A == "1") ~ .
-  - last_day
-  - last_group_size
-  - last_hour
-
-  - location_A_proba_3
-  - location_B_proba_2
-  - location_C_proba_4
-  - location_D_proba_3
-  - location_E_proba_2
-  - location_F_proba_4
-  - location_G_proba_4
 )
 
 model_1 <- glm(
@@ -79,18 +56,6 @@ model_1 <- glm(
 print("Entrainement modele GLM 2")
 formula_2 <- formula(
   I(real_A == "2") ~ .
-  - last_day
-  - last_group_size
-  - last_hour
-
-  - location_A_proba_3
-  - location_B_proba_2
-  - location_C_proba_4
-  - location_D_proba_3
-  - location_E_proba_2
-  - location_F_proba_4
-  - location_G_proba_4
-  
 )
 
 model_2 <- glm(

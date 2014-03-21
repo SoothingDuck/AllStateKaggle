@@ -38,13 +38,6 @@ dataTrain <- tmp$train
 print("Entrainement modele GLM 1")
 formula_1 <- formula(
   I(real_D == "1") ~ .
-  - location_A_proba_3
-  - location_B_proba_2
-  - location_C_proba_4
-  - location_D_proba_3
-  - location_E_proba_2
-  - location_F_proba_4
-  - location_G_proba_4
   )
 
 model_1 <- glm(
@@ -54,13 +47,6 @@ model_1 <- glm(
 print("Entrainement modele GLM 2")
 formula_2 <- formula(
   I(real_D == "2") ~ .
-  - location_A_proba_3
-  - location_B_proba_2
-  - location_C_proba_4
-  - location_D_proba_3
-  - location_E_proba_2
-  - location_F_proba_4
-  - location_G_proba_4
 )
 
 model_2 <- glm(
@@ -70,13 +56,6 @@ model_2 <- glm(
 print("Entrainement modele GLM 3")
 formula_3 <- formula(
   I(real_D == "3") ~ .
-  - location_A_proba_3
-  - location_B_proba_2
-  - location_C_proba_4
-  - location_D_proba_3
-  - location_E_proba_2
-  - location_F_proba_4
-  - location_G_proba_4
 )
 
 model_3 <- glm(
