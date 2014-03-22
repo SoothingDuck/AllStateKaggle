@@ -12,7 +12,7 @@ data <- dbGetQuery(
 con,
 "
 select
-location,
+customer_ID,
 sum(case when A = 0 then 1 else 0 end) as A0_count,
 sum(case when A = 1 then 1 else 0 end) as A1_count,
 sum(case when A = 2 then 1 else 0 end) as A2_count,
@@ -38,7 +38,7 @@ sum(case when G = 4 then 1 else 0 end) as G4_count,
 count(*) as total_count
 from transactions
 where
-record_type = 1
+record_type = 0
 group by 1
 "
 )
@@ -89,7 +89,7 @@ dbDisconnect(con)
 drv <- dbDriver("SQLite")
 con <- dbConnect(drv, dbname=sqlitedb.filename)
 
-print("Alimentation table location agg")
-dbWriteTable(con, "location_agg", data)
+print("Alimentation table customers agg")
+dbWriteTable(con, "customer_agg", data)
 
 dbDisconnect(con)
