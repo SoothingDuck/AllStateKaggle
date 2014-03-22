@@ -80,5 +80,6 @@ dbWriteTable(con, "customers", unique(all.data[,customer_columns]))
 print("Creation des indexes...")
 dbGetQuery(con, "create unique index ix_customers_customer_id on customers ( customer_ID)")
 dbGetQuery(con, "create index ix_transactions_customer_id on transactions ( customer_ID)")
+dbGetQuery(con, "create index ix_transactions_location on transactions ( location)")
 
 dbDisconnect(con)
