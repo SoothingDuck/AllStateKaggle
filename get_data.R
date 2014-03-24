@@ -46,46 +46,31 @@ normalize.data <- function(data) {
   
   # A
   data$last_A <- factor(data$last_A)
-#   data$location_A_proba_1 <- factor(data$location_A_proba_1)
-#   data$location_A_proba_2 <- factor(data$location_A_proba_2)
-#   data$location_A_proba_3 <- factor(data$location_A_proba_3)  
+  data$before_last_A <- factor(data$before_last_A)
   
   # B
   data$last_B <- factor(data$last_B)
-#   data$location_B_proba_1 <- factor(data$location_B_proba_1)
-#   data$location_B_proba_2 <- factor(data$location_B_proba_2)
+  data$before_last_B <- factor(data$before_last_B)
   
   # C
   data$last_C <- factor(data$last_C)
-#   data$location_C_proba_1 <- factor(data$location_C_proba_1)
-#   data$location_C_proba_2 <- factor(data$location_C_proba_2)
-#   data$location_C_proba_3 <- factor(data$location_C_proba_3)
-#   data$location_C_proba_4 <- factor(data$location_C_proba_4)
+  data$before_last_C <- factor(data$before_last_C)
   
   # D
   data$last_D <- factor(data$last_D)
-#   data$location_D_proba_1 <- factor(data$location_D_proba_1)
-#   data$location_D_proba_2 <- factor(data$location_D_proba_2)
-#   data$location_D_proba_3 <- factor(data$location_D_proba_3)
+  data$before_last_D <- factor(data$before_last_D)
   
   # E
   data$last_E <- factor(data$last_E)
-#   data$location_E_proba_1 <- factor(data$location_E_proba_1)
-#   data$location_E_proba_2 <- factor(data$location_E_proba_2)
+  data$before_last_E <- factor(data$before_last_E)
   
   # F
   data$last_F <- factor(data$last_F)
-#   data$location_F_proba_1 <- factor(data$location_F_proba_1)
-#   data$location_F_proba_2 <- factor(data$location_F_proba_2)
-#   data$location_F_proba_3 <- factor(data$location_F_proba_3)
-#   data$location_F_proba_4 <- factor(data$location_F_proba_4)
+  data$before_last_F <- factor(data$before_last_F)
   
   # G
   data$last_G <- factor(data$last_G)
-#   data$location_G_proba_1 <- factor(data$location_G_proba_1)
-#   data$location_G_proba_2 <- factor(data$location_G_proba_2)
-#   data$location_G_proba_3 <- factor(data$location_G_proba_3)
-#   data$location_G_proba_4 <- factor(data$location_G_proba_4)
+  data$before_last_G <- factor(data$before_last_G)
 
   # Suppression NA Location
 #   data <- data[! is.na(data$location_G_proba_4),]

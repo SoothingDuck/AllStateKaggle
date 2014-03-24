@@ -33,6 +33,16 @@ T1.D as last_D,
 T1.E as last_E,
 T1.F as last_F,
 T1.G as last_G,
+
+-- Before last
+T12.A as before_last_A,
+T12.B as before_last_B,
+T12.C as before_last_C,
+T12.D as before_last_D,
+T12.E as before_last_E,
+T12.F as before_last_F,
+T12.G as before_last_G,
+
 -- Agg location
 
 coalesce(T4.A0_count, 2)*1.0/coalesce(T4.total_count, 12) as location_A0_percent,
@@ -65,6 +75,66 @@ coalesce(T4.G3_count, 2)*1.0/coalesce(T4.total_count, 12) as location_G3_percent
 --coalesce(T4.G4_count, 0)*1.0/coalesce(T4.total_count, 12) as location_G4_percent,
                      
 -- Agg Customer
+
+coalesce(T10.A0_count, 0)*1.0/coalesce(T10.total_count, 6) customer_A0_percent,
+coalesce(T10.A1_count, 4)*1.0/coalesce(T10.total_count, 6) customer_A1_percent,
+--coalesce(T10.A2_count, 0)*1.0/coalesce(T10.total_count, 6) customer_A2_percent,
+
+coalesce(T10.B0_count, 3)*1.0/coalesce(T10.total_count, 6) customer_B0_percent,
+--coalesce(T10.B1_count, 1)*1.0/coalesce(T10.total_count, 6) customer_B1_percent,
+
+coalesce(T10.C1_count, 0)*1.0/coalesce(T10.total_count, 6) customer_C1_percent,
+coalesce(T10.C2_count, 0)*1.0/coalesce(T10.total_count, 6) customer_C2_percent,
+coalesce(T10.C3_count, 1)*1.0/coalesce(T10.total_count, 6) customer_C3_percent,
+--coalesce(T10.C4_count, 0)*1.0/coalesce(T10.total_count, 6) customer_C4_percent,
+
+coalesce(T10.D1_count, 0)*1.0/coalesce(T10.total_count, 6) customer_D1_percent,
+coalesce(T10.D2_count, 0)*1.0/coalesce(T10.total_count, 6) customer_D2_percent,
+--coalesce(T10.D3_count, 4)*1.0/coalesce(T10.total_count, 6) customer_D3_percent,
+
+coalesce(T10.E0_count, 3)*1.0/coalesce(T10.total_count, 6) customer_E0_percent,
+--coalesce(T10.E1_count, 1)*1.0/coalesce(T10.total_count, 6) customer_E1_percent,
+
+coalesce(T10.F0_count, 0)*1.0/coalesce(T10.total_count, 6) customer_F0_percent,
+coalesce(T10.F1_count, 0)*1.0/coalesce(T10.total_count, 6) customer_F1_percent,
+coalesce(T10.F2_count, 1)*1.0/coalesce(T10.total_count, 6) customer_F2_percent,
+--coalesce(T10.F3_count, 0)*1.0/coalesce(T10.total_count, 6) customer_F3_percent,
+
+coalesce(T10.G1_count, 0)*1.0/coalesce(T10.total_count, 6) customer_G1_percent,
+coalesce(T10.G2_count, 1)*1.0/coalesce(T10.total_count, 6) customer_G2_percent,
+coalesce(T10.G3_count, 0)*1.0/coalesce(T10.total_count, 6) customer_G3_percent,
+--coalesce(T10.G4_count, 0)*1.0/coalesce(T10.total_count, 6) customer_G4_percent,
+
+-- Location Customer
+
+(coalesce(T4.A0_count, 2)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.A0_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_A0_percent,
+(coalesce(T4.A1_count, 7)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.A1_count, 4)*1.0/coalesce(T10.total_count, 6)) as customer_location_A1_percent,
+(coalesce(T4.A2_count, 1)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.A2_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_A2_percent,
+
+(coalesce(T4.B0_count, 6)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.B0_count, 3)*1.0/coalesce(T10.total_count, 6)) as customer_location_B0_percent,
+(coalesce(T4.B1_count, 5)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.B1_count, 1)*1.0/coalesce(T10.total_count, 6)) as customer_location_B1_percent,
+
+(coalesce(T4.C1_count, 2)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.C1_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_C1_percent,
+(coalesce(T4.C2_count, 2)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.C2_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_C2_percent,
+(coalesce(T4.C3_count, 4)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.C3_count, 1)*1.0/coalesce(T10.total_count, 6)) as customer_location_C3_percent,
+(coalesce(T4.C4_count, 1)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.C4_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_C4_percent,
+
+(coalesce(T4.D1_count, 1)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.D1_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_D1_percent,
+(coalesce(T4.D2_count, 2)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.D2_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_D2_percent,
+(coalesce(T4.D3_count, 6)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.D3_count, 4)*1.0/coalesce(T10.total_count, 6)) as customer_location_D3_percent,
+
+(coalesce(T4.E0_count, 6)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.E0_count, 3)*1.0/coalesce(T10.total_count, 6)) as customer_location_E0_percent,
+(coalesce(T4.E1_count, 5)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.E1_count, 1)*1.0/coalesce(T10.total_count, 6)) as customer_location_E1_percent,
+
+(coalesce(T4.F0_count, 2)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.F0_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_F0_percent,
+(coalesce(T4.F1_count, 2)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.F1_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_F1_percent,
+(coalesce(T4.F2_count, 3)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.F2_count, 1)*1.0/coalesce(T10.total_count, 6)) as customer_location_F2_percent,
+(coalesce(T4.F3_count, 0)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.F3_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_F3_percent,
+
+(coalesce(T4.G1_count, 0)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.G1_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_G1_percent,
+(coalesce(T4.G2_count, 3)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.G2_count, 1)*1.0/coalesce(T10.total_count, 6)) as customer_location_G2_percent,
+(coalesce(T4.G3_count, 2)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.G3_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_G3_percent,
+(coalesce(T4.G4_count, 0)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.G4_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_G4_percent,
 
 -- Objectifs
 T3.A as real_A,
@@ -106,35 +176,28 @@ left outer join
   group by 1
 ) T8 on (T1.location = T8.location)
 inner join
+customer_agg T10 on (T1.customer_ID = T10.customer_ID)
+inner join
 (
   select
-  customer_ID,
-  error_A,
-  error_B,
-  error_C,
-  error_D,
-  error_E,
-  error_F,
-  error_G,
-  error_A+error_B+error_C+error_D+error_E+error_F+error_G as total_error
+  A.customer_ID,
+  case
+    when max(A.shopping_pt) = 1 then 1
+    else max(A.shopping_pt)-1
+  end as shopping_pt_before_last
   from
-  (
-  select
-  T1.customer_ID,
-  case when T1.A = T2.A then 0 else 1 end as error_A,
-  case when T1.B = T2.B then 0 else 1 end as error_B,
-  case when T1.C = T2.C then 0 else 1 end as error_C,
-  case when T1.D = T2.D then 0 else 1 end as error_D,
-  case when T1.E = T2.E then 0 else 1 end as error_E,
-  case when T1.F = T2.F then 0 else 1 end as error_F,
-  case when T1.G = T2.G then 0 else 1 end as error_G
-  from
-  transactions T1 inner join
-  transactions T2 on (T1.customer_ID = T2.customer_ID and T1.record_type = 0 and T2.record_type=1)
+  transactions A,
+  customers B
   where
-  T1.shopping_pt = (T2.shopping_pt - 1)
-  ) A
-) T9 on (T1.customer_ID = T9.customer_ID and T9.total_error <= 2)
+  A.customer_ID = B.customer_ID
+  and
+  B.dataset = 'train'
+  and
+  A.record_type = 0
+  group by 1
+) T11 on (T1.customer_ID = T11.customer_ID)
+inner join
+transactions T12 on (T11.customer_ID = T12.customer_id and T12.shopping_pt = T11.shopping_pt_before_last)
 where
 T1.record_type = 0
 and
