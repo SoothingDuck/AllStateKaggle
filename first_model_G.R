@@ -39,6 +39,10 @@ dataTrain <- tmp$train
 print("Entrainement modele GLM 1")
 formula_1 <- formula(
   I(real_G == "1") ~ .
+    - customer_location_B0_percent,
+    - customer_B0_percent
+    - location_B0_percent
+    - customer_location_B1_percent
   )
 
 model_1 <- glm(

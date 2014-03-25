@@ -136,6 +136,12 @@ coalesce(T10.G3_count, 0)*1.0/coalesce(T10.total_count, 6) customer_G3_percent,
 (coalesce(T4.G3_count, 2)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.G3_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_G3_percent,
 (coalesce(T4.G4_count, 0)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.G4_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_G4_percent
 
+-- New values
+
+T13.nb_minutes,
+T13.nb_views,
+T13.ratio_hesitation,
+
 -- Objectifs
 --T3.A as real_A,
 --T3.B as real_B,
@@ -207,6 +213,20 @@ group by 1
 ) T11 on (T1.customer_ID = T11.customer_ID)
 inner join
 transactions T12 on (T11.customer_ID = T12.customer_id and T12.shopping_pt = T11.shopping_pt_before_last)
+inner join
+(
+  select
+  customer_ID,
+  min(time) as min_time,
+  max(time) as max_time,
+  (substr(max(time),1,2)*60 + substr(max(time),4,2)) - (substr(min(time),1,2)*60 + substr(min(time),4,2)) as nb_minutes,
+  count(*) as nb_views,
+  (((substr(max(time),1,2)*60 + substr(max(time),4,2)) - (substr(min(time),1,2)*60 + substr(min(time),4,2)))*1.0)/count(*) as ratio_hesitation
+  from transactions
+  where
+  record_type = 0
+  group by 1
+) T13 on (T1.customer_ID = T13.customer_ID)
 where
 T1.record_type = 0
 and
