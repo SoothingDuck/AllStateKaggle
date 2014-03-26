@@ -39,11 +39,15 @@ dataTrain <- tmp$train
 print("Entrainement modele GLM 1")
 formula_1 <- formula(
   I(real_G == "1") ~ .
-    - customer_location_B0_percent,
+    - customer_location_B0_percent
     - customer_B0_percent
     - location_B0_percent
     - customer_location_B1_percent
-  )
+    - customer_E0_percent
+    - customer_location_E1_percent
+    - customer_location_E0_percent
+    - location_E0_percent
+)
 
 model_1 <- glm(
   formula_1
@@ -52,6 +56,14 @@ model_1 <- glm(
 print("Entrainement modele GLM 2")
 formula_2 <- formula(
   I(real_G == "2") ~ .
+    - customer_location_B0_percent
+    - location_B0_percent
+    - customer_B0_percent
+    - customer_location_B1_percent
+    - location_E0_percent
+    - customer_location_E0_percent
+    - customer_location_E1_percent
+    - customer_E0_percent
 )
 
 model_2 <- glm(
@@ -61,6 +73,14 @@ model_2 <- glm(
 print("Entrainement modele GLM 3")
 formula_3 <- formula(
   I(real_G == "3") ~ .
+  - customer_location_B0_percent
+  - location_B0_percent
+  - customer_B0_percent
+  - customer_location_B1_percent
+  - location_E0_percent
+  - customer_location_E0_percent
+  - customer_location_E1_percent
+  - customer_E0_percent  
   )
 
 model_3 <- glm(
@@ -70,6 +90,14 @@ model_3 <- glm(
 print("Entrainement modele GLM 4")
 formula_4 <- formula(
   I(real_G == "4") ~ .
+  - customer_location_B0_percent
+  - location_B0_percent
+  - customer_B0_percent
+  - customer_location_B1_percent
+  - location_E0_percent
+  - customer_location_E0_percent
+  - customer_location_E1_percent
+  - customer_E0_percent
 )
 
 model_4 <- glm(
