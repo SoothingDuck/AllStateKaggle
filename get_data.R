@@ -24,10 +24,10 @@ normalize.data <- function(data) {
   data$last_homeowner <- factor(ifelse(data$last_homeowner == 1, "Yes", "No"))
   
   # car_age
-  ## factor ????
+  # data$last_car_age <- factor(data$last_car_age)
   
   # car_value
-  data$last_car_value <- factor(data$last_car_value, levels=c("","a","b","c","d","e","f","g","h","i"), ordered=TRUE)
+  data$last_car_value <- factor(data$last_car_value)
   
   # big_location
   # data$big_location <- factor(data$big_location)

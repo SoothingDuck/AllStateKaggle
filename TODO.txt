@@ -1,0 +1,1 @@
+Faire kmeans de 3 clusters et les assigner aux données

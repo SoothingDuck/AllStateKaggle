@@ -45,96 +45,97 @@ T12.G as before_last_G,
 
 -- Agg location
 
-coalesce(T4.A0_count, 2)*1.0/coalesce(T4.total_count, 12) as location_A0_percent,
-coalesce(T4.A1_count, 7)*1.0/coalesce(T4.total_count, 12) as location_A1_percent,
+--coalesce(T4.A0_count, 2)*1.0/coalesce(T4.total_count, 12) as location_A0_percent,
+--coalesce(T4.A1_count, 7)*1.0/coalesce(T4.total_count, 12) as location_A1_percent,
 --coalesce(T4.A2_count, 1)*1.0/coalesce(T4.total_count, 12) as location_A2_percent,
 
-coalesce(T4.B0_count, 6)*1.0/coalesce(T4.total_count, 12) as location_B0_percent,
+--coalesce(T4.B0_count, 6)*1.0/coalesce(T4.total_count, 12) as location_B0_percent,
 --coalesce(T4.B1_count, 5)*1.0/coalesce(T4.total_count, 12) as location_B1_percent,
 
-coalesce(T4.C1_count, 2)*1.0/coalesce(T4.total_count, 12) as location_C1_percent,
-coalesce(T4.C2_count, 2)*1.0/coalesce(T4.total_count, 12) as location_C2_percent,
-coalesce(T4.C3_count, 4)*1.0/coalesce(T4.total_count, 12) as location_C3_percent,
+--coalesce(T4.C1_count, 2)*1.0/coalesce(T4.total_count, 12) as location_C1_percent,
+--coalesce(T4.C2_count, 2)*1.0/coalesce(T4.total_count, 12) as location_C2_percent,
+--coalesce(T4.C3_count, 4)*1.0/coalesce(T4.total_count, 12) as location_C3_percent,
 --coalesce(T4.C4_count, 1)*1.0/coalesce(T4.total_count, 12) as location_C4_percent,
 
-coalesce(T4.D1_count, 1)*1.0/coalesce(T4.total_count, 12) as location_D1_percent,
-coalesce(T4.D2_count, 2)*1.0/coalesce(T4.total_count, 12) as location_D2_percent,
+--coalesce(T4.D1_count, 1)*1.0/coalesce(T4.total_count, 12) as location_D1_percent,
+--coalesce(T4.D2_count, 2)*1.0/coalesce(T4.total_count, 12) as location_D2_percent,
 --coalesce(T4.D3_count, 6)*1.0/coalesce(T4.total_count, 12) as location_D3_percent,
 
-coalesce(T4.E0_count, 6)*1.0/coalesce(T4.total_count, 12) as location_E0_percent,
+--coalesce(T4.E0_count, 6)*1.0/coalesce(T4.total_count, 12) as location_E0_percent,
 --coalesce(T4.E1_count, 5)*1.0/coalesce(T4.total_count, 12) as location_E1_percent,
 
-coalesce(T4.F0_count, 2)*1.0/coalesce(T4.total_count, 12) as location_F0_percent,
-coalesce(T4.F1_count, 2)*1.0/coalesce(T4.total_count, 12) as location_F1_percent,
-coalesce(T4.F2_count, 3)*1.0/coalesce(T4.total_count, 12) as location_F2_percent,
+--coalesce(T4.F0_count, 2)*1.0/coalesce(T4.total_count, 12) as location_F0_percent,
+--coalesce(T4.F1_count, 2)*1.0/coalesce(T4.total_count, 12) as location_F1_percent,
+--coalesce(T4.F2_count, 3)*1.0/coalesce(T4.total_count, 12) as location_F2_percent,
 --coalesce(T4.F3_count, 0)*1.0/coalesce(T4.total_count, 12) as location_F3_percent,
 
-coalesce(T4.G1_count, 0)*1.0/coalesce(T4.total_count, 12) as location_G1_percent,
-coalesce(T4.G2_count, 3)*1.0/coalesce(T4.total_count, 12) as location_G2_percent,
-coalesce(T4.G3_count, 2)*1.0/coalesce(T4.total_count, 12) as location_G3_percent,
+--coalesce(T4.G1_count, 0)*1.0/coalesce(T4.total_count, 12) as location_G1_percent,
+--coalesce(T4.G2_count, 3)*1.0/coalesce(T4.total_count, 12) as location_G2_percent,
+--coalesce(T4.G3_count, 2)*1.0/coalesce(T4.total_count, 12) as location_G3_percent,
 --coalesce(T4.G4_count, 0)*1.0/coalesce(T4.total_count, 12) as location_G4_percent,
                      
 -- Agg Customer
 
-coalesce(T10.A0_count, 0)*1.0/coalesce(T10.total_count, 6) customer_A0_percent,
-coalesce(T10.A1_count, 4)*1.0/coalesce(T10.total_count, 6) customer_A1_percent,
+--coalesce(T10.A0_count, 0)*1.0/coalesce(T10.total_count, 6) customer_A0_percent,
+--coalesce(T10.A1_count, 4)*1.0/coalesce(T10.total_count, 6) customer_A1_percent,
 --coalesce(T10.A2_count, 0)*1.0/coalesce(T10.total_count, 6) customer_A2_percent,
 
-coalesce(T10.B0_count, 3)*1.0/coalesce(T10.total_count, 6) customer_B0_percent,
+--coalesce(T10.B0_count, 3)*1.0/coalesce(T10.total_count, 6) customer_B0_percent,
 --coalesce(T10.B1_count, 1)*1.0/coalesce(T10.total_count, 6) customer_B1_percent,
 
-coalesce(T10.C1_count, 0)*1.0/coalesce(T10.total_count, 6) customer_C1_percent,
-coalesce(T10.C2_count, 0)*1.0/coalesce(T10.total_count, 6) customer_C2_percent,
-coalesce(T10.C3_count, 1)*1.0/coalesce(T10.total_count, 6) customer_C3_percent,
+--coalesce(T10.C1_count, 0)*1.0/coalesce(T10.total_count, 6) customer_C1_percent,
+--coalesce(T10.C2_count, 0)*1.0/coalesce(T10.total_count, 6) customer_C2_percent,
+--coalesce(T10.C3_count, 1)*1.0/coalesce(T10.total_count, 6) customer_C3_percent,
 --coalesce(T10.C4_count, 0)*1.0/coalesce(T10.total_count, 6) customer_C4_percent,
 
-coalesce(T10.D1_count, 0)*1.0/coalesce(T10.total_count, 6) customer_D1_percent,
-coalesce(T10.D2_count, 0)*1.0/coalesce(T10.total_count, 6) customer_D2_percent,
+--coalesce(T10.D1_count, 0)*1.0/coalesce(T10.total_count, 6) customer_D1_percent,
+--coalesce(T10.D2_count, 0)*1.0/coalesce(T10.total_count, 6) customer_D2_percent,
 --coalesce(T10.D3_count, 4)*1.0/coalesce(T10.total_count, 6) customer_D3_percent,
 
-coalesce(T10.E0_count, 3)*1.0/coalesce(T10.total_count, 6) customer_E0_percent,
+--coalesce(T10.E0_count, 3)*1.0/coalesce(T10.total_count, 6) customer_E0_percent,
 --coalesce(T10.E1_count, 1)*1.0/coalesce(T10.total_count, 6) customer_E1_percent,
 
-coalesce(T10.F0_count, 0)*1.0/coalesce(T10.total_count, 6) customer_F0_percent,
-coalesce(T10.F1_count, 0)*1.0/coalesce(T10.total_count, 6) customer_F1_percent,
-coalesce(T10.F2_count, 1)*1.0/coalesce(T10.total_count, 6) customer_F2_percent,
+--coalesce(T10.F0_count, 0)*1.0/coalesce(T10.total_count, 6) customer_F0_percent,
+--coalesce(T10.F1_count, 0)*1.0/coalesce(T10.total_count, 6) customer_F1_percent,
+--coalesce(T10.F2_count, 1)*1.0/coalesce(T10.total_count, 6) customer_F2_percent,
 --coalesce(T10.F3_count, 0)*1.0/coalesce(T10.total_count, 6) customer_F3_percent,
 
-coalesce(T10.G1_count, 0)*1.0/coalesce(T10.total_count, 6) customer_G1_percent,
-coalesce(T10.G2_count, 1)*1.0/coalesce(T10.total_count, 6) customer_G2_percent,
-coalesce(T10.G3_count, 0)*1.0/coalesce(T10.total_count, 6) customer_G3_percent,
+--coalesce(T10.G1_count, 0)*1.0/coalesce(T10.total_count, 6) customer_G1_percent,
+--coalesce(T10.G2_count, 1)*1.0/coalesce(T10.total_count, 6) customer_G2_percent,
+--coalesce(T10.G3_count, 0)*1.0/coalesce(T10.total_count, 6) customer_G3_percent,
 --coalesce(T10.G4_count, 0)*1.0/coalesce(T10.total_count, 6) customer_G4_percent,
 
 -- Location Customer
 
-(coalesce(T4.A0_count, 2)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.A0_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_A0_percent,
-(coalesce(T4.A1_count, 7)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.A1_count, 4)*1.0/coalesce(T10.total_count, 6)) as customer_location_A1_percent,
-(coalesce(T4.A2_count, 1)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.A2_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_A2_percent,
+--(coalesce(T4.A0_count, 2)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.A0_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_A0_percent,
+--(coalesce(T4.A1_count, 7)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.A1_count, 4)*1.0/coalesce(T10.total_count, 6)) as customer_location_A1_percent,
+--(coalesce(T4.A2_count, 1)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.A2_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_A2_percent,
 
-(coalesce(T4.B0_count, 6)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.B0_count, 3)*1.0/coalesce(T10.total_count, 6)) as customer_location_B0_percent,
-(coalesce(T4.B1_count, 5)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.B1_count, 1)*1.0/coalesce(T10.total_count, 6)) as customer_location_B1_percent,
+--(coalesce(T4.B0_count, 6)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.B0_count, 3)*1.0/coalesce(T10.total_count, 6)) as customer_location_B0_percent,
+--(coalesce(T4.B1_count, 5)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.B1_count, 1)*1.0/coalesce(T10.total_count, 6)) as customer_location_B1_percent,
 
-(coalesce(T4.C1_count, 2)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.C1_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_C1_percent,
-(coalesce(T4.C2_count, 2)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.C2_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_C2_percent,
-(coalesce(T4.C3_count, 4)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.C3_count, 1)*1.0/coalesce(T10.total_count, 6)) as customer_location_C3_percent,
-(coalesce(T4.C4_count, 1)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.C4_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_C4_percent,
+--(coalesce(T4.C1_count, 2)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.C1_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_C1_percent,
+--(coalesce(T4.C2_count, 2)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.C2_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_C2_percent,
+--(coalesce(T4.C3_count, 4)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.C3_count, 1)*1.0/coalesce(T10.total_count, 6)) as customer_location_C3_percent,
+--(coalesce(T4.C4_count, 1)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.C4_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_C4_percent,
 
-(coalesce(T4.D1_count, 1)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.D1_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_D1_percent,
-(coalesce(T4.D2_count, 2)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.D2_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_D2_percent,
-(coalesce(T4.D3_count, 6)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.D3_count, 4)*1.0/coalesce(T10.total_count, 6)) as customer_location_D3_percent,
+--(coalesce(T4.D1_count, 1)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.D1_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_D1_percent,
+--(coalesce(T4.D2_count, 2)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.D2_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_D2_percent,
+--(coalesce(T4.D3_count, 6)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.D3_count, 4)*1.0/coalesce(T10.total_count, 6)) as customer_location_D3_percent,
 
-(coalesce(T4.E0_count, 6)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.E0_count, 3)*1.0/coalesce(T10.total_count, 6)) as customer_location_E0_percent,
-(coalesce(T4.E1_count, 5)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.E1_count, 1)*1.0/coalesce(T10.total_count, 6)) as customer_location_E1_percent,
+--(coalesce(T4.E0_count, 6)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.E0_count, 3)*1.0/coalesce(T10.total_count, 6)) as customer_location_E0_percent,
+--(coalesce(T4.E1_count, 5)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.E1_count, 1)*1.0/coalesce(T10.total_count, 6)) as customer_location_E1_percent,
 
-(coalesce(T4.F0_count, 2)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.F0_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_F0_percent,
-(coalesce(T4.F1_count, 2)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.F1_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_F1_percent,
-(coalesce(T4.F2_count, 3)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.F2_count, 1)*1.0/coalesce(T10.total_count, 6)) as customer_location_F2_percent,
-(coalesce(T4.F3_count, 0)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.F3_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_F3_percent,
+--(coalesce(T4.F0_count, 2)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.F0_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_F0_percent,
+--(coalesce(T4.F1_count, 2)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.F1_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_F1_percent,
+--(coalesce(T4.F2_count, 3)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.F2_count, 1)*1.0/coalesce(T10.total_count, 6)) as customer_location_F2_percent,
+--(coalesce(T4.F3_count, 0)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.F3_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_F3_percent,
 
-(coalesce(T4.G1_count, 0)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.G1_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_G1_percent,
-(coalesce(T4.G2_count, 3)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.G2_count, 1)*1.0/coalesce(T10.total_count, 6)) as customer_location_G2_percent,
-(coalesce(T4.G3_count, 2)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.G3_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_G3_percent,
-(coalesce(T4.G4_count, 0)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.G4_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_G4_percent,
+--(coalesce(T4.G1_count, 0)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.G1_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_G1_percent,
+--(coalesce(T4.G2_count, 3)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.G2_count, 1)*1.0/coalesce(T10.total_count, 6)) as customer_location_G2_percent,
+--(coalesce(T4.G3_count, 2)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.G3_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_G3_percent,
+--(coalesce(T4.G4_count, 0)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.G4_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_G4_percent,
+
 -- New values
 
 T13.nb_minutes,
