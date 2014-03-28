@@ -1,18 +1,30 @@
 library(caret)
 library(randomForest)
 
+stop("Variabiliser")
+
 # fonctions
 source("functions.R")
 
 # Chargement des données d'entrainement
 source("get_data.R")
 
+# Variables
+y.letter <- "G"
+y.variable <- "real_G"
+percent.train <- .8
+seed.value <- 42
+
+start.check <- .5
+end.check <- .9
+step.check <- .2
+
 # Selection variable à estimer
-data <- select.final.variable(data, "G")
+data <- select.final.variable(data, y.letter)
 
 # Separation train, test
-set.seed(42)
-tmp <- get.base.train.test(data, "real_G", .8)
+set.seed(seed.value)
+tmp <- get.base.train.test(data, y.variable, percent.train)
 
 dataTrainBase <- tmp$train
 dataTest <- tmp$test
@@ -24,7 +36,7 @@ dataTest <- tmp$test
 list_prob <- c(.3)
 prob <- .3
 
-list_prob <- seq(.5, .9, .1)
+list_prob <- seq(start.check, end.check, step.check)
 
 result <- data.frame()
 
@@ -32,13 +44,13 @@ for(prob in list_prob) {
   
 cat("Taille train : ", prob, "\n")
 
-tmp <- get.base.train.test(dataTrainBase, "real_G", prob)
+tmp <- get.base.train.test(dataTrainBase, y.variable, prob)
 dataTrain <- tmp$train
   
 # Evaluation modeles
 print("Entrainement modele GLM 1")
 formula_1 <- formula(
-  I(real_G == "1") ~ .
+  paste("I(",y.variable," == \"1\") ~ .", sep = "")
 )
 
 model_1 <- glm(
@@ -47,7 +59,7 @@ model_1 <- glm(
 
 print("Entrainement modele GLM 2")
 formula_2 <- formula(
-  I(real_G == "2") ~ (.)^2
+  I(real_G == "2") ~ .
 
 )
 
