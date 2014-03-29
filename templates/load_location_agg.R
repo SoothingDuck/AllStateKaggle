@@ -3,7 +3,7 @@ library(plyr)
 library(reshape2)
 
 # Infos de bases
-sqlitedb.filename <- "allstate_data.sqlite3"
+sqlitedb.filename <- file.path("db", "allstate_data.sqlite3")
 
 drv <- dbDriver("SQLite")
 con <- dbConnect(drv, dbname=sqlitedb.filename)

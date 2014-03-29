@@ -1,3 +1,3 @@
-source("load_raw_data.R")
-source("load_location_agg.R")
-source("load_customer_agg.R")
+source(file.path("templates","load_raw_data.R"))
+source(file.path("templates","load_location_agg.R"))
+source(file.path("templates","load_customer_agg.R"))

@@ -1,7 +1,7 @@
 library(RSQLite)
 library(plyr)
 
-sqlitedb.filename <- "allstate_data.sqlite3"
+sqlitedb.filename <- file.path("db", "allstate_data.sqlite3")
 unlink(sqlitedb.filename)
 
 print("Chargement données Train...")

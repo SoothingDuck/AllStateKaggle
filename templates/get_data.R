@@ -1,7 +1,7 @@
 library(stringr)
 
-source("get_data_test.R")
-source("get_data_train.R")
+source(file.path("templates", "get_data_test.R"))
+source(file.path("templates", "get_data_train.R"))
 
 normalize.data <- function(data) {
   rownames(data) <- as.character(data$customer_ID)
