@@ -27,6 +27,7 @@ dataTrainBase$predict_glm_4 <- predict(model_4_final_G, newdata=dataTrainBase)
 
 dataTrainBase$predicted_glm_G <- factor(max.col(dataTrainBase[,c("predict_glm_1","predict_glm_2","predict_glm_3","predict_glm_4")]))
 
+print(table(dataTrainBase$predicted_glm_G))
 
 # Sauvegarde des modeles
 save(model_1_final_G, model_2_final_G, model_3_final_G, model_4_final_G, file=RData.output.filename)
