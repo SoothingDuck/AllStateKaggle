@@ -33,6 +33,7 @@ T1.D as last_D,
 T1.E as last_E,
 T1.F as last_F,
 T1.G as last_G,
+T1.cluster_number as last_cluster_number,
 
 -- Before last
 T12.A as before_last_A,

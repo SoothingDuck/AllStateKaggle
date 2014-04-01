@@ -75,6 +75,10 @@ normalize.data <- function(data) {
   # Suppression NA Location
 #   data <- data[! is.na(data$location_G_proba_4),]
   
+  # last_cluster_number
+  data$last_cluster_number <- factor(data$last_cluster_number)
+
+
   return(data)
 }
 

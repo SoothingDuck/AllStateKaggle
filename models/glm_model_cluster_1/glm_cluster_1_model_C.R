@@ -9,8 +9,8 @@ start.check <- .5
 end.check <- .9
 step.check <- .2
 
-csv.output.filename <- file.path("DATA","OUTPUT","result_model_glm_all_clusters_C.csv")
-RData.output.filename <- file.path("DATA","OUTPUT","first_model_glm_all_clusters_C.RData")
+csv.output.filename <- file.path("DATA","OUTPUT","result_model_glm_cluster_1_C.csv")
+RData.output.filename <- file.path("DATA","OUTPUT","glm_model_cluster_1_C.RData")
 
 # Formules
 formula_1 <- formula(
@@ -32,6 +32,6 @@ formula_4 <- formula(
 # fonctions
 source(file.path("templates","functions.R"))
 source(file.path("templates","get_data.R"))
-source(file.path("templates","test_train_skeleton_all_clusters.R"))
+source(file.path("templates","test_train_skeleton_cluster_1.R"))
 source(file.path("templates","glm_skeleton_error_estimate_C.R"))
 source(file.path("templates","glm_skeleton_final_training_C.R"))
