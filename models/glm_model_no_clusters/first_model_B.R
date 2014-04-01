@@ -9,8 +9,8 @@ start.check <- .5
 end.check <- .9
 step.check <- .2
 
-csv.output.filename <- file.path("DATA","OUTPUT","result_model_B.csv")
-RData.output.filename <- file.path("DATA","OUTPUT","first_model_B.RData")
+csv.output.filename <- file.path("DATA","OUTPUT","result_model_glm_all_clusters_B.csv")
+RData.output.filename <- file.path("DATA","OUTPUT","first_model_glm_all_clusters_B.RData")
 
 # Formules
 formula_0 <- formula(
