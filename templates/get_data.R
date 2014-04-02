@@ -66,7 +66,7 @@ normalize.data <- function(data) {
   data$first_C <- factor(data$first_C)
   data$last_C <- factor(data$last_C)
   data$before_last_C <- factor(data$before_last_C)
-  data$same_C <- (data$first_C == data$last_c)
+  data$same_C <- (data$first_C == data$last_C)
   
   # D
   data$first_D <- factor(data$first_D)
