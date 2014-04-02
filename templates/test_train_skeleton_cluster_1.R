@@ -3,7 +3,7 @@
 data <- select.final.variable(data, y.letter)
 
 # Cluster 1
-data <- subset(data, last_cluster_number == "1")
+data <- subset(data, cluster_number == "1")
 data <- data[, colnames(data) != "cluster_number"]
 
 # Separation train, test
