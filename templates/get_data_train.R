@@ -35,6 +35,28 @@ T1.F as last_F,
 T1.G as last_G,
 T1.cluster_number as last_cluster_number,
 
+-- First values data
+T14.time as first_time,
+T14.group_size as first_group_size,
+T14.homeowner as first_homeowner,
+T14.car_age as first_car_age,
+T14.car_value as first_car_value,
+T14.risk_factor as first_risk_factor,
+T14.age_oldest as first_age_oldest,
+T14.age_youngest as first_age_youngest,
+T14.married_couple as first_married_couple,
+coalesce(T14.C_previous, 3) as first_C_previous,
+coalesce(T14.duration_previous, 15) as first_duration_previous,
+T14.cost as first_cost,
+T14.A as first_A,
+T14.B as first_B,
+T14.C as first_C,
+T14.D as first_D,
+T14.E as first_E,
+T14.F as first_F,
+T14.G as first_G,
+T14.cluster_number as first_cluster_number,
+
 -- Before last
 T12.A as before_last_A,
 T12.B as before_last_B,
@@ -219,6 +241,8 @@ inner join
   record_type = 0
   group by 1
 ) T13 on (T1.customer_ID = T13.customer_ID)
+inner join 
+transactions T14 on (T1.customer_ID = T14.customer_ID and T14.shopping_pt = 1)
 where
 T1.record_type = 0
 and

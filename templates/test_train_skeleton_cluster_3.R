@@ -4,7 +4,7 @@ data <- select.final.variable(data, y.letter)
 
 # Cluster 3
 data <- subset(data, last_cluster_number == "3")
-data <- data[, colnames(data) != "last_cluster_number"]
+data <- data[, colnames(data) != "cluster_number"]
 
 # Separation train, test
 set.seed(seed.value)
