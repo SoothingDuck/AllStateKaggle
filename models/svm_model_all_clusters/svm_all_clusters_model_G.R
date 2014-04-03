@@ -21,6 +21,10 @@ formula_svm_radial <- formula(
   paste(y.variable," ~ .", sep = "")
 )
 
+formula_svm_polynomial <- formula(
+  paste(y.variable," ~ .", sep = "")
+)
+
 # fonctions
 source(file.path("templates","functions.R"))
 source(file.path("templates","get_data.R"))

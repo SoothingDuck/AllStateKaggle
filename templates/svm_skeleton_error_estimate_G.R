@@ -18,7 +18,7 @@ for(prob in list_prob) {
   print("Entrainement modele SVM Linear")
   model_svm_linear <- svm(
     formula_svm_linear
-    , kernel = "linear", data=dataTrain)
+    , kernel = "linear", data=dataTrain, cost=.05)
   fin <- Sys.time()
   print(fin-debut)
 
@@ -26,7 +26,15 @@ for(prob in list_prob) {
   print("Entrainement modele SVM Radial")
   model_svm_radial <- svm(
     formula_svm_radial
-    , kernel = "radial", data=dataTrain)
+    , kernel = "radial", data=dataTrain, cost=.05)
+  fin <- Sys.time()
+  print(fin-debut)
+  
+  debut <- Sys.time()
+  print("Entrainement modele SVM Poly")
+  model_svm_polynomial <- svm(
+    formula_svm_polynomial
+    , kernel = "polynomial", data=dataTrain, cost=.05, degree=2)
   fin <- Sys.time()
   print(fin-debut)
   
@@ -36,13 +44,22 @@ for(prob in list_prob) {
   dataTest$predicted_svm_radial_G <- predict(model_svm_radial, newdata=dataTest)
   dataTrain$predicted_svm_radial_G <- predict(model_svm_radial, newdata=dataTrain)  
 
+  dataTest$predicted_svm_polynomial_G <- predict(model_svm_polynomial, newdata=dataTest)
+  dataTrain$predicted_svm_polynomial_G <- predict(model_svm_polynomial, newdata=dataTrain)  
+
   print("Error SVM Linear Test:")
   print(prediction_error(dataTest$real_G, dataTest$predicted_svm_linear_G))
   print("Error SVM Radial Test:")
   print(prediction_error(dataTest$real_G, dataTest$predicted_svm_radial_G))
+  print("Error SVM Polynomial Test:")
+  print(prediction_error(dataTest$real_G, dataTest$predicted_svm_polynomial_G))
   
-  print("Error GLM Train:")
+  print("Error SVL Linear Train:")
   print(prediction_error(dataTrain$real_G, dataTrain$predicted_svm_linear_G))
+  print("Error SVM Radial Train:")
+  print(prediction_error(dataTrain$real_G, dataTrain$predicted_svm_radial_G))
+  print("Error SVM Polynomial Train:")
+  print(prediction_error(dataTrain$real_G, dataTrain$predicted_svm_polynomial_G))
   
   result <- rbind(result, data.frame(
     size.train=prob, 
