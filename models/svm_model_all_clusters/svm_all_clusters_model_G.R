@@ -13,8 +13,16 @@ csv.output.filename <- file.path("DATA","OUTPUT","result_model_svm_all_clusters_
 RData.output.filename <- file.path("DATA","OUTPUT","first_model_svm_all_clusters_G.RData")
 
 # Formules
-formula_svm <- formula(
-  paste(y.variable, " ~ .", sep = "")
+formula_svm_linear <- formula(
+  paste(y.variable," ~ .", sep = "")
+)
+
+formula_svm_radial <- formula(
+  paste(y.variable," ~ .", sep = "")
+)
+
+formula_svm_polynomial <- formula(
+  paste(y.variable," ~ .", sep = "")
 )
 
 # fonctions
