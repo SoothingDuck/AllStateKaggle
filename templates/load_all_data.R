@@ -1,4 +1,5 @@
 source(file.path("templates","load_raw_data.R"))
+source(file.path("templates","load_transition_location_F.R"))
 source(file.path("templates","load_transition_location_G.R"))
 source(file.path("templates","load_location_agg.R"))
 source(file.path("templates","load_customer_agg.R"))

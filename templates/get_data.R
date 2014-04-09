@@ -54,43 +54,43 @@ normalize.data <- function(data) {
   data$first_A <- factor(data$first_A)
   data$last_A <- factor(data$last_A)
   data$before_last_A <- factor(data$before_last_A)
-  data$same_A <- (data$first_A == data$last_A)
+  #data$same_A <- (data$first_A == data$last_A)
   
   # B
   data$first_B <- factor(data$first_B)
   data$last_B <- factor(data$last_B)
   data$before_last_B <- factor(data$before_last_B)
-  data$same_B <- (data$first_B == data$last_B)
+  #data$same_B <- (data$first_B == data$last_B)
   
   # C
   data$first_C <- factor(data$first_C)
   data$last_C <- factor(data$last_C)
   data$before_last_C <- factor(data$before_last_C)
-  data$same_C <- (data$first_C == data$last_C)
+  #data$same_C <- (data$first_C == data$last_C)
   
   # D
   data$first_D <- factor(data$first_D)
   data$last_D <- factor(data$last_D)
   data$before_last_D <- factor(data$before_last_D)
-  data$same_D <- (data$first_D == data$last_D)
+  #data$same_D <- (data$first_D == data$last_D)
   
   # E
   data$first_E <- factor(data$first_E)
   data$last_E <- factor(data$last_E)
   data$before_last_E <- factor(data$before_last_E)
-  data$same_E <- (data$first_E == data$last_E)
+  #data$same_E <- (data$first_E == data$last_E)
   
   # F
   data$first_F <- factor(data$first_F)
   data$last_F <- factor(data$last_F)
   data$before_last_F <- factor(data$before_last_F)
-  data$same_F <- (data$first_F == data$last_F)
+  #data$same_F <- (data$first_F == data$last_F)
   
   # G
   data$first_G <- factor(data$first_G)
   data$last_G <- factor(data$last_G)
   data$before_last_G <- factor(data$before_last_G)
-  data$same_G <- (data$first_G == data$last_G)
+  #data$same_G <- (data$first_G == data$last_G)
   
   # Suppression NA Location
   # data <- data[! is.na(data$location_G_proba_4),]

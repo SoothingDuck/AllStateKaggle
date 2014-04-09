@@ -36,37 +36,37 @@ all.data <- ddply(all.data,
 # [25] "cost"              "dataset"          
 
 # kmeans
-set.seed(42)
-tmp <- all.data
-tmp$day <- factor(tmp$day)
-tmp$state <- factor(tmp$state)
-tmp$homeowner <- factor(tmp$homeowner)
-tmp$car_value <- factor(tmp$car_value)
-tmp$risk_factor <- factor(ifelse(is.na(tmp$risk_factor), "NotAvailable", tmp$risk_factor))
-tmp$married_couple <- factor(tmp$married_couple)
-tmp$C_previous <- factor(ifelse(is.na(tmp$C_previous), "NotAvailable", tmp$C_previous))
-tmp$duration_previous <- factor(ifelse(is.na(tmp$duration_previous), "NotAvailable", tmp$duration_previous))
-tmp$A <- factor(tmp$A)
-tmp$B <- factor(tmp$B)
-tmp$C <- factor(tmp$C)
-tmp$D <- factor(tmp$D)
-tmp$E <- factor(tmp$E)
-tmp$F <- factor(tmp$F)
-tmp$G <- factor(tmp$G)
-
-model.tmp <- model.matrix(
-  ~ 
-    # day + 
-    state + group_size + homeowner + car_age + car_value + risk_factor
-  + age_oldest + age_youngest + married_couple + C_previous 
-  # + duration_previous
-  + A + B + C + D + E + F + G + cost,
-  data=tmp
-)
-
-k <- kmeans(model.tmp, centers=3)
-
-all.data$cluster_number <- k$cluster
+# set.seed(42)
+# tmp <- all.data
+# tmp$day <- factor(tmp$day)
+# tmp$state <- factor(tmp$state)
+# tmp$homeowner <- factor(tmp$homeowner)
+# tmp$car_value <- factor(tmp$car_value)
+# tmp$risk_factor <- factor(ifelse(is.na(tmp$risk_factor), "NotAvailable", tmp$risk_factor))
+# tmp$married_couple <- factor(tmp$married_couple)
+# tmp$C_previous <- factor(ifelse(is.na(tmp$C_previous), "NotAvailable", tmp$C_previous))
+# tmp$duration_previous <- factor(ifelse(is.na(tmp$duration_previous), "NotAvailable", tmp$duration_previous))
+# tmp$A <- factor(tmp$A)
+# tmp$B <- factor(tmp$B)
+# tmp$C <- factor(tmp$C)
+# tmp$D <- factor(tmp$D)
+# tmp$E <- factor(tmp$E)
+# tmp$F <- factor(tmp$F)
+# tmp$G <- factor(tmp$G)
+# 
+# model.tmp <- model.matrix(
+#   ~ 
+#     # day + 
+#     state + group_size + homeowner + car_age + car_value + risk_factor
+#   + age_oldest + age_youngest + married_couple + C_previous 
+#   # + duration_previous
+#   + A + B + C + D + E + F + G + cost,
+#   data=tmp
+# )
+# 
+# k <- kmeans(model.tmp, centers=3)
+# 
+# all.data$cluster_number <- k$cluster
 # Fin cluster
 
 customer_columns <- c(
@@ -100,8 +100,7 @@ transactions_columns <- c(
   "F",
   "G",
   "cost",
-  "line_number",
-  "cluster_number"
+  "line_number"
   )
 
 drv <- dbDriver("SQLite")

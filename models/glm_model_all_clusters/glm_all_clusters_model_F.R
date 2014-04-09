@@ -14,19 +14,104 @@ RData.output.filename <- file.path("DATA","OUTPUT","first_model_glm_all_clusters
 
 # Formules
 formula_0 <- formula(
-  paste("I(",y.variable," == \"0\") ~ .", sep = "")
+  I(real_F == 0) ~ .
+  - percent_transition_F_0_vers_3
+  - percent_transition_F_1_vers_3
+  - percent_transition_F_2_vers_3
+  - percent_transition_F_3_vers_3
+  
+  - percent_transition_G_1_vers_1
+  - percent_transition_G_1_vers_2
+  - percent_transition_G_1_vers_3
+  - percent_transition_G_1_vers_4
+  - percent_transition_G_2_vers_1
+  - percent_transition_G_2_vers_2
+  - percent_transition_G_2_vers_3
+  - percent_transition_G_2_vers_4
+  - percent_transition_G_3_vers_1
+  - percent_transition_G_3_vers_2
+  - percent_transition_G_3_vers_3
+  - percent_transition_G_3_vers_4
+  - percent_transition_G_4_vers_1
+  - percent_transition_G_4_vers_2
+  - percent_transition_G_4_vers_3
+  - percent_transition_G_4_vers_4
+  
 )
 
 formula_1 <- formula(
-  paste("I(",y.variable," == \"1\") ~ .", sep = "")
+  I(real_F == 1) ~ .
+  - percent_transition_F_0_vers_3
+  - percent_transition_F_1_vers_3
+  - percent_transition_F_2_vers_3
+  - percent_transition_F_3_vers_3
+  
+  - percent_transition_G_1_vers_1
+  - percent_transition_G_1_vers_2
+  - percent_transition_G_1_vers_3
+  - percent_transition_G_1_vers_4
+  - percent_transition_G_2_vers_1
+  - percent_transition_G_2_vers_2
+  - percent_transition_G_2_vers_3
+  - percent_transition_G_2_vers_4
+  - percent_transition_G_3_vers_1
+  - percent_transition_G_3_vers_2
+  - percent_transition_G_3_vers_3
+  - percent_transition_G_3_vers_4
+  - percent_transition_G_4_vers_1
+  - percent_transition_G_4_vers_2
+  - percent_transition_G_4_vers_3
+  - percent_transition_G_4_vers_4
 )
 
 formula_2 <- formula(
-  paste("I(",y.variable," == \"2\") ~ .", sep = "")
+  I(real_F == 2) ~ .
+  - percent_transition_F_0_vers_3
+  - percent_transition_F_1_vers_3
+  - percent_transition_F_2_vers_3
+  - percent_transition_F_3_vers_3
+  
+  - percent_transition_G_1_vers_1
+  - percent_transition_G_1_vers_2
+  - percent_transition_G_1_vers_3
+  - percent_transition_G_1_vers_4
+  - percent_transition_G_2_vers_1
+  - percent_transition_G_2_vers_2
+  - percent_transition_G_2_vers_3
+  - percent_transition_G_2_vers_4
+  - percent_transition_G_3_vers_1
+  - percent_transition_G_3_vers_2
+  - percent_transition_G_3_vers_3
+  - percent_transition_G_3_vers_4
+  - percent_transition_G_4_vers_1
+  - percent_transition_G_4_vers_2
+  - percent_transition_G_4_vers_3
+  - percent_transition_G_4_vers_4
 )
 
 formula_3 <- formula(
-  paste("I(",y.variable," == \"3\") ~ .", sep = "")
+  I(real_F == 3) ~ .
+  - percent_transition_F_0_vers_3
+  - percent_transition_F_1_vers_3
+  - percent_transition_F_2_vers_3
+  - percent_transition_F_3_vers_3
+  
+  - percent_transition_G_1_vers_1
+  - percent_transition_G_1_vers_2
+  - percent_transition_G_1_vers_3
+  - percent_transition_G_1_vers_4
+  - percent_transition_G_2_vers_1
+  - percent_transition_G_2_vers_2
+  - percent_transition_G_2_vers_3
+  - percent_transition_G_2_vers_4
+  - percent_transition_G_3_vers_1
+  - percent_transition_G_3_vers_2
+  - percent_transition_G_3_vers_3
+  - percent_transition_G_3_vers_4
+  - percent_transition_G_4_vers_1
+  - percent_transition_G_4_vers_2
+  - percent_transition_G_4_vers_3
+  - percent_transition_G_4_vers_4
 )
 
 # fonctions
