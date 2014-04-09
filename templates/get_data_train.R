@@ -33,7 +33,7 @@ T1.D as last_D,
 T1.E as last_E,
 T1.F as last_F,
 T1.G as last_G,
-T1.cluster_number as last_cluster_number,
+-- T1.cluster_number as last_cluster_number,
 
 -- First values data
 T14.time as first_time,
@@ -55,7 +55,7 @@ T14.D as first_D,
 T14.E as first_E,
 T14.F as first_F,
 T14.G as first_G,
-T14.cluster_number as first_cluster_number,
+-- T14.cluster_number as first_cluster_number,
 
 -- Before last
 T12.A as before_last_A,

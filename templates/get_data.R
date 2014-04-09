@@ -97,8 +97,8 @@ normalize.data <- function(data) {
   
   # last_cluster_number
   # data$last_cluster_number <- factor(data$last_cluster_number)
-  data$cluster_number <- factor(data$first_cluster_number)
-  data <- data[,! colnames(data) %in% c("last_cluster_number", "first_cluster_number")]
+  # data$cluster_number <- factor(data$first_cluster_number)
+  # data <- data[,! colnames(data) %in% c("last_cluster_number", "first_cluster_number")]
   
   
   return(data)
