@@ -91,6 +91,13 @@ ggplot(subset(result, state %in% selected.states & prop.train == .9)) +
   geom_bar(aes(x=state, y=prc.ko.state.test, stat="bin"))
 
 
+# ko.NY
+test.NY <- subset(dataTest, state == "NY")
+
+ok.NY.test <- test.NY[test.NY$predict_glm_G == test.NY$real_G,]
+ko.NY.test <- test.NY[test.NY$predict_glm_G != test.NY$real_G,]
+
+
 # Check
 m <- melt(dataTrainBase, id.vars=c("customer_ID","state","real_G"), measure.vars=c("predicted_G_1","predicted_G_2","predicted_G_3","predicted_G_4"))
 

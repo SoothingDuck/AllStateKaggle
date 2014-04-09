@@ -165,6 +165,24 @@ T13.nb_minutes,
 T13.nb_views,
 T13.ratio_hesitation,
 
+-- Transitions
+T15.percent_transition_G_1_vers_1,
+T15.percent_transition_G_1_vers_2,
+T15.percent_transition_G_1_vers_3,
+T15.percent_transition_G_1_vers_4,
+T15.percent_transition_G_2_vers_1,
+T15.percent_transition_G_2_vers_2,
+T15.percent_transition_G_2_vers_3,
+T15.percent_transition_G_2_vers_4,
+T15.percent_transition_G_3_vers_1,
+T15.percent_transition_G_3_vers_2,
+T15.percent_transition_G_3_vers_3,
+T15.percent_transition_G_3_vers_4,
+T15.percent_transition_G_4_vers_1,
+T15.percent_transition_G_4_vers_2,
+T15.percent_transition_G_4_vers_3,
+T15.percent_transition_G_4_vers_4,
+
 -- Objectifs
 T3.A as real_A,
 T3.B as real_B,
@@ -243,6 +261,8 @@ inner join
 ) T13 on (T1.customer_ID = T13.customer_ID)
 inner join 
 transactions T14 on (T1.customer_ID = T14.customer_ID and T14.shopping_pt = 1)
+inner join
+transitions_G T15 on (T1.location = T15.location)
 where
 T1.record_type = 0
 and
