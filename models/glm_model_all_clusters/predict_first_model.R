@@ -2,14 +2,14 @@ library(caret)
 library(randomForest)
 
 # fonctions
-source("functions.R")
+source(file.path("templates", "functions.R"))
 
 # Chargement des données d'entrainement
-source("get_data.R")
+source(file.path("templates", "get_data.R"))
 
 # Funcions
 predict_A <- function(data) {
-  load(file=file.path("DATA","OUTPUT","first_model_A.RData"))
+  load(file=file.path("DATA","OUTPUT","first_model_glm_all_clusters_A.RData"))
   
   tmp <- data.frame(
     predict_glm_0 = predict(model_0_final_A, newdata=data),
@@ -22,7 +22,7 @@ predict_A <- function(data) {
 }
 
 predict_B <- function(data) {
-  load(file=file.path("DATA","OUTPUT","first_model_B.RData"))
+  load(file=file.path("DATA","OUTPUT","first_model_glm_all_clusters_B.RData"))
   
   tmp <- data.frame(
     predict_glm_0 = predict(model_0_final_B, newdata=data),
@@ -34,7 +34,7 @@ predict_B <- function(data) {
 }
 
 predict_C <- function(data) {
-  load(file=file.path("DATA","OUTPUT","first_model_C.RData"))
+  load(file=file.path("DATA","OUTPUT","first_model_glm_all_clusters_C.RData"))
   
   tmp <- data.frame(
     predict_glm_1 = predict(model_1_final_C, newdata=data),
@@ -48,7 +48,7 @@ predict_C <- function(data) {
 }
 
 predict_D <- function(data) {
-  load(file=file.path("DATA","OUTPUT","first_model_D.RData"))
+  load(file=file.path("DATA","OUTPUT","first_model_glm_all_clusters_D.RData"))
   
   tmp <- data.frame(
     predict_glm_1 = predict(model_1_final_D, newdata=data),
@@ -61,7 +61,7 @@ predict_D <- function(data) {
 }
 
 predict_E <- function(data) {
-  load(file=file.path("DATA","OUTPUT","first_model_E.RData"))
+  load(file=file.path("DATA","OUTPUT","first_model_glm_all_clusters_E.RData"))
   
   tmp <- data.frame(
     predict_glm_0 = predict(model_0_final_E, newdata=data),
@@ -73,7 +73,7 @@ predict_E <- function(data) {
 }
 
 predict_F <- function(data) {
-  load(file=file.path("DATA","OUTPUT","first_model_F.RData"))
+  load(file=file.path("DATA","OUTPUT","first_model_glm_all_clusters_F.RData"))
   
   tmp <- data.frame(
     predict_glm_0 = predict(model_0_final_F, newdata=data),
@@ -87,7 +87,7 @@ predict_F <- function(data) {
 }
 
 predict_G <- function(data) {
-  load(file=file.path("DATA","OUTPUT","first_model_G.RData"))
+  load(file=file.path("DATA","OUTPUT","first_model_glm_all_clusters_G.RData"))
   
   tmp <- data.frame(
     predict_glm_1 = predict(model_1_final_G, newdata=data),
@@ -129,8 +129,8 @@ dataTestBase <- tmp$test
 dataTrainBase <- predict_ALL(dataTrainBase)
 dataTestBase <- predict_ALL(dataTestBase)
 
-write.csv(dataTrainBase, file=file.path("DATA","train_first_model_prediction_v2.csv"))
-write.csv(dataTestBase, file=file.path("DATA","test_first_model_prediction_v2.csv"))
+write.csv(dataTrainBase, file=file.path("DATA","train_first_model_glm_all_clusters_prediction_v5.csv"))
+write.csv(dataTestBase, file=file.path("DATA","test_first_model_glm_all_clusters_prediction_v5.csv"))
 
 # Separation train, test
 set.seed(42)
@@ -165,5 +165,5 @@ dataTest$plan <- dataTest$predicted_ABCDEFG
 
 df.submission <- cbind(rownames(dataTest), dataTest$plan)
 colnames(df.submission) <- c("customer_ID","plan")
-submission.filename <- file.path("DATA", "first_model_submission_v2.csv")
+submission.filename <- file.path("DATA", "first_model_glm_all_clusters_submission_v5.csv")
 write.table(df.submission, file = submission.filename, quote = FALSE, sep=",", row.names = FALSE, col.names=TRUE)
