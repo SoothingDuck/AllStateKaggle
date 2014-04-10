@@ -187,7 +187,7 @@ formula_1 <- formula(
 
 formula_2 <- formula(
   I(real_F == 2) ~ 
-  state
+  I(state == "NY")
 #   + last_day          
 #   + last_group_size              
 #   + last_homeowner       
@@ -205,7 +205,7 @@ formula_2 <- formula(
 #   + last_C                    
 #   + last_D                 
 #   + last_E                       
-  + last_F                
+  + I(last_F == "2")
 #   + last_G               
 #   + first_group_size             
 #   + first_homeowner     
@@ -230,7 +230,7 @@ formula_2 <- formula(
 #   + before_last_C            
 #   + before_last_D                
 #   + before_last_E          
-  + before_last_F       
+  + I(before_last_F == "2")
 #   + before_last_G                
 #   + nb_minutes              
 #   + nb_views                   
