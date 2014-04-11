@@ -33,114 +33,49 @@ T1.D as last_D,
 T1.E as last_E,
 T1.F as last_F,
 T1.G as last_G,
-
--- Before last
-T12.A as before_last_A,
-T12.B as before_last_B,
-T12.C as before_last_C,
-T12.D as before_last_D,
-T12.E as before_last_E,
-T12.F as before_last_F,
-T12.G as before_last_G,
-
--- Agg location
-
-coalesce(T4.A0_count, 2)*1.0/coalesce(T4.total_count, 12) as location_A0_percent,
-coalesce(T4.A1_count, 7)*1.0/coalesce(T4.total_count, 12) as location_A1_percent,
---coalesce(T4.A2_count, 1)*1.0/coalesce(T4.total_count, 12) as location_A2_percent,
-
-coalesce(T4.B0_count, 6)*1.0/coalesce(T4.total_count, 12) as location_B0_percent,
---coalesce(T4.B1_count, 5)*1.0/coalesce(T4.total_count, 12) as location_B1_percent,
-
-coalesce(T4.C1_count, 2)*1.0/coalesce(T4.total_count, 12) as location_C1_percent,
-coalesce(T4.C2_count, 2)*1.0/coalesce(T4.total_count, 12) as location_C2_percent,
-coalesce(T4.C3_count, 4)*1.0/coalesce(T4.total_count, 12) as location_C3_percent,
---coalesce(T4.C4_count, 1)*1.0/coalesce(T4.total_count, 12) as location_C4_percent,
-
-coalesce(T4.D1_count, 1)*1.0/coalesce(T4.total_count, 12) as location_D1_percent,
-coalesce(T4.D2_count, 2)*1.0/coalesce(T4.total_count, 12) as location_D2_percent,
---coalesce(T4.D3_count, 6)*1.0/coalesce(T4.total_count, 12) as location_D3_percent,
-
-coalesce(T4.E0_count, 6)*1.0/coalesce(T4.total_count, 12) as location_E0_percent,
---coalesce(T4.E1_count, 5)*1.0/coalesce(T4.total_count, 12) as location_E1_percent,
-
-coalesce(T4.F0_count, 2)*1.0/coalesce(T4.total_count, 12) as location_F0_percent,
-coalesce(T4.F1_count, 2)*1.0/coalesce(T4.total_count, 12) as location_F1_percent,
-coalesce(T4.F2_count, 3)*1.0/coalesce(T4.total_count, 12) as location_F2_percent,
---coalesce(T4.F3_count, 0)*1.0/coalesce(T4.total_count, 12) as location_F3_percent,
-
-coalesce(T4.G1_count, 0)*1.0/coalesce(T4.total_count, 12) as location_G1_percent,
-coalesce(T4.G2_count, 3)*1.0/coalesce(T4.total_count, 12) as location_G2_percent,
-coalesce(T4.G3_count, 2)*1.0/coalesce(T4.total_count, 12) as location_G3_percent,
---coalesce(T4.G4_count, 0)*1.0/coalesce(T4.total_count, 12) as location_G4_percent,
-
--- Agg Customer
-
-coalesce(T10.A0_count, 0)*1.0/coalesce(T10.total_count, 6) customer_A0_percent,
-coalesce(T10.A1_count, 4)*1.0/coalesce(T10.total_count, 6) customer_A1_percent,
---coalesce(T10.A2_count, 0)*1.0/coalesce(T10.total_count, 6) customer_A2_percent,
-
-coalesce(T10.B0_count, 3)*1.0/coalesce(T10.total_count, 6) customer_B0_percent,
---coalesce(T10.B1_count, 1)*1.0/coalesce(T10.total_count, 6) customer_B1_percent,
-
-coalesce(T10.C1_count, 0)*1.0/coalesce(T10.total_count, 6) customer_C1_percent,
-coalesce(T10.C2_count, 0)*1.0/coalesce(T10.total_count, 6) customer_C2_percent,
-coalesce(T10.C3_count, 1)*1.0/coalesce(T10.total_count, 6) customer_C3_percent,
---coalesce(T10.C4_count, 0)*1.0/coalesce(T10.total_count, 6) customer_C4_percent,
-
-coalesce(T10.D1_count, 0)*1.0/coalesce(T10.total_count, 6) customer_D1_percent,
-coalesce(T10.D2_count, 0)*1.0/coalesce(T10.total_count, 6) customer_D2_percent,
---coalesce(T10.D3_count, 4)*1.0/coalesce(T10.total_count, 6) customer_D3_percent,
-
-coalesce(T10.E0_count, 3)*1.0/coalesce(T10.total_count, 6) customer_E0_percent,
---coalesce(T10.E1_count, 1)*1.0/coalesce(T10.total_count, 6) customer_E1_percent,
-
-coalesce(T10.F0_count, 0)*1.0/coalesce(T10.total_count, 6) customer_F0_percent,
-coalesce(T10.F1_count, 0)*1.0/coalesce(T10.total_count, 6) customer_F1_percent,
-coalesce(T10.F2_count, 1)*1.0/coalesce(T10.total_count, 6) customer_F2_percent,
---coalesce(T10.F3_count, 0)*1.0/coalesce(T10.total_count, 6) customer_F3_percent,
-
-coalesce(T10.G1_count, 0)*1.0/coalesce(T10.total_count, 6) customer_G1_percent,
-coalesce(T10.G2_count, 1)*1.0/coalesce(T10.total_count, 6) customer_G2_percent,
-coalesce(T10.G3_count, 0)*1.0/coalesce(T10.total_count, 6) customer_G3_percent,
---coalesce(T10.G4_count, 0)*1.0/coalesce(T10.total_count, 6) customer_G4_percent,
-
--- Location Customer
-
-(coalesce(T4.A0_count, 2)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.A0_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_A0_percent,
-(coalesce(T4.A1_count, 7)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.A1_count, 4)*1.0/coalesce(T10.total_count, 6)) as customer_location_A1_percent,
-(coalesce(T4.A2_count, 1)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.A2_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_A2_percent,
-
-(coalesce(T4.B0_count, 6)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.B0_count, 3)*1.0/coalesce(T10.total_count, 6)) as customer_location_B0_percent,
-(coalesce(T4.B1_count, 5)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.B1_count, 1)*1.0/coalesce(T10.total_count, 6)) as customer_location_B1_percent,
-
-(coalesce(T4.C1_count, 2)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.C1_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_C1_percent,
-(coalesce(T4.C2_count, 2)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.C2_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_C2_percent,
-(coalesce(T4.C3_count, 4)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.C3_count, 1)*1.0/coalesce(T10.total_count, 6)) as customer_location_C3_percent,
-(coalesce(T4.C4_count, 1)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.C4_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_C4_percent,
-
-(coalesce(T4.D1_count, 1)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.D1_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_D1_percent,
-(coalesce(T4.D2_count, 2)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.D2_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_D2_percent,
-(coalesce(T4.D3_count, 6)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.D3_count, 4)*1.0/coalesce(T10.total_count, 6)) as customer_location_D3_percent,
-
-(coalesce(T4.E0_count, 6)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.E0_count, 3)*1.0/coalesce(T10.total_count, 6)) as customer_location_E0_percent,
-(coalesce(T4.E1_count, 5)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.E1_count, 1)*1.0/coalesce(T10.total_count, 6)) as customer_location_E1_percent,
-
-(coalesce(T4.F0_count, 2)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.F0_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_F0_percent,
-(coalesce(T4.F1_count, 2)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.F1_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_F1_percent,
-(coalesce(T4.F2_count, 3)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.F2_count, 1)*1.0/coalesce(T10.total_count, 6)) as customer_location_F2_percent,
-(coalesce(T4.F3_count, 0)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.F3_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_F3_percent,
-
-(coalesce(T4.G1_count, 0)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.G1_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_G1_percent,
-(coalesce(T4.G2_count, 3)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.G2_count, 1)*1.0/coalesce(T10.total_count, 6)) as customer_location_G2_percent,
-(coalesce(T4.G3_count, 2)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.G3_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_G3_percent,
-(coalesce(T4.G4_count, 0)*1.0/coalesce(T4.total_count, 12))*(coalesce(T10.G4_count, 0)*1.0/coalesce(T10.total_count, 6)) as customer_location_G4_percent
+-- T1.cluster_number as last_cluster_number,
 
 -- New values
 
 T13.nb_minutes,
 T13.nb_views,
 T13.ratio_hesitation,
+
+-- Transitions F
+coalesce(T16.percent_transition_F_0_vers_0, 73.33) as percent_transition_F_0_vers_0,
+coalesce(T16.percent_transition_F_0_vers_1, 6.25) as percent_transition_F_0_vers_1,
+coalesce(T16.percent_transition_F_0_vers_2, 9.75) as percent_transition_F_0_vers_2,
+coalesce(T16.percent_transition_F_0_vers_3, 4.35) as percent_transition_F_0_vers_3,
+coalesce(T16.percent_transition_F_1_vers_0, 6.9) as percent_transition_F_1_vers_0,
+coalesce(T16.percent_transition_F_1_vers_1, 73.8) as percent_transition_F_1_vers_1,
+coalesce(T16.percent_transition_F_1_vers_2, 11.5) as percent_transition_F_1_vers_2,
+coalesce(T16.percent_transition_F_1_vers_3, 5) as percent_transition_F_1_vers_3,
+coalesce(T16.percent_transition_F_2_vers_0, 6.5) as percent_transition_F_2_vers_0,
+coalesce(T16.percent_transition_F_2_vers_1, 9.1) as percent_transition_F_2_vers_1,
+coalesce(T16.percent_transition_F_2_vers_2, 76.9) as percent_transition_F_2_vers_2,
+coalesce(T16.percent_transition_F_2_vers_3, 4.8) as percent_transition_F_2_vers_3,
+coalesce(T16.percent_transition_F_3_vers_0, 16.7) as percent_transition_F_3_vers_0,
+coalesce(T16.percent_transition_F_3_vers_1, 16.7) as percent_transition_F_3_vers_1,
+coalesce(T16.percent_transition_F_3_vers_2, 25.0) as percent_transition_F_3_vers_2,
+coalesce(T16.percent_transition_F_3_vers_3, 25.0) as percent_transition_F_3_vers_3,
+
+-- Transitions G
+coalesce(T15.percent_transition_G_1_vers_1, 27.6) as percent_transition_G_1_vers_1,
+coalesce(T15.percent_transition_G_1_vers_2, 25.0) as percent_transition_G_1_vers_2,
+coalesce(T15.percent_transition_G_1_vers_3, 20.0) as percent_transition_G_1_vers_3,
+coalesce(T15.percent_transition_G_1_vers_4, 12.5) as percent_transition_G_1_vers_4,
+coalesce(T15.percent_transition_G_2_vers_1,  9.5) as percent_transition_G_2_vers_1,
+coalesce(T15.percent_transition_G_2_vers_2, 63.1) as percent_transition_G_2_vers_2,
+coalesce(T15.percent_transition_G_2_vers_3,  9.1) as percent_transition_G_2_vers_3,
+coalesce(T15.percent_transition_G_2_vers_4,  4.0) as percent_transition_G_2_vers_4,
+coalesce(T15.percent_transition_G_3_vers_1,  8.3) as percent_transition_G_3_vers_1,
+coalesce(T15.percent_transition_G_3_vers_2, 10.6) as percent_transition_G_3_vers_2,
+coalesce(T15.percent_transition_G_3_vers_3, 69.2) as percent_transition_G_3_vers_3,
+coalesce(T15.percent_transition_G_3_vers_4,  9.1) as percent_transition_G_3_vers_4,
+coalesce(T15.percent_transition_G_4_vers_1, 12.5) as percent_transition_G_4_vers_1,
+coalesce(T15.percent_transition_G_4_vers_2, 17.4) as percent_transition_G_4_vers_2,
+coalesce(T15.percent_transition_G_4_vers_3, 20.0) as percent_transition_G_4_vers_3,
+coalesce(T15.percent_transition_G_4_vers_4, 30.8) as percent_transition_G_4_vers_4
 
 -- Objectifs
 --T3.A as real_A,
@@ -152,85 +87,45 @@ T13.ratio_hesitation,
 --T3.G as real_G
 from
 transactions T1 inner join
-customers T2 on (T1.customer_ID = T2.customer_ID and T2.dataset = 'test') inner join
+customers T2 on (T1.customer_ID = T2.customer_ID and T2.dataset = 'test') 
+--inner join
+--transactions T3 on (T1.customer_ID = T3.customer_ID)
+inner join
+-- last
 (
 select
 customer_ID,
-max(shopping_pt) as max_shopping_pt
+max(shopping_pt) as last_shopping_pt
 from
 transactions
 where
 record_type = 0
 group by 1
-)T3 on (T1.customer_ID = T3.customer_ID) left outer join
-location_agg T4 on (T1.location = T4.location) left outer join
-(
-select
-location,
-count(*) as nb_vente
-from transactions
-where record_type = 1
-group by 1
-) T6 on (T1.location = T6.location)
+) T4 on (T1.customer_ID = T4.customer_ID and T1.shopping_pt = T4.last_shopping_pt)
 inner join
 (
 select
 customer_ID,
-count(*) as nb_view
+min(time) as min_time,
+max(time) as max_time,
+(substr(max(time),1,2)*60 + substr(max(time),4,2)) - (substr(min(time),1,2)*60 + substr(min(time),4,2)) as nb_minutes,
+count(*) as nb_views,
+(((substr(max(time),1,2)*60 + substr(max(time),4,2)) - (substr(min(time),1,2)*60 + substr(min(time),4,2)))*1.0)/count(*) as ratio_hesitation
 from transactions
-where record_type = 0
-group by 1
-) T7 on (T1.customer_ID = T7.customer_ID)
-left outer join
-(
-select
-location,
-count(*) as nb_achat
-from transactions
-where record_type = 1
-group by 1
-) T8 on (T1.location = T8.location)
-inner join
-customer_agg T10 on (T1.customer_ID = T10.customer_ID)
-inner join
-(
-select
-A.customer_ID,
-case
-when max(A.shopping_pt) = 1 then 1
-else max(A.shopping_pt)-1
-end as shopping_pt_before_last
-from
-transactions A,
-customers B
 where
-A.customer_ID = B.customer_ID
-and
-B.dataset = 'test'
-and
-A.record_type = 0
+record_type = 0
 group by 1
-) T11 on (T1.customer_ID = T11.customer_ID)
-inner join
-transactions T12 on (T11.customer_ID = T12.customer_id and T12.shopping_pt = T11.shopping_pt_before_last)
-inner join
-(
-  select
-  customer_ID,
-  min(time) as min_time,
-  max(time) as max_time,
-  (substr(max(time),1,2)*60 + substr(max(time),4,2)) - (substr(min(time),1,2)*60 + substr(min(time),4,2)) as nb_minutes,
-  count(*) as nb_views,
-  (((substr(max(time),1,2)*60 + substr(max(time),4,2)) - (substr(min(time),1,2)*60 + substr(min(time),4,2)))*1.0)/count(*) as ratio_hesitation
-  from transactions
-  where
-  record_type = 0
-  group by 1
 ) T13 on (T1.customer_ID = T13.customer_ID)
+left outer join
+transitions_G T15 on (T1.location = T15.location)
+left outer join
+transitions_F T16 on (T1.location = T16.location)
 where
 T1.record_type = 0
-and
-T1.shopping_pt = T3.max_shopping_pt
+--and
+--T3.record_type = 1
+--and
+--T1.shopping_pt = (T3.shopping_pt-1)
 ")
   
   dbDisconnect(con)
