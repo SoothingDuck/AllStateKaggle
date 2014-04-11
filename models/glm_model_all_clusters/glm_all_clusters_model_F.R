@@ -35,31 +35,6 @@ formula_0 <- formula(
 #   + last_E                       
   + last_F                
 #   + last_G               
-#   + first_group_size             
-#   + first_homeowner     
-  + first_car_age     
-#   + first_car_value              
-#   + first_risk_factor         
-#   + first_age_oldest     
-#   + first_age_youngest           
-#   + first_married_couple      
-#   + first_C_previous            
-#   + first_duration_previous      
-#   + first_cost                  
-#   + first_A                     
-#   + first_B                      
-#   + first_C           
-#   + first_D       
-#   + first_E                      
-#   + first_F                  
-#   + first_G                   
-#   + before_last_A                
-#   + before_last_B               
-#   + before_last_C            
-#   + before_last_D                
-#   + before_last_E          
-  + before_last_F       
-#   + before_last_G                
 #   + nb_minutes              
 #   + nb_views                   
 #   + ratio_hesitation             
@@ -95,8 +70,6 @@ formula_0 <- formula(
 #   + percent_transition_G_4_vers_2
 #   + percent_transition_G_4_vers_3 
 #   + percent_transition_G_4_vers_4 
-#   + last_hour 
-#   + first_hour   
 )
 
 formula_1 <- formula(
@@ -121,31 +94,6 @@ formula_1 <- formula(
 #   + last_E                       
   + last_F                
 #   + last_G               
-#   + first_group_size             
-#   + first_homeowner     
-#   + first_car_age     
-#   + first_car_value              
-#   + first_risk_factor         
-#   + first_age_oldest     
-#   + first_age_youngest           
-#   + first_married_couple      
-#   + first_C_previous            
-#   + first_duration_previous      
-#   + first_cost                  
-#   + first_A                     
-#   + first_B                      
-#   + first_C           
-#   + first_D       
-#   + first_E                      
-#   + first_F                  
-#   + first_G                   
-#   + before_last_A                
-#   + before_last_B               
-#   + before_last_C            
-#   + before_last_D                
-#   + before_last_E          
-  + before_last_F       
-#   + before_last_G                
 #   + nb_minutes              
   + nb_views                   
 #   + ratio_hesitation             
@@ -181,8 +129,6 @@ formula_1 <- formula(
 #   + percent_transition_G_4_vers_2
 #   + percent_transition_G_4_vers_3 
 #   + percent_transition_G_4_vers_4 
-#   + last_hour 
-#   + first_hour   
 )
 
 formula_2 <- formula(
@@ -207,31 +153,6 @@ formula_2 <- formula(
 #   + last_E                       
   + I(last_F == "2")
 #   + last_G               
-#   + first_group_size             
-#   + first_homeowner     
-#   + first_car_age     
-#   + first_car_value              
-#   + first_risk_factor         
-#   + first_age_oldest     
-#   + first_age_youngest           
-#   + first_married_couple      
-#   + first_C_previous            
-#   + first_duration_previous      
-#   + first_cost                  
-#   + first_A                     
-#   + first_B                      
-#   + first_C           
-#   + first_D       
-#   + first_E                      
-#   + first_F                  
-#   + first_G                   
-#   + before_last_A                
-#   + before_last_B               
-#   + before_last_C            
-#   + before_last_D                
-#   + before_last_E          
-  + I(before_last_F == "2")
-#   + before_last_G                
 #   + nb_minutes              
 #   + nb_views                   
 #   + ratio_hesitation             
@@ -267,8 +188,6 @@ formula_2 <- formula(
 #   + percent_transition_G_4_vers_2
 #   + percent_transition_G_4_vers_3 
 #   + percent_transition_G_4_vers_4 
-#   + last_hour 
-#   + first_hour   
 )
 
 formula_3 <- formula(
@@ -293,31 +212,6 @@ formula_3 <- formula(
 #   + last_E                       
   + last_F                
 #   + last_G               
-#   + first_group_size             
-#   + first_homeowner     
-#   + first_car_age     
-#   + first_car_value              
-#   + first_risk_factor         
-#   + first_age_oldest     
-#   + first_age_youngest           
-#   + first_married_couple      
-#   + first_C_previous            
-#   + first_duration_previous      
-#   + first_cost                  
-#   + first_A                     
-#   + first_B                      
-#   + first_C           
-#   + first_D       
-#   + first_E                      
-#   + first_F                  
-#   + first_G                   
-#   + before_last_A                
-#   + before_last_B               
-#   + before_last_C            
-#   + before_last_D                
-#   + before_last_E          
-#   + before_last_F       
-#   + before_last_G                
 #   + nb_minutes              
 #   + nb_views                   
 #   + ratio_hesitation             
@@ -353,8 +247,6 @@ formula_3 <- formula(
 #   + percent_transition_G_4_vers_2
 #   + percent_transition_G_4_vers_3 
 #   + percent_transition_G_4_vers_4 
-#   + last_hour 
-#   + first_hour   
 )
 
 # fonctions
