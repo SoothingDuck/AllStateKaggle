@@ -2,16 +2,18 @@
 source(file.path("templates","functions.R"))
 source(file.path("templates","get_data_3.R"))
 
+# transition
+
 # model trans
 p <- .9
 
-for(debut in c(1,2,3,4)) {
-  for(fin in c(1,2,3,4)) {
+for(debut in c(1,2,3)) {
+  for(fin in c(1,2,3)) {
     
-    rdata.filename <- file.path("DATA","TRANSITION",paste(paste("transition", debut, "vers", fin, "G", sep = "_"), "RData", sep="."))
+    rdata.filename <- file.path("DATA","TRANSITION",paste(paste("transition", debut, "vers", fin, "D", sep = "_"), "RData", sep="."))
     
     cat("Prc train", p, "debut =", debut, "fin =", fin, "\n")
-    tmp <- get.train.test.transition.G(data, p=p, debut=debut, fin=fin)
+    tmp <- get.train.test.transition.D(data, p=p, debut=debut, fin=fin)
     train_model <- tmp$train
     test_model <- tmp$test
     
@@ -37,3 +39,4 @@ for(debut in c(1,2,3,4)) {
     save(model, file=rdata.filename)
   }    
 }
+

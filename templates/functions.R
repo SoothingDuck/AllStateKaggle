@@ -1,5 +1,154 @@
 library(caret)
 
+get.train.test.transition.C <- function(data, p=.5, debut, fin) {
+  set.seed(42)
+  
+  data <- subset(data, last_C == debut)
+  
+  trainIndex <- createDataPartition(data$real_C == fin, p = p,
+                                    list = FALSE,
+                                    times = 1)
+  
+  train <- data[trainIndex,]
+  test <- data[-trainIndex,]
+  
+  train$y <- with(train, real_C == fin)
+  test$y <- with(test, real_C == fin)
+  
+  train <- train[, ! grepl("real_", colnames(train))]
+  test <- test[, ! grepl("real_", colnames(test))]
+  
+  train <- train[, ! grepl("last_C", colnames(train))]
+  test <- test[, ! grepl("last_C", colnames(test))]
+  
+  train <- train[, ! grepl("percent_transition_F_", colnames(train))]
+  test <- test[, ! grepl("percent_transition_F_", colnames(test))]
+  
+  train <- train[, ! grepl("percent_transition_G_", colnames(train))]
+  test <- test[, ! grepl("percent_transition_G_", colnames(test))]
+  
+  return(list(train=train, test=test))
+  
+}
+
+get.train.test.transition.D <- function(data, p=.5, debut, fin) {
+  set.seed(42)
+  
+  data <- subset(data, last_D == debut)
+  
+  trainIndex <- createDataPartition(data$real_D == fin, p = p,
+                                    list = FALSE,
+                                    times = 1)
+  
+  train <- data[trainIndex,]
+  test <- data[-trainIndex,]
+  
+  train$y <- with(train, real_D == fin)
+  test$y <- with(test, real_D == fin)
+  
+  train <- train[, ! grepl("real_", colnames(train))]
+  test <- test[, ! grepl("real_", colnames(test))]
+  
+  train <- train[, ! grepl("last_D", colnames(train))]
+  test <- test[, ! grepl("last_D", colnames(test))]
+  
+  train <- train[, ! grepl("percent_transition_F_", colnames(train))]
+  test <- test[, ! grepl("percent_transition_F_", colnames(test))]
+  
+  train <- train[, ! grepl("percent_transition_G_", colnames(train))]
+  test <- test[, ! grepl("percent_transition_G_", colnames(test))]
+  
+  return(list(train=train, test=test))
+  
+}
+
+get.train.test.transition.E <- function(data, p=.5, debut, fin) {
+  set.seed(42)
+  
+  data <- subset(data, last_E == debut)
+  
+  trainIndex <- createDataPartition(data$real_E == fin, p = p,
+                                    list = FALSE,
+                                    times = 1)
+  
+  train <- data[trainIndex,]
+  test <- data[-trainIndex,]
+  
+  train$y <- with(train, real_E == fin)
+  test$y <- with(test, real_E == fin)
+  
+  train <- train[, ! grepl("real_", colnames(train))]
+  test <- test[, ! grepl("real_", colnames(test))]
+  
+  train <- train[, ! grepl("last_E", colnames(train))]
+  test <- test[, ! grepl("last_E", colnames(test))]
+  
+  train <- train[, ! grepl("percent_transition_F_", colnames(train))]
+  test <- test[, ! grepl("percent_transition_F_", colnames(test))]
+  
+  train <- train[, ! grepl("percent_transition_G_", colnames(train))]
+  test <- test[, ! grepl("percent_transition_G_", colnames(test))]
+  
+  return(list(train=train, test=test))
+  
+}
+
+get.train.test.transition.F <- function(data, p=.5, debut, fin) {
+  set.seed(42)
+  
+  data <- subset(data, last_F == debut)
+  
+  trainIndex <- createDataPartition(data$real_F == fin, p = p,
+                                    list = FALSE,
+                                    times = 1)
+  
+  train <- data[trainIndex,]
+  test <- data[-trainIndex,]
+  
+  train$y <- with(train, real_F == fin)
+  test$y <- with(test, real_F == fin)
+  
+  train <- train[, ! grepl("real_", colnames(train))]
+  test <- test[, ! grepl("real_", colnames(test))]
+  
+  train <- train[, ! grepl("last_F", colnames(train))]
+  test <- test[, ! grepl("last_F", colnames(test))]
+  
+  train <- train[, ! grepl("percent_transition_G_", colnames(train))]
+  test <- test[, ! grepl("percent_transition_G_", colnames(test))]
+  
+  return(list(train=train, test=test))
+  
+}
+
+get.train.test.transition.G <- function(data, p=.5, debut, fin) {
+  set.seed(42)
+  
+  data <- subset(data, last_G == debut)
+  
+  trainIndex <- createDataPartition(data$real_G == fin, p = p,
+                                    list = FALSE,
+                                    times = 1)
+  
+  train <- data[trainIndex,]
+  test <- data[-trainIndex,]
+  
+  train$y <- with(train, real_G == fin)
+  test$y <- with(test, real_G == fin)
+  
+  train <- train[, ! grepl("real_", colnames(train))]
+  test <- test[, ! grepl("real_", colnames(test))]
+  
+  train <- train[, ! grepl("last_G", colnames(train))]
+  test <- test[, ! grepl("last_G", colnames(test))]
+  
+  train <- train[, ! grepl("percent_transition_F_", colnames(train))]
+  test <- test[, ! grepl("percent_transition_F_", colnames(test))]
+  
+  return(list(train=train, test=test))
+  
+}
+
 get.base.train.test <- function(data, column.name, p) {
   trainIndex <- createDataPartition(data[,c(column.name)], p = p,
                                     list = FALSE,

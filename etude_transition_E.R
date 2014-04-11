@@ -3,15 +3,14 @@
 source(file.path("templates","functions.R"))
 source(file.path("templates","get_data_3.R"))
 
-
 # model trans
 result <- data.frame()
 
-for(p in seq(.5, .9, .2)) {
-  for(debut in c(1,2,3,4)) {
-    for(fin in c(1,2,3,4)) {
+for(p in seq(.7, .9, .1)) {
+  for(debut in c(0,1)) {
+    for(fin in c(0,1)) {
       cat("Prc train", p, "debut =", debut, "fin =", fin, "\n")
-      tmp <- get.train.test.transition.G(data, p=p, debut=debut, fin=fin)
+      tmp <- get.train.test.transition.E(data, p=p, debut=debut, fin=fin)
       train_model <- tmp$train
       test_model <- tmp$test
       
@@ -50,4 +49,4 @@ for(p in seq(.5, .9, .2)) {
   }
 }
 
-write.csv(x=result, file="result_transition_G.csv", row.names = FALSE)
+write.csv(x=result, file="result_transition_E.csv", row.names = FALSE)
