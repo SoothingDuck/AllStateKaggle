@@ -251,7 +251,7 @@ formula_3 <- formula(
 
 # fonctions
 source(file.path("templates","functions.R"))
-source(file.path("templates","get_data.R"))
+source(file.path("templates","get_data_3.R"))
 source(file.path("templates","test_train_skeleton_all_clusters.R"))
 source(file.path("templates","glm_skeleton_error_estimate_F.R"))
 source(file.path("templates","glm_skeleton_final_training_F.R"))
