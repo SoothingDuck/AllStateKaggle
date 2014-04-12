@@ -1,5 +1,68 @@
 library(caret)
 
+get.train.test.transition.A <- function(data, p=.5, debut, fin) {
+  set.seed(42)
+  
+  data <- subset(data, last_A == debut)
+  
+  trainIndex <- createDataPartition(data$real_A == fin, p = p,
+                                    list = FALSE,
+                                    times = 1)
+  
+  train <- data[trainIndex,]
+  test <- data[-trainIndex,]
+  
+  train$y <- with(train, real_A == fin)
+  test$y <- with(test, real_A == fin)
+  
+  train <- train[, ! grepl("real_", colnames(train))]
+  test <- test[, ! grepl("real_", colnames(test))]
+  
+  train <- train[, ! grepl("last_A", colnames(train))]
+  test <- test[, ! grepl("last_A", colnames(test))]
+  
+  train <- train[, ! grepl("percent_transition_F_", colnames(train))]
+  test <- test[, ! grepl("percent_transition_F_", colnames(test))]
+  
+  train <- train[, ! grepl("percent_transition_G_", colnames(train))]
+  test <- test[, ! grepl("percent_transition_G_", colnames(test))]
+  
+  return(list(train=train, test=test))
+  
+}
+
+
+get.train.test.transition.B <- function(data, p=.5, debut, fin) {
+  set.seed(42)
+  
+  data <- subset(data, last_B == debut)
+  
+  trainIndex <- createDataPartition(data$real_B == fin, p = p,
+                                    list = FALSE,
+                                    times = 1)
+  
+  train <- data[trainIndex,]
+  test <- data[-trainIndex,]
+  
+  train$y <- with(train, real_B == fin)
+  test$y <- with(test, real_B == fin)
+  
+  train <- train[, ! grepl("real_", colnames(train))]
+  test <- test[, ! grepl("real_", colnames(test))]
+  
+  train <- train[, ! grepl("last_B", colnames(train))]
+  test <- test[, ! grepl("last_B", colnames(test))]
+  
+  train <- train[, ! grepl("percent_transition_F_", colnames(train))]
+  test <- test[, ! grepl("percent_transition_F_", colnames(test))]
+  
+  train <- train[, ! grepl("percent_transition_G_", colnames(train))]
+  test <- test[, ! grepl("percent_transition_G_", colnames(test))]
+  
+  return(list(train=train, test=test))
+  
+}
+
 get.train.test.transition.C <- function(data, p=.5, debut, fin) {
   set.seed(42)
   
