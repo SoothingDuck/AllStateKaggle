@@ -1,5 +1,204 @@
 library(caret)
 
+load.model.transition.A <- function() {
+  load(file.path("DATA","TRANSITION", "transition_0_vers_0_A.RData"))
+  model_A_0_0 <<- model
+  load(file.path("DATA","TRANSITION", "transition_0_vers_1_A.RData"))
+  model_A_0_1 <<- model
+  load(file.path("DATA","TRANSITION", "transition_0_vers_2_A.RData"))
+  model_A_0_2 <<- model
+  
+  load(file.path("DATA","TRANSITION", "transition_1_vers_0_A.RData"))
+  model_A_1_0 <<- model
+  load(file.path("DATA","TRANSITION", "transition_1_vers_1_A.RData"))
+  model_A_1_1 <<- model
+  load(file.path("DATA","TRANSITION", "transition_1_vers_2_A.RData"))
+  model_A_1_2 <<- model
+  
+  load(file.path("DATA","TRANSITION", "transition_2_vers_0_A.RData"))
+  model_A_2_0 <<- model
+  load(file.path("DATA","TRANSITION", "transition_2_vers_1_A.RData"))
+  model_A_2_1 <<- model
+  load(file.path("DATA","TRANSITION", "transition_2_vers_2_A.RData"))
+  model_A_2_2 <<- model
+  
+  rm(list=c("model"))
+}
+
+
+load.model.transition.B <- function() {
+  load(file.path("DATA","TRANSITION", "transition_0_vers_0_B.RData"))
+  model_B_0_0 <<- model
+  load(file.path("DATA","TRANSITION", "transition_0_vers_1_B.RData"))
+  model_B_0_1 <<- model
+  
+  load(file.path("DATA","TRANSITION", "transition_1_vers_0_B.RData"))
+  model_B_1_0 <<- model
+  load(file.path("DATA","TRANSITION", "transition_1_vers_1_B.RData"))
+  model_B_1_1 <<- model  
+  
+  rm(list=c("model"))
+}
+
+load.model.transition.C <- function() {
+  load(file.path("DATA","TRANSITION", "transition_1_vers_1_C.RData"))
+  model_C_1_1 <<- model
+  load(file.path("DATA","TRANSITION", "transition_1_vers_2_C.RData"))
+  model_C_1_2 <<- model
+  load(file.path("DATA","TRANSITION", "transition_1_vers_3_C.RData"))
+  model_C_1_3 <<- model
+  load(file.path("DATA","TRANSITION", "transition_1_vers_4_C.RData"))
+  model_C_1_4 <<- model
+  
+  load(file.path("DATA","TRANSITION", "transition_2_vers_1_C.RData"))
+  model_C_2_1 <<- model
+  load(file.path("DATA","TRANSITION", "transition_2_vers_2_C.RData"))
+  model_C_2_2 <<- model
+  load(file.path("DATA","TRANSITION", "transition_2_vers_3_C.RData"))
+  model_C_2_3 <<- model
+  load(file.path("DATA","TRANSITION", "transition_2_vers_4_C.RData"))
+  model_C_2_4 <<- model
+
+  load(file.path("DATA","TRANSITION", "transition_3_vers_1_C.RData"))
+  model_C_3_1 <<- model
+  load(file.path("DATA","TRANSITION", "transition_3_vers_2_C.RData"))
+  model_C_3_2 <<- model
+  load(file.path("DATA","TRANSITION", "transition_3_vers_3_C.RData"))
+  model_C_3_3 <<- model
+  load(file.path("DATA","TRANSITION", "transition_3_vers_4_C.RData"))
+  model_C_3_4 <<- model
+
+  load(file.path("DATA","TRANSITION", "transition_4_vers_1_C.RData"))
+  model_C_4_1 <<- model
+  load(file.path("DATA","TRANSITION", "transition_4_vers_2_C.RData"))
+  model_C_4_2 <<- model
+  load(file.path("DATA","TRANSITION", "transition_4_vers_3_C.RData"))
+  model_C_4_3 <<- model
+  load(file.path("DATA","TRANSITION", "transition_4_vers_4_C.RData"))
+  model_C_4_4 <<- model
+  
+  rm(list=c("model"))
+}
+
+load.model.transition.D <- function() {
+  load(file.path("DATA","TRANSITION", "transition_1_vers_1_D.RData"))
+  model_D_1_1 <<- model
+  load(file.path("DATA","TRANSITION", "transition_1_vers_2_D.RData"))
+  model_D_1_2 <<- model
+  load(file.path("DATA","TRANSITION", "transition_1_vers_3_D.RData"))
+  model_D_1_3 <<- model
+  
+  load(file.path("DATA","TRANSITION", "transition_2_vers_1_D.RData"))
+  model_D_2_1 <<- model
+  load(file.path("DATA","TRANSITION", "transition_2_vers_2_D.RData"))
+  model_D_2_2 <<- model
+  load(file.path("DATA","TRANSITION", "transition_2_vers_3_D.RData"))
+  model_D_2_3 <<- model
+
+  load(file.path("DATA","TRANSITION", "transition_3_vers_1_D.RData"))
+  model_D_3_1 <<- model
+  load(file.path("DATA","TRANSITION", "transition_3_vers_2_D.RData"))
+  model_D_3_2 <<- model
+  load(file.path("DATA","TRANSITION", "transition_3_vers_3_D.RData"))
+  model_D_3_3 <<- model
+  
+  rm(list=c("model"))
+}
+
+load.model.transition.E <- function() {
+  load(file.path("DATA","TRANSITION", "transition_0_vers_0_E.RData"))
+  model_E_0_0 <<- model
+  load(file.path("DATA","TRANSITION", "transition_0_vers_1_E.RData"))
+  model_E_0_1 <<- model
+  
+  load(file.path("DATA","TRANSITION", "transition_1_vers_0_E.RData"))
+  model_E_1_0 <<- model
+  load(file.path("DATA","TRANSITION", "transition_1_vers_1_E.RData"))
+  model_E_1_1 <<- model
+    
+  rm(list=c("model"))
+}
+
+load.model.transition.F <- function() {
+  load(file.path("DATA","TRANSITION", "transition_0_vers_0_F.RData"))
+  model_F_0_0 <<- model
+  load(file.path("DATA","TRANSITION", "transition_0_vers_1_F.RData"))
+  model_F_0_1 <<- model
+  load(file.path("DATA","TRANSITION", "transition_0_vers_2_F.RData"))
+  model_F_0_2 <<- model
+  load(file.path("DATA","TRANSITION", "transition_0_vers_3_F.RData"))
+  model_F_0_3 <<- model
+  
+  load(file.path("DATA","TRANSITION", "transition_1_vers_0_F.RData"))
+  model_F_1_0 <<- model
+  load(file.path("DATA","TRANSITION", "transition_1_vers_1_F.RData"))
+  model_F_1_1 <<- model
+  load(file.path("DATA","TRANSITION", "transition_1_vers_2_F.RData"))
+  model_F_1_2 <<- model
+  load(file.path("DATA","TRANSITION", "transition_1_vers_3_F.RData"))
+  model_F_1_3 <<- model
+  
+  load(file.path("DATA","TRANSITION", "transition_2_vers_0_F.RData"))
+  model_F_2_0 <<- model
+  load(file.path("DATA","TRANSITION", "transition_2_vers_1_F.RData"))
+  model_F_2_1 <<- model
+  load(file.path("DATA","TRANSITION", "transition_2_vers_2_F.RData"))
+  model_F_2_2 <<- model
+  load(file.path("DATA","TRANSITION", "transition_2_vers_3_F.RData"))
+  model_F_2_3 <<- model
+  
+  load(file.path("DATA","TRANSITION", "transition_3_vers_0_F.RData"))
+  model_F_3_0 <<- model
+  load(file.path("DATA","TRANSITION", "transition_3_vers_1_F.RData"))
+  model_F_3_1 <<- model
+  load(file.path("DATA","TRANSITION", "transition_3_vers_2_F.RData"))
+  model_F_3_2 <<- model
+  load(file.path("DATA","TRANSITION", "transition_3_vers_3_F.RData"))
+  model_F_3_3 <<- model
+  
+  rm(list=c("model"))
+}
+
+load.model.transition.G <- function() {
+  load(file.path("DATA","TRANSITION", "transition_1_vers_1_G.RData"))
+  model_G_1_1 <<- model
+  load(file.path("DATA","TRANSITION", "transition_1_vers_2_G.RData"))
+  model_G_1_2 <<- model
+  load(file.path("DATA","TRANSITION", "transition_1_vers_3_G.RData"))
+  model_G_1_3 <<- model
+  load(file.path("DATA","TRANSITION", "transition_1_vers_4_G.RData"))
+  model_G_1_4 <<- model
+  
+  load(file.path("DATA","TRANSITION", "transition_2_vers_1_G.RData"))
+  model_G_2_1 <<- model
+  load(file.path("DATA","TRANSITION", "transition_2_vers_2_G.RData"))
+  model_G_2_2 <<- model
+  load(file.path("DATA","TRANSITION", "transition_2_vers_3_G.RData"))
+  model_G_2_3 <<- model
+  load(file.path("DATA","TRANSITION", "transition_2_vers_4_G.RData"))
+  model_G_2_4 <<- model
+  
+  load(file.path("DATA","TRANSITION", "transition_3_vers_1_G.RData"))
+  model_G_3_1 <<- model
+  load(file.path("DATA","TRANSITION", "transition_3_vers_2_G.RData"))
+  model_G_3_2 <<- model
+  load(file.path("DATA","TRANSITION", "transition_3_vers_3_G.RData"))
+  model_G_3_3 <<- model
+  load(file.path("DATA","TRANSITION", "transition_3_vers_4_G.RData"))
+  model_G_3_4 <<- model
+  
+  load(file.path("DATA","TRANSITION", "transition_4_vers_1_G.RData"))
+  model_G_4_1 <<- model
+  load(file.path("DATA","TRANSITION", "transition_4_vers_2_G.RData"))
+  model_G_4_2 <<- model
+  load(file.path("DATA","TRANSITION", "transition_4_vers_3_G.RData"))
+  model_G_4_3 <<- model
+  load(file.path("DATA","TRANSITION", "transition_4_vers_4_G.RData"))
+  model_G_4_4 <<- model
+  
+  rm(list=c("model"))
+}
+
 get.train.test.transition.A <- function(data, p=.5, debut, fin) {
   set.seed(42)
   

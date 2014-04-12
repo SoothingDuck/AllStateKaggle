@@ -13,41 +13,13 @@ train.data=data[trainIndex,]
 test.data=data[-trainIndex,]
 
 # estimate G
-load(file.path("DATA","TRANSITION", "transition_1_vers_1_G.RData"))
-model_G_1_1 <- model
-load(file.path("DATA","TRANSITION", "transition_1_vers_2_G.RData"))
-model_G_1_2 <- model
-load(file.path("DATA","TRANSITION", "transition_1_vers_3_G.RData"))
-model_G_1_3 <- model
-load(file.path("DATA","TRANSITION", "transition_1_vers_4_G.RData"))
-model_G_1_4 <- model
-
-load(file.path("DATA","TRANSITION", "transition_2_vers_1_G.RData"))
-model_G_2_1 <- model
-load(file.path("DATA","TRANSITION", "transition_2_vers_2_G.RData"))
-model_G_2_2 <- model
-load(file.path("DATA","TRANSITION", "transition_2_vers_3_G.RData"))
-model_G_2_3 <- model
-load(file.path("DATA","TRANSITION", "transition_2_vers_4_G.RData"))
-model_G_2_4 <- model
-
-load(file.path("DATA","TRANSITION", "transition_3_vers_1_G.RData"))
-model_G_3_1 <- model
-load(file.path("DATA","TRANSITION", "transition_3_vers_2_G.RData"))
-model_G_3_2 <- model
-load(file.path("DATA","TRANSITION", "transition_3_vers_3_G.RData"))
-model_G_3_3 <- model
-load(file.path("DATA","TRANSITION", "transition_3_vers_4_G.RData"))
-model_G_3_4 <- model
-
-load(file.path("DATA","TRANSITION", "transition_4_vers_1_G.RData"))
-model_G_4_1 <- model
-load(file.path("DATA","TRANSITION", "transition_4_vers_2_G.RData"))
-model_G_4_2 <- model
-load(file.path("DATA","TRANSITION", "transition_4_vers_3_G.RData"))
-model_G_4_3 <- model
-load(file.path("DATA","TRANSITION", "transition_4_vers_4_G.RData"))
-model_G_4_4 <- model
+load.model.transition.A()
+load.model.transition.B()
+load.model.transition.C()
+load.model.transition.D()
+load.model.transition.E()
+load.model.transition.F()
+load.model.transition.G()
 
 # Eval transition vers
 evaluation.transition.G <- function(data) {
