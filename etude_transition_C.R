@@ -49,4 +49,4 @@ for(p in seq(.7, .9, .1)) {
   }
 }
 
-write.csv(x=result, file="result_transition_C.csv", row.names = FALSE)
+write.csv(x=result, file=file.path("DATA","TRANSITION", "result_transition_C.csv"), row.names = FALSE)

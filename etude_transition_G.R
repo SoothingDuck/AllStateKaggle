@@ -50,4 +50,4 @@ for(p in seq(.5, .9, .2)) {
   }
 }
 
-write.csv(x=result, file="result_transition_G.csv", row.names = FALSE)
+write.csv(x=result, file=file.path("DATA","TRANSITION", "result_transition_G.csv"), row.names = FALSE)

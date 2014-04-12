@@ -6,7 +6,7 @@ source(file.path("templates","get_data_3.R"))
 # model trans
 result <- data.frame()
 
-for(p in seq(.7, .9, .1)) {
+for(p in seq(.8, .9, .1)) {
   for(debut in c(0,1,2)) {
     for(fin in c(0,1,2)) {
       cat("Prc train", p, "debut =", debut, "fin =", fin, "\n")
@@ -49,4 +49,4 @@ for(p in seq(.7, .9, .1)) {
   }
 }
 
-write.csv(x=result, file="result_transition_A.csv", row.names = FALSE)
+write.csv(x=result, file=file.path("DATA","TRANSITION", "result_transition_A.csv"), row.names = FALSE)

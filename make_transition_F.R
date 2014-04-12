@@ -7,8 +7,8 @@ source(file.path("templates","get_data_3.R"))
 # model trans
 p <- .9
 
-for(debut in c(1,2,3,4)) {
-  for(fin in c(1,2,3,4)) {
+for(debut in c(0,1,2,3)) {
+  for(fin in c(0,1,2,3)) {
     
     rdata.filename <- file.path("DATA","TRANSITION",paste(paste("transition", debut, "vers", fin, "F", sep = "_"), "RData", sep="."))
     
