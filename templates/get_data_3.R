@@ -1,6 +1,6 @@
 library(stringr)
 
-source(file.path("templates", "get_data_test.R"))
+source(file.path("templates", "get_data_test_3.R"))
 source(file.path("templates", "get_data_train_3.R"))
 
 normalize.data <- function(data) {
