@@ -1,5 +1,198 @@
 library(caret)
 
+evaluation.prediction.ABCDEFG <- function(data) {
+  data$prediction_ABCDEFG <- with(data, paste(
+    as.character(prediction_A),
+    as.character(prediction_B),
+    as.character(prediction_C),
+    as.character(prediction_D),
+    as.character(prediction_E),
+    as.character(prediction_F),
+    as.character(prediction_G),
+    sep = ""
+  )
+  )
+  
+  return(data)
+  
+}
+
+evaluation.real.ABCDEFG <- function(data) {
+  data$real_ABCDEFG <- with(data, paste(
+    as.character(real_A),
+    as.character(real_B),
+    as.character(real_C),
+    as.character(real_D),
+    as.character(real_E),
+    as.character(real_F),
+    as.character(real_G),
+    sep = ""
+  )
+  )
+  
+  return(data)
+}
+
+evaluation.transition.A <- function(data) {
+  data$transition_A_vers_0 <- NA
+  data$transition_A_vers_1 <- NA
+  data$transition_A_vers_2 <- NA
+  
+  cat("Evaluation transitions A vers 0...\n")
+  data$transition_A_vers_0[data$last_A == 0] <- predict(model_A_0_0, newdata=data[data$last_A == 0,])
+  data$transition_A_vers_0[data$last_A == 1] <- predict(model_A_1_0, newdata=data[data$last_A == 1,])
+  data$transition_A_vers_0[data$last_A == 2] <- predict(model_A_2_0, newdata=data[data$last_A == 2,])
+  
+  cat("Evaluation transitions A vers 1...\n")
+  data$transition_A_vers_1[data$last_A == 0] <- predict(model_A_0_1, newdata=data[data$last_A == 0,])
+  data$transition_A_vers_1[data$last_A == 1] <- predict(model_A_1_1, newdata=data[data$last_A == 1,])
+  data$transition_A_vers_1[data$last_A == 2] <- predict(model_A_2_1, newdata=data[data$last_A == 2,])
+  
+  cat("Evaluation transitions A vers 2...\n")
+  data$transition_A_vers_2[data$last_A == 0] <- predict(model_A_0_2, newdata=data[data$last_A == 0,])
+  data$transition_A_vers_2[data$last_A == 1] <- predict(model_A_1_2, newdata=data[data$last_A == 1,])
+  data$transition_A_vers_2[data$last_A == 2] <- predict(model_A_2_2, newdata=data[data$last_A == 2,])
+
+  cat("Prediction A...\n")
+  data$prediction_A <- factor(max.col(data[,c("transition_A_vers_0","transition_A_vers_1","transition_A_vers_2")])-1)
+  
+  return(data)
+}
+
+evaluation.transition.B <- function(data) {
+  data$transition_B_vers_0 <- NA
+  data$transition_B_vers_1 <- NA
+  
+  cat("Evaluation transitions B vers 0...\n")
+  data$transition_B_vers_0[data$last_B == 0] <- predict(model_B_0_0, newdata=data[data$last_B == 0,])
+  data$transition_B_vers_0[data$last_B == 1] <- predict(model_B_1_0, newdata=data[data$last_B == 1,])
+  
+  cat("Evaluation transitions B vers 1...\n")
+  data$transition_B_vers_1[data$last_B == 0] <- predict(model_B_0_1, newdata=data[data$last_B == 0,])
+  data$transition_B_vers_1[data$last_B == 1] <- predict(model_B_1_1, newdata=data[data$last_B == 1,])
+    
+  cat("Prediction B...\n")
+  data$prediction_B <- factor(max.col(data[,c("transition_B_vers_0","transition_B_vers_1")])-1)
+  
+  return(data)
+}
+
+evaluation.transition.C <- function(data) {
+  data$transition_C_vers_1 <- NA
+  data$transition_C_vers_2 <- NA
+  data$transition_C_vers_3 <- NA
+  data$transition_C_vers_4 <- NA
+  
+  cat("Evaluation transitions C vers 1...\n")
+  data$transition_C_vers_1[data$last_C == 1] <- predict(model_C_1_1, newdata=data[data$last_C == 1,])
+  data$transition_C_vers_1[data$last_C == 2] <- predict(model_C_2_1, newdata=data[data$last_C == 2,])
+  data$transition_C_vers_1[data$last_C == 3] <- predict(model_C_3_1, newdata=data[data$last_C == 3,])
+  data$transition_C_vers_1[data$last_C == 4] <- predict(model_C_4_1, newdata=data[data$last_C == 4,])
+  
+  cat("Evaluation transitions C vers 2...\n")
+  data$transition_C_vers_2[data$last_C == 1] <- predict(model_C_1_2, newdata=data[data$last_C == 1,])
+  data$transition_C_vers_2[data$last_C == 2] <- predict(model_C_2_2, newdata=data[data$last_C == 2,])
+  data$transition_C_vers_2[data$last_C == 3] <- predict(model_C_3_2, newdata=data[data$last_C == 3,])
+  data$transition_C_vers_2[data$last_C == 4] <- predict(model_C_4_2, newdata=data[data$last_C == 4,])
+  
+  cat("Evaluation transitions C vers 3...\n")
+  data$transition_C_vers_3[data$last_C == 1] <- predict(model_C_1_3, newdata=data[data$last_C == 1,])
+  data$transition_C_vers_3[data$last_C == 2] <- predict(model_C_2_3, newdata=data[data$last_C == 2,])
+  data$transition_C_vers_3[data$last_C == 3] <- predict(model_C_3_3, newdata=data[data$last_C == 3,])
+  data$transition_C_vers_3[data$last_C == 4] <- predict(model_C_4_3, newdata=data[data$last_C == 4,])
+
+  cat("Evaluation transitions C vers 4...\n")
+  data$transition_C_vers_4[data$last_C == 1] <- predict(model_C_1_4, newdata=data[data$last_C == 1,])
+  data$transition_C_vers_4[data$last_C == 2] <- predict(model_C_2_4, newdata=data[data$last_C == 2,])
+  data$transition_C_vers_4[data$last_C == 3] <- predict(model_C_3_4, newdata=data[data$last_C == 3,])
+  data$transition_C_vers_4[data$last_C == 4] <- predict(model_C_4_4, newdata=data[data$last_C == 4,])
+  
+  cat("Prediction C...\n")
+  data$prediction_C <- factor(max.col(data[,c("transition_C_vers_1","transition_C_vers_2","transition_C_vers_3","transition_C_vers_4")]))
+  
+  return(data)
+}
+
+evaluation.transition.D <- function(data) {
+  data$transition_D_vers_1 <- NA
+  data$transition_D_vers_2 <- NA
+  data$transition_D_vers_3 <- NA
+  
+  cat("Evaluation transitions D vers 1...\n")
+  data$transition_D_vers_1[data$last_D == 1] <- predict(model_D_1_1, newdata=data[data$last_D == 1,])
+  data$transition_D_vers_1[data$last_D == 2] <- predict(model_D_2_1, newdata=data[data$last_D == 2,])
+  data$transition_D_vers_1[data$last_D == 3] <- predict(model_D_3_1, newdata=data[data$last_D == 3,])
+  
+  cat("Evaluation transitions D vers 2...\n")
+  data$transition_D_vers_2[data$last_D == 1] <- predict(model_D_1_2, newdata=data[data$last_D == 1,])
+  data$transition_D_vers_2[data$last_D == 2] <- predict(model_D_2_2, newdata=data[data$last_D == 2,])
+  data$transition_D_vers_2[data$last_D == 3] <- predict(model_D_3_2, newdata=data[data$last_D == 3,])
+
+  cat("Evaluation transitions D vers 3...\n")
+  data$transition_D_vers_3[data$last_D == 1] <- predict(model_D_1_3, newdata=data[data$last_D == 1,])
+  data$transition_D_vers_3[data$last_D == 2] <- predict(model_D_2_3, newdata=data[data$last_D == 2,])
+  data$transition_D_vers_3[data$last_D == 3] <- predict(model_D_3_3, newdata=data[data$last_D == 3,])
+  
+  cat("Prediction D...\n")
+  data$prediction_D <- factor(max.col(data[,c("transition_D_vers_1","transition_D_vers_2","transition_D_vers_3")]))
+  
+  return(data)
+}
+
+evaluation.transition.E <- function(data) {
+  data$transition_E_vers_0 <- NA
+  data$transition_E_vers_1 <- NA
+  
+  cat("Evaluation transitions E vers 0...\n")
+  data$transition_E_vers_0[data$last_E == 0] <- predict(model_E_0_0, newdata=data[data$last_E == 0,])
+  data$transition_E_vers_0[data$last_E == 1] <- predict(model_E_1_0, newdata=data[data$last_E == 1,])
+  
+  cat("Evaluation transitions E vers 1...\n")
+  data$transition_E_vers_1[data$last_E == 0] <- predict(model_E_0_1, newdata=data[data$last_E == 0,])
+  data$transition_E_vers_1[data$last_E == 1] <- predict(model_E_1_1, newdata=data[data$last_E == 1,])
+    
+  cat("Prediction E...\n")
+  data$prediction_E <- factor(max.col(data[,c("transition_E_vers_0","transition_E_vers_1")])-1)
+  
+  return(data)
+}
+
+evaluation.transition.F <- function(data) {
+  data$transition_F_vers_0 <- NA
+  data$transition_F_vers_1 <- NA
+  data$transition_F_vers_2 <- NA
+  data$transition_F_vers_3 <- NA
+  
+  cat("Evaluation transitions F vers 0...\n")
+  data$transition_F_vers_0[data$last_F == 0] <- predict(model_F_0_0, newdata=data[data$last_F == 0,])
+  data$transition_F_vers_0[data$last_F == 1] <- predict(model_F_1_0, newdata=data[data$last_F == 1,])
+  data$transition_F_vers_0[data$last_F == 2] <- predict(model_F_2_0, newdata=data[data$last_F == 2,])
+  data$transition_F_vers_0[data$last_F == 3] <- predict(model_F_3_0, newdata=data[data$last_F == 3,])
+  
+  cat("Evaluation transitions F vers 1...\n")
+  data$transition_F_vers_1[data$last_F == 0] <- predict(model_F_0_1, newdata=data[data$last_F == 0,])
+  data$transition_F_vers_1[data$last_F == 1] <- predict(model_F_1_1, newdata=data[data$last_F == 1,])
+  data$transition_F_vers_1[data$last_F == 2] <- predict(model_F_2_1, newdata=data[data$last_F == 2,])
+  data$transition_F_vers_1[data$last_F == 3] <- predict(model_F_3_1, newdata=data[data$last_F == 3,])
+    
+  cat("Evaluation transitions F vers 2...\n")
+  data$transition_F_vers_2[data$last_F == 0] <- predict(model_F_0_2, newdata=data[data$last_F == 0,])
+  data$transition_F_vers_2[data$last_F == 1] <- predict(model_F_1_2, newdata=data[data$last_F == 1,])
+  data$transition_F_vers_2[data$last_F == 2] <- predict(model_F_2_2, newdata=data[data$last_F == 2,])
+  data$transition_F_vers_2[data$last_F == 3] <- predict(model_F_3_2, newdata=data[data$last_F == 3,])
+  
+  cat("Evaluation transitions F vers 3...\n")
+  data$transition_F_vers_3[data$last_F == 0] <- predict(model_F_0_3, newdata=data[data$last_F == 0,])
+  data$transition_F_vers_3[data$last_F == 1] <- predict(model_F_1_3, newdata=data[data$last_F == 1,])
+  data$transition_F_vers_3[data$last_F == 2] <- predict(model_F_2_3, newdata=data[data$last_F == 2,])
+  data$transition_F_vers_3[data$last_F == 3] <- predict(model_F_3_3, newdata=data[data$last_F == 3,])
+  
+  cat("Prediction F...\n")
+  data$prediction_F <- factor(max.col(data[,c("transition_F_vers_0","transition_F_vers_1", "transition_F_vers_2", "transition_F_vers_3")])-1)
+  
+  return(data)
+}
+
 evaluation.transition.G <- function(data) {
   data$transition_G_vers_1 <- NA
   data$transition_G_vers_2 <- NA
