@@ -26,3 +26,7 @@ bin
 .Rproj.user
 *.Rproj
 .Rapp*
+
+# Autres
+all_data.csv
+
