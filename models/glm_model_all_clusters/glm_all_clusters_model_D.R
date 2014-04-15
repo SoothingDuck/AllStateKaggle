@@ -1,4 +1,6 @@
 
+print("Calcul model D...")
+
 # Variables
 y.letter <- "D"
 y.variable <- "real_D"
