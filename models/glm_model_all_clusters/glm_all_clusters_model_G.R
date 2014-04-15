@@ -15,155 +15,23 @@ RData.output.filename <- file.path("DATA","OUTPUT","first_model_glm_all_clusters
 # Formules
 formula_1 <- formula(
   I(real_G == 1) ~ .
-  - percent_transition_F_0_vers_0
-  - percent_transition_F_1_vers_0
-  - percent_transition_F_2_vers_0
-  - percent_transition_F_3_vers_0
-  - percent_transition_F_0_vers_1
-  - percent_transition_F_1_vers_1
-  - percent_transition_F_2_vers_1
-  - percent_transition_F_3_vers_1
-  - percent_transition_F_0_vers_2
-  - percent_transition_F_1_vers_2
-  - percent_transition_F_2_vers_2
-  - percent_transition_F_3_vers_2
-  - percent_transition_F_0_vers_3
-  - percent_transition_F_1_vers_3
-  - percent_transition_F_2_vers_3
-  - percent_transition_F_3_vers_3
-  
-#   - percent_transition_G_1_vers_1
-#   - percent_transition_G_1_vers_2
-#   - percent_transition_G_1_vers_3
-  - percent_transition_G_1_vers_4
-#   - percent_transition_G_2_vers_1
-#   - percent_transition_G_2_vers_2
-#   - percent_transition_G_2_vers_3
-  - percent_transition_G_2_vers_4
-#   - percent_transition_G_3_vers_1
-#   - percent_transition_G_3_vers_2
-#   - percent_transition_G_3_vers_3
-  - percent_transition_G_3_vers_4
-#   - percent_transition_G_4_vers_1
-#   - percent_transition_G_4_vers_2
-#   - percent_transition_G_4_vers_3
-  - percent_transition_G_4_vers_4
 )
 
 formula_2 <- formula(
   I(real_G == 2) ~ .
-  - percent_transition_F_0_vers_0
-  - percent_transition_F_1_vers_0
-  - percent_transition_F_2_vers_0
-  - percent_transition_F_3_vers_0
-  - percent_transition_F_0_vers_1
-  - percent_transition_F_1_vers_1
-  - percent_transition_F_2_vers_1
-  - percent_transition_F_3_vers_1
-  - percent_transition_F_0_vers_2
-  - percent_transition_F_1_vers_2
-  - percent_transition_F_2_vers_2
-  - percent_transition_F_3_vers_2
-  - percent_transition_F_0_vers_3
-  - percent_transition_F_1_vers_3
-  - percent_transition_F_2_vers_3
-  - percent_transition_F_3_vers_3
-  
-  #   - percent_transition_G_1_vers_1
-  #   - percent_transition_G_1_vers_2
-  #   - percent_transition_G_1_vers_3
-  - percent_transition_G_1_vers_4
-  #   - percent_transition_G_2_vers_1
-  #   - percent_transition_G_2_vers_2
-  #   - percent_transition_G_2_vers_3
-  - percent_transition_G_2_vers_4
-  #   - percent_transition_G_3_vers_1
-  #   - percent_transition_G_3_vers_2
-  #   - percent_transition_G_3_vers_3
-  - percent_transition_G_3_vers_4
-  #   - percent_transition_G_4_vers_1
-  #   - percent_transition_G_4_vers_2
-  #   - percent_transition_G_4_vers_3
-  - percent_transition_G_4_vers_4
 )
 
 formula_3 <- formula(
   I(real_G == 3) ~ .
-  - percent_transition_F_0_vers_0
-  - percent_transition_F_1_vers_0
-  - percent_transition_F_2_vers_0
-  - percent_transition_F_3_vers_0
-  - percent_transition_F_0_vers_1
-  - percent_transition_F_1_vers_1
-  - percent_transition_F_2_vers_1
-  - percent_transition_F_3_vers_1
-  - percent_transition_F_0_vers_2
-  - percent_transition_F_1_vers_2
-  - percent_transition_F_2_vers_2
-  - percent_transition_F_3_vers_2
-  - percent_transition_F_0_vers_3
-  - percent_transition_F_1_vers_3
-  - percent_transition_F_2_vers_3
-  - percent_transition_F_3_vers_3
-  
-  #   - percent_transition_G_1_vers_1
-  #   - percent_transition_G_1_vers_2
-  #   - percent_transition_G_1_vers_3
-  - percent_transition_G_1_vers_4
-  #   - percent_transition_G_2_vers_1
-  #   - percent_transition_G_2_vers_2
-  #   - percent_transition_G_2_vers_3
-  - percent_transition_G_2_vers_4
-  #   - percent_transition_G_3_vers_1
-  #   - percent_transition_G_3_vers_2
-  #   - percent_transition_G_3_vers_3
-  - percent_transition_G_3_vers_4
-  #   - percent_transition_G_4_vers_1
-  #   - percent_transition_G_4_vers_2
-  #   - percent_transition_G_4_vers_3
-  - percent_transition_G_4_vers_4
 )
 
 formula_4 <- formula(
   I(real_G == 4) ~ .
-  - percent_transition_F_0_vers_0
-  - percent_transition_F_1_vers_0
-  - percent_transition_F_2_vers_0
-  - percent_transition_F_3_vers_0
-  - percent_transition_F_0_vers_1
-  - percent_transition_F_1_vers_1
-  - percent_transition_F_2_vers_1
-  - percent_transition_F_3_vers_1
-  - percent_transition_F_0_vers_2
-  - percent_transition_F_1_vers_2
-  - percent_transition_F_2_vers_2
-  - percent_transition_F_3_vers_2
-  - percent_transition_F_0_vers_3
-  - percent_transition_F_1_vers_3
-  - percent_transition_F_2_vers_3
-  - percent_transition_F_3_vers_3
-  
-  #   - percent_transition_G_1_vers_1
-  #   - percent_transition_G_1_vers_2
-  #   - percent_transition_G_1_vers_3
-  - percent_transition_G_1_vers_4
-  #   - percent_transition_G_2_vers_1
-  #   - percent_transition_G_2_vers_2
-  #   - percent_transition_G_2_vers_3
-  - percent_transition_G_2_vers_4
-  #   - percent_transition_G_3_vers_1
-  #   - percent_transition_G_3_vers_2
-  #   - percent_transition_G_3_vers_3
-  - percent_transition_G_3_vers_4
-  #   - percent_transition_G_4_vers_1
-  #   - percent_transition_G_4_vers_2
-  #   - percent_transition_G_4_vers_3
-  - percent_transition_G_4_vers_4
 )
 
 # fonctions
 source(file.path("templates","functions.R"))
-source(file.path("templates","get_data_3.R"))
+source(file.path("templates","get_data_glm_model.R"))
 source(file.path("templates","test_train_skeleton_all_clusters.R"))
 source(file.path("templates","glm_skeleton_error_estimate_G.R"))
 source(file.path("templates","glm_skeleton_final_training_G.R"))

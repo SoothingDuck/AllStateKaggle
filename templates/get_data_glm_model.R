@@ -49,58 +49,49 @@ normalize.data <- function(data) {
   
   # last_cost
   data$last_cost <- data$last_cost
-  data$last_cost_scaled <- scale(data$last_cost)
+  data$last_cost_cut <- cut(data$last_cost, breaks=c(0,seq(550, 750, 20), Inf))
   
   # A
-#   data$first_A <- factor(data$first_A)
   data$last_A <- factor(data$last_A)
-#   data$before_last_A <- factor(data$before_last_A)
-  #data$same_A <- (data$first_A == data$last_A)
+  data$shopping_pt_2_A <- factor(data$shopping_pt_2_A)
+  data$shopping_pt_3_A <- factor(data$shopping_pt_3_A)
+  data$shopping_pt_min_cost_A <- factor(data$shopping_pt_min_cost_A)
   
   # B
-#   data$first_B <- factor(data$first_B)
   data$last_B <- factor(data$last_B)
-#   data$before_last_B <- factor(data$before_last_B)
-  #data$same_B <- (data$first_B == data$last_B)
+  data$shopping_pt_2_B <- factor(data$shopping_pt_2_B)
+  data$shopping_pt_3_B <- factor(data$shopping_pt_3_B)
+  data$shopping_pt_min_cost_B <- factor(data$shopping_pt_min_cost_B)
   
   # C
-#   data$first_C <- factor(data$first_C)
   data$last_C <- factor(data$last_C)
-#   data$before_last_C <- factor(data$before_last_C)
-  #data$same_C <- (data$first_C == data$last_C)
+  data$shopping_pt_2_C <- factor(data$shopping_pt_2_C)
+  data$shopping_pt_3_C <- factor(data$shopping_pt_3_C)
+  data$shopping_pt_min_cost_C <- factor(data$shopping_pt_min_cost_C)
   
   # D
-#   data$first_D <- factor(data$first_D)
   data$last_D <- factor(data$last_D)
-#   data$before_last_D <- factor(data$before_last_D)
-  #data$same_D <- (data$first_D == data$last_D)
+  data$shopping_pt_2_D <- factor(data$shopping_pt_2_D)
+  data$shopping_pt_3_D <- factor(data$shopping_pt_3_D)
+  data$shopping_pt_min_cost_D <- factor(data$shopping_pt_min_cost_D)
   
   # E
-#   data$first_E <- factor(data$first_E)
   data$last_E <- factor(data$last_E)
-#   data$before_last_E <- factor(data$before_last_E)
-  #data$same_E <- (data$first_E == data$last_E)
+  data$shopping_pt_2_E <- factor(data$shopping_pt_2_E)
+  data$shopping_pt_3_E <- factor(data$shopping_pt_3_E)
+  data$shopping_pt_min_cost_E <- factor(data$shopping_pt_min_cost_E)
   
   # F
-#   data$first_F <- factor(data$first_F)
   data$last_F <- factor(data$last_F)
-#   data$before_last_F <- factor(data$before_last_F)
-  #data$same_F <- (data$first_F == data$last_F)
+  data$shopping_pt_2_F <- factor(data$shopping_pt_2_F)
+  data$shopping_pt_3_F <- factor(data$shopping_pt_3_F)
+  data$shopping_pt_min_cost_F <- factor(data$shopping_pt_min_cost_F)
   
   # G
-#   data$first_G <- factor(data$first_G)
   data$last_G <- factor(data$last_G)
-#   data$before_last_G <- factor(data$before_last_G)
-  #data$same_G <- (data$first_G == data$last_G)
-  
-  # Suppression NA Location
-  # data <- data[! is.na(data$location_G_proba_4),]
-  
-  # last_cluster_number
-  # data$last_cluster_number <- factor(data$last_cluster_number)
-  # data$cluster_number <- factor(data$first_cluster_number)
-  # data <- data[,! colnames(data) %in% c("last_cluster_number", "first_cluster_number")]
-  
+  data$shopping_pt_2_G <- factor(data$shopping_pt_2_G)
+  data$shopping_pt_3_G <- factor(data$shopping_pt_3_G)
+  data$shopping_pt_min_cost_G <- factor(data$shopping_pt_min_cost_G)
   
   return(data)
 }
