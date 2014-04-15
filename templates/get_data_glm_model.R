@@ -31,9 +31,11 @@ normalize.data <- function(data) {
   
   # age_youngest
   data$age_youngest <- data$age_youngest
+  data$age_youngest_cut <- cut(data$age_youngest, breaks=c(0, seq(20,70,10), Inf))
     
   # age_oldest
   data$age_oldest <- data$age_oldest
+  data$age_oldest_cut <- cut(data$age_oldest, breaks=c(0, seq(20,70,10), Inf))
   
   # married_couple
   data$married_couple <- factor(ifelse(data$married_couple == 1, "Yes", "No"))
@@ -44,6 +46,10 @@ normalize.data <- function(data) {
   # duration_previous
   data$duration_previous <- data$duration_previous
   data$duration_previous_cut <- cut(data$duration_previous, breaks=c(seq(-0.1,15,2.5), Inf))
+  
+  # last_cost
+  data$last_cost <- data$last_cost
+  data$last_cost_scaled <- scale(data$last_cost)
   
   # A
 #   data$first_A <- factor(data$first_A)
