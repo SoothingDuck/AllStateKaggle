@@ -44,7 +44,7 @@ normalize.data <- function(data) {
   data$C_previous <- factor(ifelse(is.na(data$C_previous), "NotAvailable", data$C_previous))
   
   # duration_previous
-  data$duration_previous <- data$duration_previous
+  data$duration_previous <- ifelse(is.na(data$duration_previous), 5, data$duration_previous)
   data$duration_previous_cut <- cut(data$duration_previous, breaks=c(seq(-0.1,15,2.5), Inf))
   
   # last_cost
