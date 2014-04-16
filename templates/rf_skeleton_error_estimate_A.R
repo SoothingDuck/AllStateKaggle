@@ -1,4 +1,4 @@
-library(gbm)
+library(randomForest)
 
 # Estimation modeles
 
@@ -14,22 +14,22 @@ for(prob in list_prob) {
   dataTrain <- tmp$train
   
   # Evaluation modeles
-  print("Entrainement modele GBM")
-  model_gbm <- gbm(
-    formula_gbm, 
-    distribution="multinomial", 
+  print("Entrainement modele RF")
+  model_rf <- randomForest(
+    formula_rf, 
     data=dataTrain,
-    interaction.depth=2,
-    n.trees=100, 
-    verbose=TRUE)
+    ntree=70,
+    importance=TRUE,
+    do.trace=TRUE
+  )
+    
+  prediction_test <- predict(model_rf, newdata=dataTest)
   
-  prediction_test <- predict(model_gbm, newdata=dataTest, n.trees=100)
+  dataTest$predicted_glm_A <- prediction_test
   
-  dataTest$predicted_glm_A <- max.col(data.frame(prediction_test))
+  prediction_train <- predict(model_rf, newdata=dataTrain)
   
-  prediction_train <- predict(model_gbm, newdata=dataTrain, n.trees=100)
-  
-  dataTrain$predicted_glm_A <- max.col(data.frame(prediction_train))
+  dataTrain$predicted_glm_A <- prediction_train
   
   
   print("Error GLM Test:")

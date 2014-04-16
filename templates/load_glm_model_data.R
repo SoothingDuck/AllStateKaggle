@@ -435,6 +435,28 @@ data <- dbGetQuery(
   T6.E as shopping_pt_min_cost_E,
   T6.F as shopping_pt_min_cost_F,
   T6.G as shopping_pt_min_cost_G,
+  coalesce(T7.A0_count, 5) as A0_count,
+  coalesce(T7.A1_count, 14) as A1_count,
+  coalesce(T7.A2_count, 3) as A2_count,
+  coalesce(T7.B0_count, 12) as B0_count,
+  coalesce(T7.B1_count, 10) as B1_count,
+  coalesce(T7.C1_count, 6) as C1_count,
+  coalesce(T7.C2_count, 4) as C2_count,
+  coalesce(T7.C3_count, 9) as C3_count,
+  coalesce(T7.C4_count, 2) as C4_count,
+  coalesce(T7.D1_count, 1) as D1_count,
+  coalesce(T7.D2_count, 4) as D2_count,
+  coalesce(T7.D3_count, 14) as D3_count,
+  coalesce(T7.E0_count, 12) as E0_count,
+  coalesce(T7.E1_count, 10) as E1_count,
+  coalesce(T7.F0_count, 5) as F0_count,
+  coalesce(T7.F1_count, 4) as F1_count,
+  coalesce(T7.F2_count, 8) as F2_count,
+  coalesce(T7.F3_count, 1) as F3_count,
+  coalesce(T7.G1_count, 1) as G1_count,
+  coalesce(T7.G2_count, 7) as G2_count,
+  coalesce(T7.G3_count, 3) as G3_count,  
+  coalesce(T7.G4_count, 1) as G4_count,
   T1.real_A as real_A,
   T1.real_B as real_B,
   T1.real_C as real_C,
@@ -473,6 +495,8 @@ data <- dbGetQuery(
   where
   A.shopping_pt = min_cost_shopping_pt
   ) T6 on (T1.customer_ID = T6.customer_ID)
+  left outer join
+  location_agg T7 on (T1.location = T7.location)
   where
   T2.dataset = 'train'
   and
@@ -537,7 +561,29 @@ data <- dbGetQuery(
   T6.D as shopping_pt_min_cost_D,
   T6.E as shopping_pt_min_cost_E,
   T6.F as shopping_pt_min_cost_F,
-  T6.G as shopping_pt_min_cost_G
+  T6.G as shopping_pt_min_cost_G,
+  coalesce(T7.A0_count, 5) as A0_count,
+  coalesce(T7.A1_count, 14) as A1_count,
+  coalesce(T7.A2_count, 3) as A2_count,
+  coalesce(T7.B0_count, 12) as B0_count,
+  coalesce(T7.B1_count, 10) as B1_count,
+  coalesce(T7.C1_count, 6) as C1_count,
+  coalesce(T7.C2_count, 4) as C2_count,
+  coalesce(T7.C3_count, 9) as C3_count,
+  coalesce(T7.C4_count, 2) as C4_count,
+  coalesce(T7.D1_count, 1) as D1_count,
+  coalesce(T7.D2_count, 4) as D2_count,
+  coalesce(T7.D3_count, 14) as D3_count,
+  coalesce(T7.E0_count, 12) as E0_count,
+  coalesce(T7.E1_count, 10) as E1_count,
+  coalesce(T7.F0_count, 5) as F0_count,
+  coalesce(T7.F1_count, 4) as F1_count,
+  coalesce(T7.F2_count, 8) as F2_count,
+  coalesce(T7.F3_count, 1) as F3_count,
+  coalesce(T7.G1_count, 1) as G1_count,
+  coalesce(T7.G2_count, 7) as G2_count,
+  coalesce(T7.G3_count, 3) as G3_count,  
+  coalesce(T7.G4_count, 1) as G4_count
   --T1.real_A as real_A,
   --T1.real_B as real_B,
   --T1.real_C as real_C,
@@ -578,6 +624,8 @@ data <- dbGetQuery(
   where
   A.shopping_pt = min_cost_shopping_pt
   ) T6 on (T1.customer_ID = T6.customer_ID)
+  left outer join
+  location_agg T7 on (T1.location = T7.location)
   where
   T2.dataset = 'test'
   and
