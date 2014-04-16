@@ -62,7 +62,7 @@ real_E,
 real_F,
 real_G 
 from
-data_train_model_glm_first
+data_train_model_glm_first_with_error
                      ")
   
   dbDisconnect(con)

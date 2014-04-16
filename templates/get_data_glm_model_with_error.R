@@ -1,7 +1,7 @@
 library(stringr)
 
-source(file.path("templates", "get_data_glm_model_test.R"))
-source(file.path("templates", "get_data_glm_model_train.R"))
+source(file.path("templates", "get_data_glm_model_test_with_error.R"))
+source(file.path("templates", "get_data_glm_model_train_with_error.R"))
 
 normalize.data <- function(data) {
   rownames(data) <- as.character(data$customer_ID)

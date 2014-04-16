@@ -18,12 +18,12 @@ all.data <- rbind(train.data, test.data)
 print("Tri des données")
 all.data <- all.data[order(all.data$customer_ID, all.data$shopping_pt),]
 
-print("Ajout de ordre ligne")
-all.data <- ddply(all.data,
-                  .(customer_ID),
-                  transform,
-                  line_number=1:(length(customer_ID))
-                  )
+# print("Ajout de ordre ligne")
+# all.data <- ddply(all.data,
+#                   .(customer_ID),
+#                   transform,
+#                   line_number=1:(length(customer_ID))
+#                   )
 
 # [1] "customer_ID"       "shopping_pt"       "record_type"      
 # [4] "day"               "time"              "state"            
@@ -99,8 +99,8 @@ transactions_columns <- c(
   "E",
   "F",
   "G",
-  "cost",
-  "line_number"
+  "cost"
+#   "line_number"
   )
 
 drv <- dbDriver("SQLite")

@@ -1,13 +1,13 @@
 library(RSQLite)
 
-get.data.glm.model.test <- function() {
+get.data.glm.model.train <- function() {
   sqlitedb.filename <- file.path("db", "allstate_data.sqlite3")
   
   drv <- dbDriver("SQLite")
   con <- dbConnect(drv, dbname=sqlitedb.filename)
   
   data <- dbGetQuery(con,
-"
+                     "
 select 
 customer_ID,
 state,
@@ -53,10 +53,17 @@ shopping_pt_min_cost_C,
 shopping_pt_min_cost_D,
 shopping_pt_min_cost_E,
 shopping_pt_min_cost_F,
-shopping_pt_min_cost_G
+shopping_pt_min_cost_G,
+real_A,
+real_B,
+real_C,
+real_D,
+real_E,
+real_F,
+real_G 
 from
-data_test_model_glm_first
-")
+data_train_model_glm_first_no_error
+                     ")
   
   dbDisconnect(con)
 
