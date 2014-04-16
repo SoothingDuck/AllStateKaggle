@@ -15,16 +15,8 @@ csv.output.filename <- file.path("DATA","OUTPUT","result_model_gbm_all_clusters_
 RData.output.filename <- file.path("DATA","OUTPUT","first_model_gbm_all_clusters_A.RData")
 
 # Formules
-formula_0 <- formula(
-  paste("I(",y.variable," == \"0\") ~ .", sep = "")
-)
-
-formula_1 <- formula(
-  paste("I(",y.variable," == \"1\") ~ .", sep = "")
-)
-
-formula_2 <- formula(
-  paste("I(",y.variable," == \"2\") ~ .", sep = "")
+formula_gbm <- formula(
+  real_A ~ .
 )
 
 # fonctions

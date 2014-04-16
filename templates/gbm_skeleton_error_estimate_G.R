@@ -15,22 +15,15 @@ for(prob in list_prob) {
   # Evaluation modeles
   print("Entrainement modele GBM")
   model_gbm <- gbm(
-    formula_gbm, data=dataTrain, n.trees=1000)
+    formula_gbm, data=dataTrain, n.trees=1000, verbose=TRUE)
   
+  prediction_test <- predict(model_gbm, newdata=dataTest, n.trees=1000)
   
-  dataTest$predict_glm_1 <- predict(model_1, newdata=dataTest)
-  dataTest$predict_glm_2 <- predict(model_2, newdata=dataTest)
-  dataTest$predict_glm_3 <- predict(model_3, newdata=dataTest)
-  dataTest$predict_glm_4 <- predict(model_4, newdata=dataTest)
+  dataTest$predicted_glm_G <- max.col(data.frame(prediction_test))
   
-  dataTest$predicted_glm_G <- factor(max.col(dataTest[,c("predict_glm_1","predict_glm_2","predict_glm_3","predict_glm_4")]))
+  prediction_train <- predict(model_gbm, newdata=dataTrain, n.trees=1000)
   
-  dataTrain$predict_glm_1 <- predict(model_1, newdata=dataTrain)
-  dataTrain$predict_glm_2 <- predict(model_2, newdata=dataTrain)
-  dataTrain$predict_glm_3 <- predict(model_3, newdata=dataTrain)
-  dataTrain$predict_glm_4 <- predict(model_4, newdata=dataTrain)
-  
-  dataTrain$predicted_glm_G <- factor(max.col(dataTrain[,c("predict_glm_1","predict_glm_2","predict_glm_3","predict_glm_4")]))
+  dataTrain$predicted_glm_G <- max.col(data.frame(prediction_train))
   
   
   print("Error GLM Test:")
