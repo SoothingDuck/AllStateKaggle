@@ -24,26 +24,26 @@ for(prob in list_prob) {
   
   prediction_test <- predict(model_rf, newdata=dataTest)
   
-  dataTest$predicted_glm_B <- prediction_test
+  dataTest$predicted_glm_E <- prediction_test
   
   prediction_train <- predict(model_rf, newdata=dataTrain)
   
-  dataTrain$predicted_glm_B <- prediction_train
+  dataTrain$predicted_glm_E <- prediction_train
   
   print("Error RF Test:")
-  print(prediction_error(dataTest$real_B, dataTest$predicted_glm_B))
+  print(prediction_error(dataTest$real_E, dataTest$predicted_glm_E))
   
   print("Error RF Train:")
-  print(prediction_error(dataTrain$real_B, dataTrain$predicted_glm_B))
+  print(prediction_error(dataTrain$real_E, dataTrain$predicted_glm_E))
   
   result <- rbind(result, data.frame(
     size.train=prob, 
-    error.glm.test=prediction_error(dataTest$real_B, dataTest$predicted_glm_B),
-    error.glm.train=prediction_error(dataTrain$real_B, dataTrain$predicted_glm_B),
-    error.glm.test.0=prediction_error(dataTest$real_B == "0", dataTest$predicted_glm_B == "0"),
-    error.glm.train.0=prediction_error(dataTrain$real_B == "0", dataTrain$predicted_glm_B == "0"),
-    error.glm.test.1=prediction_error(dataTest$real_B == "1", dataTest$predicted_glm_B == "1"),
-    error.glm.train.1=prediction_error(dataTrain$real_B == "1", dataTrain$predicted_glm_B == "1")
+    error.glm.test=prediction_error(dataTest$real_E, dataTest$predicted_glm_E),
+    error.glm.train=prediction_error(dataTrain$real_E, dataTrain$predicted_glm_E),
+    error.glm.test.0=prediction_error(dataTest$real_E == "0", dataTest$predicted_glm_E == "0"),
+    error.glm.train.0=prediction_error(dataTrain$real_E == "0", dataTrain$predicted_glm_E == "0"),
+    error.glm.test.1=prediction_error(dataTest$real_E == "1", dataTest$predicted_glm_E == "1"),
+    error.glm.train.1=prediction_error(dataTrain$real_E == "1", dataTrain$predicted_glm_E == "1")
   )
   )
   

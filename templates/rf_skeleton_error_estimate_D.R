@@ -24,26 +24,28 @@ for(prob in list_prob) {
   
   prediction_test <- predict(model_rf, newdata=dataTest)
   
-  dataTest$predicted_glm_B <- prediction_test
+  dataTest$predicted_glm_D <- prediction_test
   
   prediction_train <- predict(model_rf, newdata=dataTrain)
   
-  dataTrain$predicted_glm_B <- prediction_train
+  dataTrain$predicted_glm_D <- prediction_train
   
   print("Error RF Test:")
-  print(prediction_error(dataTest$real_B, dataTest$predicted_glm_B))
+  print(prediction_error(dataTest$real_D, dataTest$predicted_glm_D))
   
   print("Error RF Train:")
-  print(prediction_error(dataTrain$real_B, dataTrain$predicted_glm_B))
+  print(prediction_error(dataTrain$real_D, dataTrain$predicted_glm_D))
   
   result <- rbind(result, data.frame(
     size.train=prob, 
-    error.glm.test=prediction_error(dataTest$real_B, dataTest$predicted_glm_B),
-    error.glm.train=prediction_error(dataTrain$real_B, dataTrain$predicted_glm_B),
-    error.glm.test.0=prediction_error(dataTest$real_B == "0", dataTest$predicted_glm_B == "0"),
-    error.glm.train.0=prediction_error(dataTrain$real_B == "0", dataTrain$predicted_glm_B == "0"),
-    error.glm.test.1=prediction_error(dataTest$real_B == "1", dataTest$predicted_glm_B == "1"),
-    error.glm.train.1=prediction_error(dataTrain$real_B == "1", dataTrain$predicted_glm_B == "1")
+    error.glm.test=prediction_error(dataTest$real_D, dataTest$predicted_glm_D),
+    error.glm.train=prediction_error(dataTrain$real_D, dataTrain$predicted_glm_D),
+    error.glm.test.0=prediction_error(dataTest$real_D == "1", dataTest$predicted_glm_D == "1"),
+    error.glm.train.0=prediction_error(dataTrain$real_D == "1", dataTrain$predicted_glm_D == "1"),
+    error.glm.test.0=prediction_error(dataTest$real_D == "2", dataTest$predicted_glm_D == "2"),
+    error.glm.train.0=prediction_error(dataTrain$real_D == "2", dataTrain$predicted_glm_D == "2"),
+    error.glm.test.1=prediction_error(dataTest$real_D == "3", dataTest$predicted_glm_D == "3"),
+    error.glm.train.1=prediction_error(dataTrain$real_D == "3", dataTrain$predicted_glm_D == "3")
   )
   )
   

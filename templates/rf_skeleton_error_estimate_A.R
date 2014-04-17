@@ -7,7 +7,6 @@ list_prob <- seq(start.check, end.check, step.check)
 result <- data.frame()
 
 for(prob in list_prob) {
-  
   cat("Taille train : ", prob, "\n")
   
   tmp <- get.base.train.test(dataTrainBase, y.variable, prob)
@@ -22,7 +21,7 @@ for(prob in list_prob) {
     importance=TRUE,
     do.trace=TRUE
   )
-    
+  
   prediction_test <- predict(model_rf, newdata=dataTest)
   
   dataTest$predicted_glm_A <- prediction_test
@@ -31,12 +30,14 @@ for(prob in list_prob) {
   
   dataTrain$predicted_glm_A <- prediction_train
   
-  
   print("Error RF Test:")
   print(prediction_error(dataTest$real_A, dataTest$predicted_glm_A))
   
   print("Error RF Train:")
   print(prediction_error(dataTrain$real_A, dataTrain$predicted_glm_A))
+  
+  df.importance <- data.frame(model_rf$importance)
+  write.csv(x=df.importance, file=file.path("DATA","OUTPUT","model_rf_importance_A.csv"))
   
   result <- rbind(result, data.frame(
     size.train=prob, 
