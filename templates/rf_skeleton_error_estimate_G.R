@@ -13,37 +13,37 @@ for(prob in list_prob) {
   dataTrain <- tmp$train
   
   # Evaluation modeles
-  print("Entrainement modele GBM")
-  model_gbm <- gbm(
-    formula_gbm, data=dataTrain, n.trees=1000, verbose=TRUE)
+  print("Entrainement modele RF")
+  model_rf <- randomForest(
+    formula_rf, 
+    data=dataTrain,
+    ntree=150,
+    importance=TRUE,
+    do.trace=TRUE
+  )
   
-  prediction_test <- predict(model_gbm, newdata=dataTest, n.trees=1000)
+  prediction_test <- predict(model_rf, newdata=dataTest)
   
-  dataTest$predicted_glm_G <- max.col(data.frame(prediction_test))
+  dataTest$predicted_glm_B <- prediction_test
   
-  prediction_train <- predict(model_gbm, newdata=dataTrain, n.trees=1000)
+  prediction_train <- predict(model_rf, newdata=dataTrain)
   
-  dataTrain$predicted_glm_G <- max.col(data.frame(prediction_train))
+  dataTrain$predicted_glm_B <- prediction_train
   
+  print("Error RF Test:")
+  print(prediction_error(dataTest$real_B, dataTest$predicted_glm_B))
   
-  print("Error GLM Test:")
-  print(prediction_error(dataTest$real_G, dataTest$predicted_glm_G))
-  
-  print("Error GLM Train:")
-  print(prediction_error(dataTrain$real_G, dataTrain$predicted_glm_G))
+  print("Error RF Train:")
+  print(prediction_error(dataTrain$real_B, dataTrain$predicted_glm_B))
   
   result <- rbind(result, data.frame(
     size.train=prob, 
-    error.glm.test=prediction_error(dataTest$real_G, dataTest$predicted_glm_G),
-    error.glm.train=prediction_error(dataTrain$real_G, dataTrain$predicted_glm_G),
-    error.glm.test.1=prediction_error(dataTest$real_G == "1", dataTest$predicted_glm_G == "1"),
-    error.glm.train.1=prediction_error(dataTrain$real_G == "1", dataTrain$predicted_glm_G == "1"),
-    error.glm.test.2=prediction_error(dataTest$real_G == "2", dataTest$predicted_glm_G == "2"),
-    error.glm.train.2=prediction_error(dataTrain$real_G == "2", dataTrain$predicted_glm_G == "2"),
-    error.glm.test.3=prediction_error(dataTest$real_G == "3", dataTest$predicted_glm_G == "3"),
-    error.glm.train.3=prediction_error(dataTrain$real_G == "3", dataTrain$predicted_glm_G == "3"),
-    error.glm.test.4=prediction_error(dataTest$real_G == "4", dataTest$predicted_glm_G == "4"),
-    error.glm.train.4=prediction_error(dataTrain$real_G == "4", dataTrain$predicted_glm_G == "4")
+    error.glm.test=prediction_error(dataTest$real_B, dataTest$predicted_glm_B),
+    error.glm.train=prediction_error(dataTrain$real_B, dataTrain$predicted_glm_B),
+    error.glm.test.0=prediction_error(dataTest$real_B == "0", dataTest$predicted_glm_B == "0"),
+    error.glm.train.0=prediction_error(dataTrain$real_B == "0", dataTrain$predicted_glm_B == "0"),
+    error.glm.test.1=prediction_error(dataTest$real_B == "1", dataTest$predicted_glm_B == "1"),
+    error.glm.train.1=prediction_error(dataTrain$real_B == "1", dataTrain$predicted_glm_B == "1")
   )
   )
   

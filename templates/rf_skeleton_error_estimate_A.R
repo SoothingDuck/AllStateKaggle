@@ -18,7 +18,7 @@ for(prob in list_prob) {
   model_rf <- randomForest(
     formula_rf, 
     data=dataTrain,
-    ntree=70,
+    ntree=150,
     importance=TRUE,
     do.trace=TRUE
   )
@@ -32,10 +32,10 @@ for(prob in list_prob) {
   dataTrain$predicted_glm_A <- prediction_train
   
   
-  print("Error GLM Test:")
+  print("Error RF Test:")
   print(prediction_error(dataTest$real_A, dataTest$predicted_glm_A))
   
-  print("Error GLM Train:")
+  print("Error RF Train:")
   print(prediction_error(dataTrain$real_A, dataTrain$predicted_glm_A))
   
   result <- rbind(result, data.frame(

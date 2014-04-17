@@ -13,32 +13,27 @@ for(prob in list_prob) {
   dataTrain <- tmp$train
   
   # Evaluation modeles
-  print("Entrainement modele GLM 0")
-  model_0 <- glm(
-    formula_0
-    , family = binomial, data=dataTrain)
+  print("Entrainement modele RF")
+  model_rf <- randomForest(
+    formula_rf, 
+    data=dataTrain,
+    ntree=150,
+    importance=TRUE,
+    do.trace=TRUE
+  )
   
-  print("Entrainement modele GLM 1")
-  model_1 <- glm(
-    formula_1
-    , family = binomial, data=dataTrain)
+  prediction_test <- predict(model_rf, newdata=dataTest)
   
+  dataTest$predicted_glm_B <- prediction_test
   
-  dataTest$predict_glm_0 <- predict(model_0, newdata=dataTest)
-  dataTest$predict_glm_1 <- predict(model_1, newdata=dataTest)
+  prediction_train <- predict(model_rf, newdata=dataTrain)
   
-  dataTest$predicted_glm_B <- factor(max.col(dataTest[,c("predict_glm_0","predict_glm_1")])-1)
+  dataTrain$predicted_glm_B <- prediction_train
   
-  dataTrain$predict_glm_0 <- predict(model_0, newdata=dataTrain)
-  dataTrain$predict_glm_1 <- predict(model_1, newdata=dataTrain)
-  
-  dataTrain$predicted_glm_B <- factor(max.col(dataTrain[,c("predict_glm_0","predict_glm_1")])-1)
-  
-  
-  print("Error GLM Test:")
+  print("Error RF Test:")
   print(prediction_error(dataTest$real_B, dataTest$predicted_glm_B))
   
-  print("Error GLM Train:")
+  print("Error RF Train:")
   print(prediction_error(dataTrain$real_B, dataTrain$predicted_glm_B))
   
   result <- rbind(result, data.frame(

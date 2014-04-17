@@ -16,8 +16,27 @@ RData.output.filename <- file.path("DATA","OUTPUT","first_model_rf_all_clusters_
 
 # Formules
 formula_rf <- formula(
-  real_A ~ . - state
-)
+  real_A ~  
+  A0_count +
+  F0_count +
+  shopping_pt_2_F +
+  shopping_pt_2_cost +
+  shopping_pt_min_cost_cost +
+  shopping_pt_3_cost +
+  last_cost +
+  last_E +
+  shopping_pt_3_F +
+  car_age_cut +
+  A1_count +
+  shopping_pt_min_cost_F +
+  A2_count +
+  shopping_pt_2_A +
+  car_age +
+  last_F +
+  shopping_pt_3_A +
+  # shopping_pt_min_cost_A +
+  last_A                                                                             
+    )
 
 # fonctions
 source(file.path("templates","functions.R"))
