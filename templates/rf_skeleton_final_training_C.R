@@ -8,11 +8,11 @@ model_rf_final_C <- randomForest(
   do.trace=TRUE
 )
 
-prediction_train <- predict(model_rf, newdata=dataTrain)
+prediction_train <- predict(model_rf, newdata=dataTrainBase)
 
-dataTrainBase$predicted_glm_C <- prediction_train
+dataTrainBase$predicted_rf_C <- prediction_train
 
-print(table(dataTrainBase$predicted_glm_C))
+print(table(dataTrainBase$predicted_rf_C))
 
 # Sauvegarde des modeles
 save(model_rf_final_C, file=RData.output.filename)

@@ -24,28 +24,31 @@ for(prob in list_prob) {
   
   prediction_test <- predict(model_rf, newdata=dataTest)
   
-  dataTest$predicted_glm_D <- prediction_test
+  dataTest$predicted_rf_D <- prediction_test
   
   prediction_train <- predict(model_rf, newdata=dataTrain)
   
-  dataTrain$predicted_glm_D <- prediction_train
+  dataTrain$predicted_rf_D <- prediction_train
   
   print("Error RF Test:")
-  print(prediction_error(dataTest$real_D, dataTest$predicted_glm_D))
+  print(prediction_error(dataTest$real_D, dataTest$predicted_rf_D))
   
   print("Error RF Train:")
-  print(prediction_error(dataTrain$real_D, dataTrain$predicted_glm_D))
+  print(prediction_error(dataTrain$real_D, dataTrain$predicted_rf_D))
+
+  df.importance <- data.frame(model_rf$importance)
+  write.csv(x=df.importance, file=file.path("DATA","OUTPUT","model_rf_importance_D.csv"))
   
   result <- rbind(result, data.frame(
     size.train=prob, 
-    error.glm.test=prediction_error(dataTest$real_D, dataTest$predicted_glm_D),
-    error.glm.train=prediction_error(dataTrain$real_D, dataTrain$predicted_glm_D),
-    error.glm.test.0=prediction_error(dataTest$real_D == "1", dataTest$predicted_glm_D == "1"),
-    error.glm.train.0=prediction_error(dataTrain$real_D == "1", dataTrain$predicted_glm_D == "1"),
-    error.glm.test.0=prediction_error(dataTest$real_D == "2", dataTest$predicted_glm_D == "2"),
-    error.glm.train.0=prediction_error(dataTrain$real_D == "2", dataTrain$predicted_glm_D == "2"),
-    error.glm.test.1=prediction_error(dataTest$real_D == "3", dataTest$predicted_glm_D == "3"),
-    error.glm.train.1=prediction_error(dataTrain$real_D == "3", dataTrain$predicted_glm_D == "3")
+    error.rf.test=prediction_error(dataTest$real_D, dataTest$predicted_rf_D),
+    error.rf.train=prediction_error(dataTrain$real_D, dataTrain$predicted_rf_D),
+    error.rf.test.0=prediction_error(dataTest$real_D == "1", dataTest$predicted_rf_D == "1"),
+    error.rf.train.0=prediction_error(dataTrain$real_D == "1", dataTrain$predicted_rf_D == "1"),
+    error.rf.test.0=prediction_error(dataTest$real_D == "2", dataTest$predicted_rf_D == "2"),
+    error.rf.train.0=prediction_error(dataTrain$real_D == "2", dataTrain$predicted_rf_D == "2"),
+    error.rf.test.1=prediction_error(dataTest$real_D == "3", dataTest$predicted_rf_D == "3"),
+    error.rf.train.1=prediction_error(dataTrain$real_D == "3", dataTrain$predicted_rf_D == "3")
   )
   )
   
