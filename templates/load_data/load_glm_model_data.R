@@ -251,6 +251,7 @@ data <- dbGetQuery(
   coalesce(T7.G3_count, 3) as G3_count,  
   coalesce(T7.G4_count, 1) as G4_count,
   T3.min_nb_erreur as min_nb_erreur,
+  T8.nb_views as nb_views,
   T1.real_A as real_A,
   T1.real_B as real_B,
   T1.real_C as real_C,
@@ -291,6 +292,17 @@ data <- dbGetQuery(
   ) T6 on (T1.customer_ID = T6.customer_ID)
   left outer join
   location_agg T7 on (T1.location = T7.location)
+  inner join
+  (
+    select
+    customer_ID,
+    count(*) as nb_views
+    from
+    transactions
+    where
+    record_type = 0
+    group by 1
+  ) T8 on (T1.customer_ID = T8.customer_ID)
   where
   T2.dataset = 'train'
   and
@@ -378,7 +390,8 @@ data <- dbGetQuery(
   coalesce(T7.G1_count, 1) as G1_count,
   coalesce(T7.G2_count, 7) as G2_count,
   coalesce(T7.G3_count, 3) as G3_count,  
-  coalesce(T7.G4_count, 1) as G4_count
+  coalesce(T7.G4_count, 1) as G4_count,
+  T8.nb_views as nb_views
   --T1.real_A as real_A,
   --T1.real_B as real_B,
   --T1.real_C as real_C,
@@ -421,6 +434,17 @@ data <- dbGetQuery(
   ) T6 on (T1.customer_ID = T6.customer_ID)
   left outer join
   location_agg T7 on (T1.location = T7.location)
+  inner join
+  (
+    select
+    customer_ID,
+    count(*) as nb_views
+    from
+    transactions
+    where
+    record_type = 0
+    group by 1
+  ) T8 on (T1.customer_ID = T8.customer_ID)
   where
   T2.dataset = 'test'
   and

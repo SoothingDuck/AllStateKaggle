@@ -12,6 +12,26 @@ for(prob in list_prob) {
   tmp <- get.base.train.test(dataTrainBase, y.variable, prob)
   dataTrain <- tmp$train
   
+  formula_0 <- formula(
+    I(real_A == 0) ~
+      state
+    + car_age
+    + car_value
+    + risk_factor
+    + last_cost
+    + last_A
+    #+ age_youngest
+    + age_oldest
+    #+ last_F
+    + shopping_pt_2_A
+    #+ shopping_pt_2_F
+    + shopping_pt_3_A
+    #+ shopping_pt_3_F
+    + shopping_pt_min_cost_A
+    #+ shopping_pt_min_cost_F
+    + A0_location_pct
+  )
+  
   # Evaluation modeles  
   print("Entrainement modele GLM 0")
   model_0 <- glm(
@@ -20,12 +40,23 @@ for(prob in list_prob) {
     
   print("Entrainement modele GLM 1")
   formula_1 <- formula(
-    I(real_A == 1) ~ . 
-    - prc_A0_count_whole
-    - prc_A0_count_day
-    - prc_A2_count_whole
-    - prc_A2_count_day
-
+    I(real_A == 1) ~ 
+    A1_location_pct
+    + shopping_pt_min_cost_F
+    + shopping_pt_min_cost_A
+    + shopping_pt_3_F
+    + shopping_pt_3_A
+    + shopping_pt_2_F
+    + shopping_pt_2_A
+    + last_F
+    + last_E
+    + last_A
+    + last_cost
+    + duration_previous
+    + age_oldest
+    + car_age
+    + state
+    + day*last_A
   )
   
   model_1 <- glm(
@@ -33,6 +64,10 @@ for(prob in list_prob) {
     , family = binomial, data=dataTrain, trace = TRUE)
   
   print("Entrainement modele GLM 2")
+  formula_2 <- formula(
+    I(real_A == 2) ~ .
+  )
+
   model_2 <- glm(
     formula_2
     , family = binomial, data=dataTrain, trace = TRUE)
