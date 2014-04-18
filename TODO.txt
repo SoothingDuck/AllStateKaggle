@@ -1,1 +1,7 @@
-Faire kmeans de 3 clusters et les assigner aux données
+
+Modele sur 2ème
+Modèle sur 3ème
+Modèle sur last
+
+Modèle avec n_erreurs <= 1
+Modèle avec n_erreurs > 1
