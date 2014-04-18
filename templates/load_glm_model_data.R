@@ -15,6 +15,7 @@ data <- dbGetQuery(
   "
 select
 T1.customer_ID,
+T1.location,
 T3.state,
 T3.dataset,
 T1.shopping_pt,
@@ -390,9 +391,9 @@ data <- dbGetQuery(
   "
   select
   T1.customer_ID as customer_ID,
+  T1.location as location,
   T1.state as state,
   T1.day as day,
-  -- T1.location as location,
   T1.group_size as group_size,
   T1.homeowner as homeowner,
   T1.car_age as car_age,
@@ -517,6 +518,7 @@ data <- dbGetQuery(
   "
   select
   T1.customer_ID as customer_ID,
+  T1.location as location,
   T1.state as state,
   T1.day as day,
   -- T1.location as location,

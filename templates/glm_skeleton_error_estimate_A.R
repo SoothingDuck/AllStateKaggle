@@ -12,21 +12,30 @@ for(prob in list_prob) {
   tmp <- get.base.train.test(dataTrainBase, y.variable, prob)
   dataTrain <- tmp$train
   
-  # Evaluation modeles
+  # Evaluation modeles  
   print("Entrainement modele GLM 0")
   model_0 <- glm(
     formula_0
-    , family = binomial, data=dataTrain)
-  
+    , family = binomial, data=dataTrain, trace = TRUE)
+    
   print("Entrainement modele GLM 1")
+  formula_1 <- formula(
+    I(real_A == 1) ~ . 
+    - prc_A0_count_whole
+    - prc_A0_count_day
+    - prc_A2_count_whole
+    - prc_A2_count_day
+
+  )
+  
   model_1 <- glm(
     formula_1
-    , family = binomial, data=dataTrain)
+    , family = binomial, data=dataTrain, trace = TRUE)
   
   print("Entrainement modele GLM 2")
   model_2 <- glm(
     formula_2
-    , family = binomial, data=dataTrain)
+    , family = binomial, data=dataTrain, trace = TRUE)
   
   
   dataTest$predict_glm_0 <- predict(model_0, newdata=dataTest)
