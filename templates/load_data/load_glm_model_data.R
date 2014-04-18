@@ -174,216 +174,8 @@ data <- dbGetQuery(
 dbWriteTable(con, "shopping_point_min_cost", data)
 
 
-if(dbExistsTable(con, "data_train_model_glm_first_no_error")){
-  dbRemoveTable(con, "data_train_model_glm_first_no_error")
-}
-
-data <- dbGetQuery(
-  con,
-"
-select
-T1.customer_ID as customer_ID,
-T1.state as state,
-T1.day as day,
--- T1.location as location,
-T1.group_size as group_size,
-T1.homeowner as homeowner,
-T1.car_age as car_age,
-T1.car_value as car_value,
-T1.risk_factor as risk_factor,
-T1.age_youngest as age_youngest,
-T1.age_oldest as age_oldest,
-T1.married_couple as married_couple,
-T1.C_previous as C_previous,
-T1.duration_previous as duration_previous,
-T1.cost as last_cost,
-T4.cost as shopping_pt_2_cost,
-T5.cost as shopping_pt_3_cost,
-T6.cost as shopping_pt_min_cost_cost,
-T1.A as last_A,
-T1.B as last_B,
-T1.C as last_C,
-T1.D as last_D,
-T1.E as last_E,
-T1.F as last_F,
-T1.G as last_G,
-T4.A as shopping_pt_2_A,
-T4.B as shopping_pt_2_B,
-T4.C as shopping_pt_2_C,
-T4.D as shopping_pt_2_D,
-T4.E as shopping_pt_2_E,
-T4.F as shopping_pt_2_F,
-T4.G as shopping_pt_2_G,
-T5.A as shopping_pt_3_A,
-T5.B as shopping_pt_3_B,
-T5.C as shopping_pt_3_C,
-T5.D as shopping_pt_3_D,
-T5.E as shopping_pt_3_E,
-T5.F as shopping_pt_3_F,
-T5.G as shopping_pt_3_G,
-T6.A as shopping_pt_min_cost_A,
-T6.B as shopping_pt_min_cost_B,
-T6.C as shopping_pt_min_cost_C,
-T6.D as shopping_pt_min_cost_D,
-T6.E as shopping_pt_min_cost_E,
-T6.F as shopping_pt_min_cost_F,
-T6.G as shopping_pt_min_cost_G,
-T1.real_A as real_A,
-T1.real_B as real_B,
-T1.real_C as real_C,
-T1.real_D as real_D,
-T1.real_E as real_E,
-T1.real_F as real_F,
-T1.real_G as real_G
-from
-transactions_with_result T1 inner join 
-shopping_point_list T2 on (T1.customer_ID = T2.customer_ID) inner join
-customers_train_error T3 on (T2.customer_ID = T3.customer_ID) inner join
-(
-select
-A.*
-from
-transactions_with_result A inner join
-shopping_point_list B on (A.customer_ID = B.customer_ID)
-where
-A.shopping_pt = B.shopping_pt_2
-) T4 on (T1.customer_ID = T4.customer_ID) inner join
-(
-select
-A.*
-from
-transactions_with_result A inner join
-shopping_point_list B on (A.customer_ID = B.customer_ID)
-where
-A.shopping_pt = B.shopping_pt_3
-) T5 on (T1.customer_ID = T5.customer_ID) inner join
-(
-select
-A.*
-from
-transactions_with_result A inner join
-shopping_point_min_cost B on (A.customer_ID = B.customer_ID)
-where
-A.shopping_pt = min_cost_shopping_pt
-) T6 on (T1.customer_ID = T6.customer_ID)
-where
-T2.dataset = 'train'
-and
-T1.shopping_pt = T2.last_shopping_pt
-and
-T3.min_nb_erreur = 0
-"
-)
-
-dbWriteTable(con, "data_train_model_glm_first_no_error", data)
-
-if(dbExistsTable(con, "data_test_model_glm_first_no_error")){
-  dbRemoveTable(con, "data_test_model_glm_first_no_error")
-}
-
-data <- dbGetQuery(
-  con,
-  "
-  select
-  T1.customer_ID as customer_ID,
-  T1.state as state,
-  T1.day as day,
-  -- T1.location as location,
-  T1.group_size as group_size,
-  T1.homeowner as homeowner,
-  T1.car_age as car_age,
-  T1.car_value as car_value,
-  T1.risk_factor as risk_factor,
-  T1.age_youngest as age_youngest,
-  T1.age_oldest as age_oldest,
-  T1.married_couple as married_couple,
-  T1.C_previous as C_previous,
-  T1.duration_previous as duration_previous,
-  T1.cost as last_cost,
-  T4.cost as shopping_pt_2_cost,
-  T5.cost as shopping_pt_3_cost,
-  T6.cost as shopping_pt_min_cost_cost,
-  T1.A as last_A,
-  T1.B as last_B,
-  T1.C as last_C,
-  T1.D as last_D,
-  T1.E as last_E,
-  T1.F as last_F,
-  T1.G as last_G,
-  T4.A as shopping_pt_2_A,
-  T4.B as shopping_pt_2_B,
-  T4.C as shopping_pt_2_C,
-  T4.D as shopping_pt_2_D,
-  T4.E as shopping_pt_2_E,
-  T4.F as shopping_pt_2_F,
-  T4.G as shopping_pt_2_G,
-  T5.A as shopping_pt_3_A,
-  T5.B as shopping_pt_3_B,
-  T5.C as shopping_pt_3_C,
-  T5.D as shopping_pt_3_D,
-  T5.E as shopping_pt_3_E,
-  T5.F as shopping_pt_3_F,
-  T5.G as shopping_pt_3_G,
-  T6.A as shopping_pt_min_cost_A,
-  T6.B as shopping_pt_min_cost_B,
-  T6.C as shopping_pt_min_cost_C,
-  T6.D as shopping_pt_min_cost_D,
-  T6.E as shopping_pt_min_cost_E,
-  T6.F as shopping_pt_min_cost_F,
-  T6.G as shopping_pt_min_cost_G
-  --T1.real_A as real_A,
-  --T1.real_B as real_B,
-  --T1.real_C as real_C,
-  --T1.real_D as real_D,
-  --T1.real_E as real_E,
-  --T1.real_F as real_F,
-  --T1.real_G as real_G
-  from
-  transactions_with_result T1 inner join 
-  shopping_point_list T2 on (T1.customer_ID = T2.customer_ID) 
-  --inner join
-  --customers_train_error T3 on (T2.customer_ID = T3.customer_ID) 
-  inner join
-  (
-  select
-  A.*
-  from
-  transactions_with_result A inner join
-  shopping_point_list B on (A.customer_ID = B.customer_ID)
-  where
-  A.shopping_pt = B.shopping_pt_2
-  ) T4 on (T1.customer_ID = T4.customer_ID) inner join
-  (
-  select
-  A.*
-  from
-  transactions_with_result A inner join
-  shopping_point_list B on (A.customer_ID = B.customer_ID)
-  where
-  A.shopping_pt = B.shopping_pt_3
-  ) T5 on (T1.customer_ID = T5.customer_ID) inner join
-  (
-  select
-  A.*
-  from
-  transactions_with_result A inner join
-  shopping_point_min_cost B on (A.customer_ID = B.customer_ID)
-  where
-  A.shopping_pt = min_cost_shopping_pt
-  ) T6 on (T1.customer_ID = T6.customer_ID)
-  where
-  T2.dataset = 'test'
-  and
-  T1.shopping_pt = T2.last_shopping_pt
-  --and
-  --T3.min_nb_erreur = 0
-  "
-)
-
-dbWriteTable(con, "data_test_model_glm_first_no_error", data)
-
-if(dbExistsTable(con, "data_train_model_glm_first_with_error")){
-  dbRemoveTable(con, "data_train_model_glm_first_with_error")
+if(dbExistsTable(con, "data_train_model_glm_first")){
+  dbRemoveTable(con, "data_train_model_glm_first")
 }
 
 data <- dbGetQuery(
@@ -458,6 +250,7 @@ data <- dbGetQuery(
   coalesce(T7.G2_count, 7) as G2_count,
   coalesce(T7.G3_count, 3) as G3_count,  
   coalesce(T7.G4_count, 1) as G4_count,
+  T3.min_nb_erreur as min_nb_erreur,
   T1.real_A as real_A,
   T1.real_B as real_B,
   T1.real_C as real_C,
@@ -507,10 +300,10 @@ data <- dbGetQuery(
   "
 )
 
-dbWriteTable(con, "data_train_model_glm_first_with_error", data)
+dbWriteTable(con, "data_train_model_glm_first", data)
 
-if(dbExistsTable(con, "data_test_model_glm_first_with_error")){
-  dbRemoveTable(con, "data_test_model_glm_first_with_error")
+if(dbExistsTable(con, "data_test_model_glm_first")){
+  dbRemoveTable(con, "data_test_model_glm_first")
 }
 
 data <- dbGetQuery(
@@ -637,7 +430,7 @@ data <- dbGetQuery(
   "
 )
 
-dbWriteTable(con, "data_test_model_glm_first_with_error", data)
+dbWriteTable(con, "data_test_model_glm_first", data)
 
 
 dbDisconnect(con)

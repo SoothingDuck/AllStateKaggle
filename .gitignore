@@ -30,3 +30,5 @@ bin
 # Autres
 all_data.csv
 
+# Donnes TMP
+DATA/TMP/*

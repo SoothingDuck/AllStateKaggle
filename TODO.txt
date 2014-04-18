@@ -1,9 +1,6 @@
 
-Modele sur 2ème
-Modèle sur 3ème
-Modèle sur last
-
-Modèle avec n_erreurs <= 1
-Modèle avec n_erreurs > 1
-
 Kaggle Francais => DataScientist
+
+Modele avec location et sans location
+
+Modele avec risk_factor et sans risk_factor

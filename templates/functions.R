@@ -1,5 +1,133 @@
 library(caret)
 
+normalize.data <- function(data, with.location=FALSE, with.risk.factor=FALSE) {
+  rownames(data) <- as.character(data$customer_ID)
+  
+  # Suppression lignes
+  data <- data[,colnames(data) != "customer_ID"]
+  data <- data[,colnames(data) != "X"]
+  data <- data[,colnames(data) != "row_names"]
+  data <- data[,colnames(data) != "location"]
+  
+  # Gestion risk_factor
+  if(with.risk.factor) {
+    data <- subset(data, ! is.na(risk_factor))
+    data$risk_factor <- factor(data$risk_factor)
+  } else {
+    data <- data[is.na(data$risk_factor),]
+    data <- data[,! grepl("risk_factor", colnames(data))]    
+  }
+  
+  # Suppression variables location
+  if(! with.location) {
+    data <- data[, ! grepl("location", colnames(data))]
+  }
+  
+  # state factor
+  data$state <- factor(data$state)
+  
+  # day
+  data$day <- factor(data$day)
+  
+  # group_size
+  data$group_size <- factor(data$group_size, ordered=TRUE)
+  
+  # homeowner
+  data$homeowner <- factor(ifelse(data$homeowner == 1, "Yes", "No"))
+  
+  # car_age
+  data$car_age <- data$car_age
+  
+  # car_value
+  data$car_value <- factor(ifelse(data$car_value == "", "NotAvailable", data$car_value))
+    
+  # age_youngest
+  data$age_youngest <- data$age_youngest
+  
+  # age_oldest
+  data$age_oldest <- data$age_oldest
+  
+  # married_couple
+  data$married_couple <- factor(ifelse(data$married_couple == 1, "Yes", "No"))
+  
+  # C_previous
+  data$C_previous <- factor(ifelse(is.na(data$C_previous), "NotAvailable", data$C_previous))
+  
+  # duration_previous
+  data$duration_previous <- ifelse(is.na(data$duration_previous), 5, data$duration_previous)
+  
+  # last_cost
+  data$last_cost <- data$last_cost
+  
+  # A
+  data$last_A <- factor(data$last_A)
+  data$shopping_pt_2_A <- factor(data$shopping_pt_2_A)
+  data$shopping_pt_3_A <- factor(data$shopping_pt_3_A)
+  data$shopping_pt_min_cost_A <- factor(data$shopping_pt_min_cost_A)
+  
+  # B
+  data$last_B <- factor(data$last_B)
+  data$shopping_pt_2_B <- factor(data$shopping_pt_2_B)
+  data$shopping_pt_3_B <- factor(data$shopping_pt_3_B)
+  data$shopping_pt_min_cost_B <- factor(data$shopping_pt_min_cost_B)
+  
+  # C
+  data$last_C <- factor(data$last_C)
+  data$shopping_pt_2_C <- factor(data$shopping_pt_2_C)
+  data$shopping_pt_3_C <- factor(data$shopping_pt_3_C)
+  data$shopping_pt_min_cost_C <- factor(data$shopping_pt_min_cost_C)
+  
+  # D
+  data$last_D <- factor(data$last_D)
+  data$shopping_pt_2_D <- factor(data$shopping_pt_2_D)
+  data$shopping_pt_3_D <- factor(data$shopping_pt_3_D)
+  data$shopping_pt_min_cost_D <- factor(data$shopping_pt_min_cost_D)
+  
+  # E
+  data$last_E <- factor(data$last_E)
+  data$shopping_pt_2_E <- factor(data$shopping_pt_2_E)
+  data$shopping_pt_3_E <- factor(data$shopping_pt_3_E)
+  data$shopping_pt_min_cost_E <- factor(data$shopping_pt_min_cost_E)
+  
+  # F
+  data$last_F <- factor(data$last_F)
+  data$shopping_pt_2_F <- factor(data$shopping_pt_2_F)
+  data$shopping_pt_3_F <- factor(data$shopping_pt_3_F)
+  data$shopping_pt_min_cost_F <- factor(data$shopping_pt_min_cost_F)
+  
+  # G
+  data$last_G <- factor(data$last_G)
+  data$shopping_pt_2_G <- factor(data$shopping_pt_2_G)
+  data$shopping_pt_3_G <- factor(data$shopping_pt_3_G)
+  data$shopping_pt_min_cost_G <- factor(data$shopping_pt_min_cost_G)
+  
+  return(data)
+}
+
+normalize.train.data <- function(data, with.location=FALSE, with.risk.factor=FALSE) {
+  
+  data <- normalize.data(data, with.location, with.risk.factor)
+  
+  data$real_A <- factor(data$real_A)
+  data$real_B <- factor(data$real_B)
+  data$real_C <- factor(data$real_C)
+  data$real_D <- factor(data$real_D)
+  data$real_E <- factor(data$real_E)
+  data$real_F <- factor(data$real_F)
+  data$real_G <- factor(data$real_G)
+  
+  return(data)
+}
+
+normalize.test.data <- function(data, with.location=FALSE, with.risk.factor=FALSE) {
+  
+  data <- normalize.data(data, with.location=FALSE, with.risk.factor=FALSE)
+  
+  return(data)
+  
+}
+
+
 evaluation.prediction.ABCDEFG <- function(data) {
   data$prediction_ABCDEFG <- with(data, paste(
     as.character(prediction_A),
