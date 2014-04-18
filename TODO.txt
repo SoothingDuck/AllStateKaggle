@@ -5,3 +5,5 @@ Modèle sur last
 
 Modèle avec n_erreurs <= 1
 Modèle avec n_erreurs > 1
+
+Kaggle Francais => DataScientist

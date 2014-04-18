@@ -5,17 +5,14 @@ library(randomForest)
 source(file.path("templates", "functions.R"))
 
 # Chargement des données d'entrainement
-source(file.path("templates", "get_data_rf_model.R"))
+source(file.path("templates", "get_data_glm_model_with_error.R"))
 
 # Funcions
 predict_A <- function(data) {
   load(file=file.path("DATA","OUTPUT","first_model_rf_all_clusters_A.RData"))
   
-  tmp <- data.frame(
-    predict_rf_0 = predict(model_0_final_A, newdata=data),
-    predict_rf_1 = predict(model_1_final_A, newdata=data),
-    predict_rf_2 = predict(model_2_final_A, newdata=data)
-  )
+  tmp <- data.frame(predict(model_rf_final_A, newdata=data, type="vote"))
+  names(tmp) <- c("predict_rf_0","predict_rf_1", "predict_rf_2")  
   
   return(factor(max.col(tmp[,c("predict_rf_0","predict_rf_1", "predict_rf_2")])-1))
   
@@ -24,10 +21,8 @@ predict_A <- function(data) {
 predict_B <- function(data) {
   load(file=file.path("DATA","OUTPUT","first_model_rf_all_clusters_B.RData"))
   
-  tmp <- data.frame(
-    predict_rf_0 = predict(model_0_final_B, newdata=data),
-    predict_rf_1 = predict(model_1_final_B, newdata=data)
-  )
+  tmp <- data.frame(predict(model_rf_final_B, newdata=data, type="vote"))
+  names(tmp) <- c("predict_rf_0","predict_rf_1")
   
   return(factor(max.col(tmp[,c("predict_rf_0","predict_rf_1")])-1))
   
@@ -36,12 +31,8 @@ predict_B <- function(data) {
 predict_C <- function(data) {
   load(file=file.path("DATA","OUTPUT","first_model_rf_all_clusters_C.RData"))
   
-  tmp <- data.frame(
-    predict_rf_1 = predict(model_1_final_C, newdata=data),
-    predict_rf_2 = predict(model_2_final_C, newdata=data),
-    predict_rf_3 = predict(model_3_final_C, newdata=data),
-    predict_rf_4 = predict(model_4_final_C, newdata=data)
-  )
+  tmp <- data.frame(predict(model_rf_final_C, newdata=data, type="vote"))
+  names(tmp) <- c("predict_rf_1","predict_rf_2", "predict_rf_3", 'predict_rf_4')
   
   return(factor(max.col(tmp[,c("predict_rf_1","predict_rf_2", "predict_rf_3", 'predict_rf_4')])))
   
@@ -50,11 +41,8 @@ predict_C <- function(data) {
 predict_D <- function(data) {
   load(file=file.path("DATA","OUTPUT","first_model_rf_all_clusters_D.RData"))
   
-  tmp <- data.frame(
-    predict_rf_1 = predict(model_1_final_D, newdata=data),
-    predict_rf_2 = predict(model_2_final_D, newdata=data),
-    predict_rf_3 = predict(model_3_final_D, newdata=data)
-  )
+  tmp <- data.frame(predict(model_rf_final_D, newdata=data, type="vote"))
+  names(tmp) <- c("predict_rf_1","predict_rf_2", "predict_rf_3")
   
   return(factor(max.col(tmp[,c("predict_rf_1","predict_rf_2", "predict_rf_3")])))
   
@@ -63,10 +51,8 @@ predict_D <- function(data) {
 predict_E <- function(data) {
   load(file=file.path("DATA","OUTPUT","first_model_rf_all_clusters_E.RData"))
   
-  tmp <- data.frame(
-    predict_rf_0 = predict(model_0_final_E, newdata=data),
-    predict_rf_1 = predict(model_1_final_E, newdata=data)
-  )
+  tmp <- data.frame(predict(model_rf_final_E, newdata=data, type="vote"))
+  names(tmp) <- c("predict_rf_0","predict_rf_1")
   
   return(factor(max.col(tmp[,c("predict_rf_0","predict_rf_1")])-1))
   
@@ -75,12 +61,8 @@ predict_E <- function(data) {
 predict_F <- function(data) {
   load(file=file.path("DATA","OUTPUT","first_model_rf_all_clusters_F.RData"))
   
-  tmp <- data.frame(
-    predict_rf_0 = predict(model_0_final_F, newdata=data),
-    predict_rf_1 = predict(model_1_final_F, newdata=data),
-    predict_rf_2 = predict(model_2_final_F, newdata=data),
-    predict_rf_3 = predict(model_3_final_F, newdata=data)
-  )
+  tmp <- data.frame(predict(model_rf_final_F, newdata=data, type="vote"))
+  names(tmp) <- c("predict_rf_0","predict_rf_1","predict_rf_2","predict_rf_3")
   
   return(factor(max.col(tmp[,c("predict_rf_0","predict_rf_1","predict_rf_2","predict_rf_3")])-1))
   
@@ -89,12 +71,8 @@ predict_F <- function(data) {
 predict_G <- function(data) {
   load(file=file.path("DATA","OUTPUT","first_model_rf_all_clusters_G.RData"))
   
-  tmp <- data.frame(
-    predict_rf_1 = predict(model_1_final_G, newdata=data),
-    predict_rf_2 = predict(model_2_final_G, newdata=data),
-    predict_rf_3 = predict(model_3_final_G, newdata=data),
-    predict_rf_4 = predict(model_4_final_G, newdata=data)
-  )
+  tmp <- data.frame(predict(model_rf_final_G, newdata=data, type="vote"))
+  names(tmp) <- c("predict_rf_1","predict_rf_2","predict_rf_3","predict_rf_4")
   
   return(factor(max.col(tmp[,c("predict_rf_1","predict_rf_2","predict_rf_3","predict_rf_4")])))
   
@@ -135,7 +113,7 @@ write.csv(dataTestBase, file=file.path("DATA","test_first_model_rf_all_clusters_
 
 # Separation train, test
 set.seed(42)
-dataTest <- get.data.rf.model.test()
+dataTest <- get.data.glm.model.test()
 dataTest <- normalize.test.data(dataTest)
 
 # Prediction globale
@@ -166,5 +144,5 @@ dataTest$plan <- dataTest$predicted_ABCDEFG
 
 df.submission <- cbind(rownames(dataTest), dataTest$plan)
 colnames(df.submission) <- c("customer_ID","plan")
-submission.filename <- file.path("DATA", "first_model_rf_all_clusters_submission_v7.csv")
+submission.filename <- file.path("DATA", "first_model_rf_all_clusters_submission_v1.csv")
 write.table(df.submission, file = submission.filename, quote = FALSE, sep=",", row.names = FALSE, col.names=TRUE)
