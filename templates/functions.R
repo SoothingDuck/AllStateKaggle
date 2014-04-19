@@ -78,6 +78,9 @@ normalize.data <- function(data, with.location=FALSE, with.risk.factor=FALSE) {
     data <- data[, ! grepl("location", colnames(data))]
   }
   
+  # Suppression variables count location
+  data <- data[,! grepl("_count", colnames(data))]
+  
   # nb_views
   data$nb_views <- factor(ifelse(data$nb_views <= 3, as.character(data$nb_views), "3+"))
   
