@@ -1,0 +1,10 @@
+"","size.train","nrow.train","nrow.test","type.model","type.set","letter.to.test","value.to.test","deviance","error.test","error.train","nb.ok.test","nb.ko.test","nb.ok.train","nb.ko.train"
+"1",0.5,13212,6605,"glm","with_location_without_risk_factor","B","0",4297.89809841736,0.0470855412566238,0.0454889494399031,6294,311,12611,601
+"2",0.5,13212,6605,"glm","with_location_without_risk_factor","B","1",4297.89809841736,0.0470855412566238,0.0454889494399031,6294,311,12611,601
+"3",0.5,13212,6605,"glm","with_location_without_risk_factor","B","ALL",NA,0.0470855412566238,0.0454889494399031,6294,311,12611,601
+"4",0.7,18497,6605,"glm","with_location_without_risk_factor","B","0",6185.12422259637,0.0454201362604088,0.0455749581013137,6305,300,17654,843
+"5",0.7,18497,6605,"glm","with_location_without_risk_factor","B","1",6185.12422259637,0.0454201362604088,0.0455749581013137,6305,300,17654,843
+"6",0.7,18497,6605,"glm","with_location_without_risk_factor","B","ALL",NA,0.0454201362604088,0.0455749581013137,6305,300,17654,843
+"7",0.9,23781,6605,"glm","with_location_without_risk_factor","B","0",7825.1097498687,0.0455715367146101,0.0442369959211135,6304,301,22729,1052
+"8",0.9,23781,6605,"glm","with_location_without_risk_factor","B","1",7825.1097498687,0.0455715367146101,0.0442369959211135,6304,301,22729,1052
+"9",0.9,23781,6605,"glm","with_location_without_risk_factor","B","ALL",NA,0.0455715367146101,0.0442369959211135,6304,301,22729,1052
