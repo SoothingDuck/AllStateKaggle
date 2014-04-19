@@ -1,14 +1,16 @@
+# # model A
+# source(file.path("models", "glm_model_all_clusters", "glm_all_clusters_model_with_location_with_risk_factor_A.R"))
+# source(file.path("models", "glm_model_all_clusters", "glm_all_clusters_model_with_location_without_risk_factor_A.R"))
+# source(file.path("models", "glm_model_all_clusters", "glm_all_clusters_model_without_location_with_risk_factor_A.R"))
+# source(file.path("models", "glm_model_all_clusters", "glm_all_clusters_model_without_location_without_risk_factor_A.R"))
 
-source(file.path("models", "glm_model_all_clusters", "glm_all_clusters_model_with_location_with_risk_factor_A.R"))
-source(file.path("models", "glm_model_all_clusters", "glm_all_clusters_model_with_location_without_risk_factor_A.R"))
-source(file.path("models", "glm_model_all_clusters", "glm_all_clusters_model_without_location_with_risk_factor_A.R"))
-source(file.path("models", "glm_model_all_clusters", "glm_all_clusters_model_without_location_without_risk_factor_A.R"))
+# model B
+source(file.path("models", "glm_model_all_clusters", "glm_all_clusters_model_with_location_with_risk_factor_B.R"))
+source(file.path("models", "glm_model_all_clusters", "glm_all_clusters_model_with_location_without_risk_factor_B.R"))
+source(file.path("models", "glm_model_all_clusters", "glm_all_clusters_model_without_location_with_risk_factor_B.R"))
+source(file.path("models", "glm_model_all_clusters", "glm_all_clusters_model_without_location_without_risk_factor_B.R"))
 
 stop()
-
-source(file.path("models", "glm_model_all_clusters", "glm_all_clusters_model_B.R"))
-rm(list=ls())
-gc(TRUE)
 
 source(file.path("models", "glm_model_all_clusters", "glm_all_clusters_model_C.R"))
 rm(list=ls())
