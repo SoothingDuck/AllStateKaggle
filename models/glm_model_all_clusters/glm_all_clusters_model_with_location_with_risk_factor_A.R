@@ -1,6 +1,4 @@
 
-print("Calcul model A...")
-
 # Variables
 y.letter <- "A"
 y.variable <- "real_A"
@@ -13,8 +11,10 @@ step.check <- .2
 
 type <- "with_location_with_risk_factor"
 
-csv.output.filename <- file.path("DATA","OUTPUT",paste("result_model_glm_all_clusters", type,",A.csv", sep = "_"))
-RData.output.filename <- file.path("DATA","OUTPUT",paste("first_model_glm_all_clusters", type, "A.RData", sep = "_"))
+print(paste("Calcul model ", y.letter," ",type,"...", sep = ""))
+
+csv.output.filename <- file.path("DATA","OUTPUT",paste("result_model_glm_all_clusters_", type,"_", y.letter, ".csv", sep = ""))
+RData.output.filename <- file.path("DATA","OUTPUT",paste("first_model_glm_all_clusters_", type,"_", y.letter, ".RData", sep = ""))
 
 # Formules
 formula_0 <- formula(
@@ -37,5 +37,7 @@ train.data <- subset(train.data, min_nb_erreur <= 2)
 train.data <- train.data[, colnames(train.data) != "min_nb_erreur"]
 
 source(file.path("templates","split_data", "test_train_skeleton_all_clusters.R"))
-source(file.path("templates","glm_estimate", "glm_skeleton_error_estimate_A.R"))
-source(file.path("templates","glm_skeleton_final_training_A.R"))
+source(file.path("templates","glm_estimate", paste("glm_skeleton_error_estimate_",y.letter,".R", sep="")))
+
+source(file.path("templates","split_data", "test_train_skeleton_all_clusters.R"))
+source(file.path("templates","glm_train", paste("glm_skeleton_final_training_", y.letter, ".R", sep="")))

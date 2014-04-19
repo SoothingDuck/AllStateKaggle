@@ -1,5 +1,60 @@
 library(caret)
 
+add.result <- function(
+  result.set,
+  size.train,
+  train.set,
+  test.set,
+  type.model,
+  type.set,
+  value.to.test,
+  letter,
+  real.column,
+  predicted.column,
+  deviance
+) {
+  
+  if(value.to.test == "ALL") {
+    result <- rbind(result, data.frame(
+      size.train=size.train,
+      nrow.train=nrow(train.set),  
+      nrow.test=nrow(test.set),  
+      type.model=type.model,
+      type.set=type.set,
+      letter.to.test=letter,
+      value.to.test=value.to.test,
+      deviance=NA,
+      error.test=prediction_error(test.set[,c(real.column)], test.set[,c(predicted.column)]),
+      error.train=prediction_error(train.set[,c(real.column)], train.set[,c(predicted.column)]),
+      nb.ok.test=sum((test.set[,c(real.column)]) == (test.set[,c(predicted.column)])),
+      nb.ko.test=sum((test.set[,c(real.column)]) != (test.set[,c(predicted.column)])),
+      nb.ok.train=sum((train.set[,c(real.column)]) == (train.set[,c(predicted.column)])),
+      nb.ko.train=sum((train.set[,c(real.column)]) != (train.set[,c(predicted.column)]))
+    ))
+    
+  } else {
+    result <- rbind(result, data.frame(
+      size.train=size.train,
+      nrow.train=nrow(train.set),  
+      nrow.test=nrow(test.set),  
+      type.model=type.model,
+      type.set=type.set,
+      letter.to.test=letter,
+      value.to.test=value.to.test,
+      deviance=deviance,
+      error.test=prediction_error(test.set[,c(real.column)] == value.to.test, test.set[,c(predicted.column)] == value.to.test),
+      error.train=prediction_error(train.set[,c(real.column)] == value.to.test, train.set[,c(predicted.column)] == value.to.test),
+      nb.ok.test=sum((test.set[,c(real.column)] == value.to.test) == (test.set[,c(predicted.column)] == value.to.test)),
+      nb.ko.test=sum((test.set[,c(real.column)] == value.to.test) != (test.set[,c(predicted.column)] == value.to.test)),
+      nb.ok.train=sum((train.set[,c(real.column)] == value.to.test) == (train.set[,c(predicted.column)] == value.to.test)),
+      nb.ko.train=sum((train.set[,c(real.column)] == value.to.test) != (train.set[,c(predicted.column)] == value.to.test))
+    ))
+    
+  }    
+  
+  return(result)
+}
+
 normalize.data <- function(data, with.location=FALSE, with.risk.factor=FALSE) {
   rownames(data) <- as.character(data$customer_ID)
   
