@@ -12,26 +12,26 @@ for(prob in list_prob) {
   tmp <- get.base.train.test(dataTrainBase, y.variable, prob)
   dataTrain <- tmp$train
   
-  # Evaluation modeles
+  # Evaluation modeles  
   print("Entrainement modele GLM 0")
   model_0 <- glm(
     formula_0
-    , family = binomial, data=dataTrain)
+    , family = binomial, data=dataTrain, trace = TRUE)
   
   print("Entrainement modele GLM 1")
   model_1 <- glm(
     formula_1
-    , family = binomial, data=dataTrain)
+    , family = binomial, data=dataTrain, trace = TRUE)
   
   print("Entrainement modele GLM 2")
   model_2 <- glm(
     formula_2
-    , family = binomial, data=dataTrain)
+    , family = binomial, data=dataTrain, trace = TRUE)
   
   print("Entrainement modele GLM 3")
   model_3 <- glm(
     formula_3
-    , family = binomial, data=dataTrain)
+    , family = binomial, data=dataTrain, trace = TRUE)
   
   dataTest$predict_glm_0 <- predict(model_0, newdata=dataTest)
   dataTest$predict_glm_1 <- predict(model_1, newdata=dataTest)
@@ -47,26 +47,82 @@ for(prob in list_prob) {
   
   dataTrain$predicted_glm_F <- factor(max.col(dataTrain[,c("predict_glm_0","predict_glm_1","predict_glm_2","predict_glm_3")])-1)
   
-  
   print("Error GLM Test:")
   print(prediction_error(dataTest$real_F, dataTest$predicted_glm_F))
   
   print("Error GLM Train:")
   print(prediction_error(dataTrain$real_F, dataTrain$predicted_glm_F))
   
-  result <- rbind(result, data.frame(
-    size.train=prob, 
-    error.glm.test=prediction_error(dataTest$real_F, dataTest$predicted_glm_F),
-    error.glm.train=prediction_error(dataTrain$real_F, dataTrain$predicted_glm_F),
-    error.glm.test.0=prediction_error(dataTest$real_F == "0", dataTest$predicted_glm_F == "0"),
-    error.glm.train.0=prediction_error(dataTrain$real_F == "0", dataTrain$predicted_glm_F == "0"),
-    error.glm.test.1=prediction_error(dataTest$real_F == "1", dataTest$predicted_glm_F == "1"),
-    error.glm.train.1=prediction_error(dataTrain$real_F == "1", dataTrain$predicted_glm_F == "1"),
-    error.glm.test.2=prediction_error(dataTest$real_F == "2", dataTest$predicted_glm_F == "2"),
-    error.glm.train.2=prediction_error(dataTrain$real_F == "2", dataTrain$predicted_glm_F == "2"),
-    error.glm.test.3=prediction_error(dataTest$real_F == "3", dataTest$predicted_glm_F == "3"),
-    error.glm.train.3=prediction_error(dataTrain$real_F == "3", dataTrain$predicted_glm_F == "3")
+  
+  result <- add.result(
+    result.set=result,
+    size.train=prob,
+    train.set=dataTrain,
+    test.set=dataTest,
+    type.model="glm",
+    type.set=type,
+    value.to.test="0",
+    letter=y.letter,
+    real.column="real_F",
+    predicted.column="predicted_glm_F",
+    deviance=model_0$deviance
   )
+  
+  result <- add.result(
+    result.set=result,
+    size.train=prob,
+    train.set=dataTrain,
+    test.set=dataTest,
+    type.model="glm",
+    type.set=type,
+    value.to.test="1",
+    letter=y.letter,
+    real.column="real_F",
+    predicted.column="predicted_glm_F",
+    deviance=model_1$deviance
+  )
+
+  result <- add.result(
+    result.set=result,
+    size.train=prob,
+    train.set=dataTrain,
+    test.set=dataTest,
+    type.model="glm",
+    type.set=type,
+    value.to.test="2",
+    letter=y.letter,
+    real.column="real_F",
+    predicted.column="predicted_glm_F",
+    deviance=model_2$deviance
+  )
+  
+  result <- add.result(
+    result.set=result,
+    size.train=prob,
+    train.set=dataTrain,
+    test.set=dataTest,
+    type.model="glm",
+    type.set=type,
+    value.to.test="3",
+    letter=y.letter,
+    real.column="real_F",
+    predicted.column="predicted_glm_F",
+    deviance=model_3$deviance
+  )
+  
+  
+  result <- add.result(
+    result.set=result,
+    size.train=prob,
+    train.set=dataTrain,
+    test.set=dataTest,
+    type.model="glm",
+    type.set=type,
+    value.to.test="ALL",
+    letter=y.letter,
+    real.column="real_F",
+    predicted.column="predicted_glm_F",
+    deviance=NA
   )
   
 }

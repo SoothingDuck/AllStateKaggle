@@ -1,7 +1,7 @@
 dataAll <- rbind(dataTrainBase, dataTest)
 
 # Entrainement final
-print("Entrainement modele GLM 0 final")
+print("Entrainement modele GLM 1 final")
 model_1_final_C <- glm(
   formula_1
   , family = binomial, data=dataAll, trace=TRUE)
