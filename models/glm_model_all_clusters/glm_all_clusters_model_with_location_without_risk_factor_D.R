@@ -33,7 +33,7 @@ formula_3 <- formula(
 source(file.path("templates","functions.R"))
 source(file.path("templates","get_data", paste("get_data_glm_model_", type, ".R", sep = "")))
 
-train.data <- subset(train.data, min_nb_erreur <= 2)
+# train.data <- subset(train.data, min_nb_erreur <= 2)
 train.data <- train.data[, colnames(train.data) != "min_nb_erreur"]
 
 source(file.path("templates","split_data", "test_train_skeleton_all_clusters.R"))
