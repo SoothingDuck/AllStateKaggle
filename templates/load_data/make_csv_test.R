@@ -7,8 +7,6 @@ csv.filename.test <- file.path("DATA", "TMP", "glm_test_data.csv")
 # train
 data.train <- read.csv(file=csv.filename.train)
 
-agg.location <- data.train[, c("location", "A0_location_pct", "A1_location_pct", "A2_location_pct")]
-agg.location <- unique(agg.location)
 
 # test get
 sqlitedb.filename <- file.path("db", "allstate_data.sqlite3")
@@ -27,8 +25,13 @@ data.test <- dbGetQuery(
 
 dbDisconnect(con)
 
-# comptage par location et risk factor
-tmp <- merge(data.test, agg.location, by="location", all.x = TRUE)
+# agg location
+columns.location <- colnames(data.train)[grepl("location", colnames(data.train))]
+data.agg.location <- data.train[,columns.location]
+data.agg.location <- unique(data.agg.location)
 
-cat("Ecriture de", csv.filename, "\n")
-write.csv(x=data, file=csv.filename, row.names = FALSE)
+# comptage par location et risk factor
+tmp <- merge(data.test, data.agg.location, by="location", all.x = TRUE)
+
+cat("Ecriture de", csv.filename.test, "\n")
+write.csv(x=tmp, file=csv.filename.test, row.names = FALSE)

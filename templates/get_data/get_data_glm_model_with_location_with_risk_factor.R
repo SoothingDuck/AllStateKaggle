@@ -4,8 +4,8 @@ source(file.path("templates", "functions.R"))
 train.data <- read.csv(file=file.path("DATA","TMP", "glm_train_data.csv"))
 train.data <- normalize.train.data(train.data, with.location=TRUE, with.risk.factor=TRUE)
 
-#test.data <- get.data.glm.model.test()
-#test.data <- normalize.test.data(test.data)
+#test.data <- read.csv(file=file.path("DATA","TMP", "glm_test_data.csv"))
+#test.data <- normalize.test.data(test.data, with.location=TRUE, with.risk.factor=TRUE)
 
 # functions
 select.final.variable <- function(data, letter) {

@@ -120,47 +120,50 @@ normalize.data <- function(data, with.location=FALSE, with.risk.factor=FALSE) {
   # last_cost
   data$last_cost <- data$last_cost
   
+  # enlever shopping_pt
+  data <- data[, ! grepl("shopping_pt", colnames(data))]
+  
   # A
   data$last_A <- factor(data$last_A)
-  data$shopping_pt_2_A <- factor(data$shopping_pt_2_A)
-  data$shopping_pt_3_A <- factor(data$shopping_pt_3_A)
-  data$shopping_pt_min_cost_A <- factor(data$shopping_pt_min_cost_A)
+#   data$shopping_pt_2_A <- factor(data$shopping_pt_2_A)
+#   data$shopping_pt_3_A <- factor(data$shopping_pt_3_A)
+#   data$shopping_pt_min_cost_A <- factor(data$shopping_pt_min_cost_A)
   
   # B
   data$last_B <- factor(data$last_B)
-  data$shopping_pt_2_B <- factor(data$shopping_pt_2_B)
-  data$shopping_pt_3_B <- factor(data$shopping_pt_3_B)
-  data$shopping_pt_min_cost_B <- factor(data$shopping_pt_min_cost_B)
+#   data$shopping_pt_2_B <- factor(data$shopping_pt_2_B)
+#   data$shopping_pt_3_B <- factor(data$shopping_pt_3_B)
+#   data$shopping_pt_min_cost_B <- factor(data$shopping_pt_min_cost_B)
   
   # C
   data$last_C <- factor(data$last_C)
-  data$shopping_pt_2_C <- factor(data$shopping_pt_2_C)
-  data$shopping_pt_3_C <- factor(data$shopping_pt_3_C)
-  data$shopping_pt_min_cost_C <- factor(data$shopping_pt_min_cost_C)
+#   data$shopping_pt_2_C <- factor(data$shopping_pt_2_C)
+#   data$shopping_pt_3_C <- factor(data$shopping_pt_3_C)
+#   data$shopping_pt_min_cost_C <- factor(data$shopping_pt_min_cost_C)
   
   # D
   data$last_D <- factor(data$last_D)
-  data$shopping_pt_2_D <- factor(data$shopping_pt_2_D)
-  data$shopping_pt_3_D <- factor(data$shopping_pt_3_D)
-  data$shopping_pt_min_cost_D <- factor(data$shopping_pt_min_cost_D)
+#   data$shopping_pt_2_D <- factor(data$shopping_pt_2_D)
+#   data$shopping_pt_3_D <- factor(data$shopping_pt_3_D)
+#   data$shopping_pt_min_cost_D <- factor(data$shopping_pt_min_cost_D)
   
   # E
   data$last_E <- factor(data$last_E)
-  data$shopping_pt_2_E <- factor(data$shopping_pt_2_E)
-  data$shopping_pt_3_E <- factor(data$shopping_pt_3_E)
-  data$shopping_pt_min_cost_E <- factor(data$shopping_pt_min_cost_E)
+#   data$shopping_pt_2_E <- factor(data$shopping_pt_2_E)
+#   data$shopping_pt_3_E <- factor(data$shopping_pt_3_E)
+#   data$shopping_pt_min_cost_E <- factor(data$shopping_pt_min_cost_E)
   
   # F
   data$last_F <- factor(data$last_F)
-  data$shopping_pt_2_F <- factor(data$shopping_pt_2_F)
-  data$shopping_pt_3_F <- factor(data$shopping_pt_3_F)
-  data$shopping_pt_min_cost_F <- factor(data$shopping_pt_min_cost_F)
+#   data$shopping_pt_2_F <- factor(data$shopping_pt_2_F)
+#   data$shopping_pt_3_F <- factor(data$shopping_pt_3_F)
+#   data$shopping_pt_min_cost_F <- factor(data$shopping_pt_min_cost_F)
   
   # G
   data$last_G <- factor(data$last_G)
-  data$shopping_pt_2_G <- factor(data$shopping_pt_2_G)
-  data$shopping_pt_3_G <- factor(data$shopping_pt_3_G)
-  data$shopping_pt_min_cost_G <- factor(data$shopping_pt_min_cost_G)
+#   data$shopping_pt_2_G <- factor(data$shopping_pt_2_G)
+#   data$shopping_pt_3_G <- factor(data$shopping_pt_3_G)
+#   data$shopping_pt_min_cost_G <- factor(data$shopping_pt_min_cost_G)
   
   return(data)
 }
@@ -182,7 +185,13 @@ normalize.train.data <- function(data, with.location=FALSE, with.risk.factor=FAL
 
 normalize.test.data <- function(data, with.location=FALSE, with.risk.factor=FALSE) {
   
-  data <- normalize.data(data, with.location=FALSE, with.risk.factor=FALSE)
+  if(with.location) {
+    data <- data[! is.na(data$A0_location_pct),]
+  } else {
+    data <- data[is.na(data$A0_location_pct),]    
+  }
+  
+  data <- normalize.data(data, with.location, with.risk.factor)
   
   return(data)
   
