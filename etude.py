@@ -439,7 +439,7 @@ data_2 = get_data_2_set()
 data_3 = get_data_3_set()
 data_all = get_data_all_set()
 
-def fit_and_save_log(parameters, dataset, letter, scaler, filename,verbose=2):
+def fit_and_save_log(parameters, dataset, letter, filename,verbose=2):
     log = linear_model.LogisticRegression()
 
     scaler, X = get_X(dataset)
