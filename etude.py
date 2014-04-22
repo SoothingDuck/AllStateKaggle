@@ -442,7 +442,7 @@ data_all = get_data_all_set()
 def fit_and_save_log(parameters, dataset, letter, filename,verbose=2):
     log = linear_model.LogisticRegression()
 
-    scaler, X = get_X(dataset)
+    scaler, X = get_X_with_scaler(dataset)
     y = get_y(letter, dataset)
 
     model = grid_search.GridSearchCV(log, parameters, verbose=verbose)
