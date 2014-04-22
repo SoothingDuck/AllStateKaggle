@@ -3,7 +3,9 @@ import os
 from pandas.io import sql
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
+from sklearn import preprocessing
+
 
 def get_data_2_set():
 
@@ -405,13 +407,16 @@ def get_X_columns(data):
     return [x for x in data.columns if x not in ["real_%s" % letter for letter in ['A','B','C','D','E','F','G']]]
 
 
-def get_X(data):
+def get_X_with_scaler(data):
     tmp = data.copy()
 
     for variable in ["real_%s" % x for x in ['A','B','C','D','E','F','G']]:
         del tmp[variable]
 
-    return np.array(tmp)
+    scaler = preprocessing.StandardScaler()
+    scaler.fit(tmp)
+
+    return (scaler, scaler.transform(tmp))
 
 def get_y_value(letter, value, data):
 
@@ -426,26 +431,23 @@ def get_y(letter, data):
     return np.array(tmp["real_%s" % letter])
 
 
-    
 from sklearn import linear_model
 from sklearn.externals import joblib
-
 from sklearn import grid_search
 
 data_2 = get_data_2_set()
 data_3 = get_data_3_set()
 data_all = get_data_all_set()
 
-
-def fit_and_save_log(parameters, dataset, letter, filename,verbose=2):
+def fit_and_save_log(parameters, dataset, letter, scaler, filename,verbose=2):
     log = linear_model.LogisticRegression()
 
-    X = get_X(dataset)
+    scaler, X = get_X(dataset)
     y = get_y(letter, dataset)
 
     model = grid_search.GridSearchCV(log, parameters, verbose=verbose)
     model.fit(X,y)
-    joblib.dump(model, filename) 
+    joblib.dump(model, filename)
 
     return model
 
@@ -460,7 +462,7 @@ for letter in ['A','B','C','D','E','F','G']:
     model_list[letter] = {}
     for datasetname in dataset.keys():
         data = dataset[datasetname]
-        model = fit_and_save_log(parameters, data, letter, "model_logistic_data_%s_%s.pkl" % (datasetname, letter))
+        model = fit_and_save_log(parameters, data, letter, "model_logistic_data_%s_%s_centered.pkl" % (datasetname, letter))
         
         model_list[letter][datasetname] = model
 
