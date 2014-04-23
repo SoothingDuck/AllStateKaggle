@@ -461,6 +461,8 @@ def fit_and_save_log(parameters, dataset, letter, filename,verbose=2):
 
     model = grid_search.GridSearchCV(log, parameters, verbose=verbose)
     model.fit(X,y)
+
+    print("sauvegarde model %s dans %s" % (letter, filename))
     joblib.dump(model, filename)
 
     return model
