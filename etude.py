@@ -418,6 +418,17 @@ def get_X_with_scaler(data):
 
     return (scaler, scaler.transform(tmp))
 
+def get_X_without_scaler(data):
+    tmp = data.copy()
+
+    for variable in ["real_%s" % x for x in ['A','B','C','D','E','F','G']]:
+        del tmp[variable]
+
+    # scaler = preprocessing.StandardScaler()
+    # scaler.fit(tmp)
+
+    return np.array(tmp)
+
 def get_y_value(letter, value, data):
 
     tmp = data.copy()
@@ -445,7 +456,7 @@ data_all = get_data_all_set()
 def fit_and_save_log(parameters, dataset, letter, filename,verbose=2):
     log = linear_model.LogisticRegression()
 
-    scaler, X = get_X_with_scaler(dataset)
+    X = get_X_without_scaler(dataset)
     y = get_y(letter, dataset)
 
     model = grid_search.GridSearchCV(log, parameters, verbose=verbose)
@@ -463,10 +474,13 @@ dataset = {'2' : data_2, '3' : data_3, 'all' : data_all}
 
 for letter in ['A','B','C','D','E','F','G']:
     model_list[letter] = {}
-    for datasetname in dataset.keys():
-        print("Calcul model %s sur dataset %s" % (letter, datasetname))
-        data = dataset[datasetname]
-        model = fit_and_save_log(parameters, data, letter, "model_logistic_data_%s_%s_centered.pkl" % (datasetname, letter))
+    for datasetname in sorted(dataset.keys()):
+        model_filename = "model_logistic_data_%s_%s_not_centered.pkl" % (datasetname, letter)
+
+        if not os.path.exists(model_filename):
+            print("Calcul model %s sur dataset %s" % (letter, datasetname))
+            data = dataset[datasetname]
+            model = fit_and_save_log(parameters, data, letter, model_filename)
         
-        model_list[letter][datasetname] = model
+            model_list[letter][datasetname] = model
 
