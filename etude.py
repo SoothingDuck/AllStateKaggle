@@ -435,8 +435,11 @@ from sklearn import linear_model
 from sklearn.externals import joblib
 from sklearn import grid_search
 
+print("Extraction data_2...")
 data_2 = get_data_2_set()
+print("Extraction data_3...")
 data_3 = get_data_3_set()
+print("Extraction data_all...")
 data_all = get_data_all_set()
 
 def fit_and_save_log(parameters, dataset, letter, filename,verbose=2):
@@ -461,6 +464,7 @@ dataset = {'2' : data_2, '3' : data_3, 'all' : data_all}
 for letter in ['A','B','C','D','E','F','G']:
     model_list[letter] = {}
     for datasetname in dataset.keys():
+        print("Calcul model %s sur dataset %s" % (letter, datasetname)
         data = dataset[datasetname]
         model = fit_and_save_log(parameters, data, letter, "model_logistic_data_%s_%s_centered.pkl" % (datasetname, letter))
         
