@@ -464,7 +464,7 @@ dataset = {'2' : data_2, '3' : data_3, 'all' : data_all}
 for letter in ['A','B','C','D','E','F','G']:
     model_list[letter] = {}
     for datasetname in dataset.keys():
-        print("Calcul model %s sur dataset %s" % (letter, datasetname)
+        print("Calcul model %s sur dataset %s" % (letter, datasetname))
         data = dataset[datasetname]
         model = fit_and_save_log(parameters, data, letter, "model_logistic_data_%s_%s_centered.pkl" % (datasetname, letter))
         
