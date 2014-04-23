@@ -477,7 +477,7 @@ dataset = {'2' : data_2, '3' : data_3, 'all' : data_all}
 for letter in ['A','B','C','D','E','F','G']:
     model_list[letter] = {}
     for datasetname in sorted(dataset.keys()):
-        model_filename = "model_logistic_data_%s_%s_not_centered.pkl" % (datasetname, letter)
+        model_filename = os.path.join("model_logistic", "model_logistic_data_%s_%s_not_centered.pkl" % (datasetname, letter))
 
         if not os.path.exists(model_filename):
             print("Calcul model %s sur dataset %s" % (letter, datasetname))
