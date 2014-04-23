@@ -482,5 +482,5 @@ for letter in ['A','B','C','D','E','F','G']:
             data = dataset[datasetname]
             model = fit_and_save_log(parameters, data, letter, model_filename)
         
-            model_list[letter][datasetname] = model
+            # model_list[letter][datasetname] = model
 
