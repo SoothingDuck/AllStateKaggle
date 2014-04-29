@@ -1,50 +1,36 @@
 import sys
-
 sys.path.append("lib")
-from AllStateDataLoader import AllStateDataLoader
 
-
-class AllStatePredictor():
-    """Object de prediction"""
-    def __init__(self):
-        self.__datasets = {}
-        self.__dataloader = AllStateDataLoader()
-        self.debug = True
-
-
-    def __get_dataset(self, type_dataset):
-        """Recuperation du dataset (lazy)"""
-        if self.debug:
-            print "Recuperation dataset %s" % type_dataset
-
-        if type_dataset == "2":
-            if not self.__datasets.has_key("2"):
-                self.__datasets["2"] = self.__dataloader.get_data_2_test()
-            return self.__datasets["2"]
-        elif type_dataset == "3":
-            if not self.__datasets.has_key("3"):
-                self.__datasets["3"] = self.__dataloader.get_data_3_test()
-            return self.__datasets["3"]
-        if type_dataset == "all":
-            if not self.__datasets.has_key("all"):
-                self.__datasets["all"] = self.__dataloader.get_data_all_test()
-            return self.__datasets["all"]
-
-                
-
-    def predict(self, letter, type_prediction, centered_or_not, type_dataset):
-        """Fonction prediction"""
-        dataset = self.__get_dataset(type_dataset)
-            
+from AllStatePredictor import AllStatePredictor
 
 p = AllStatePredictor()
 
-
+print "prediction classe 2 linear svc..."
+customer_ID_list_2 = p.get_customer_ID_list("2")
 a_prediction_2 = p.predict("A", "linearsvc", "not_centered", "2")
-b_prediction_2 = p.predict("A", "linearsvc", "not_centered", "2")
-c_prediction_2 = p.predict("A", "linearsvc", "not_centered", "2")
-d_prediction_2 = p.predict("A", "linearsvc", "not_centered", "2")
-e_prediction_2 = p.predict("A", "linearsvc", "not_centered", "2")
-f_prediction_2 = p.predict("A", "linearsvc", "not_centered", "2")
-g_prediction_2 = p.predict("A", "linearsvc", "not_centered", "2")
+b_prediction_2 = p.predict("B", "linearsvc", "not_centered", "2")
+c_prediction_2 = p.predict("C", "linearsvc", "not_centered", "2")
+d_prediction_2 = p.predict("D", "linearsvc", "not_centered", "2")
+e_prediction_2 = p.predict("E", "linearsvc", "not_centered", "2")
+f_prediction_2 = p.predict("F", "linearsvc", "not_centered", "2")
+g_prediction_2 = p.predict("G", "linearsvc", "not_centered", "2")
 
+print "prediction classe 3 linear svc..."
+customer_ID_list_3 = p.get_customer_ID_list("3")
+a_prediction_3 = p.predict("A", "linearsvc", "not_centered", "3")
+b_prediction_3 = p.predict("B", "linearsvc", "not_centered", "3")
+c_prediction_3 = p.predict("C", "linearsvc", "not_centered", "3")
+d_prediction_3 = p.predict("D", "linearsvc", "not_centered", "3")
+e_prediction_3 = p.predict("E", "linearsvc", "not_centered", "3")
+f_prediction_3 = p.predict("F", "linearsvc", "not_centered", "3")
+g_prediction_3 = p.predict("G", "linearsvc", "not_centered", "3")
+
+print "prediction classe all linear svc..."
+customer_ID_list_all = p.get_customer_ID_list("all")
+a_prediction_all = p.predict("A", "linearsvc", "not_centered", "all")
+b_prediction_all = p.predict("B", "linearsvc", "not_centered", "all")
+c_prediction_all = p.predict("C", "linearsvc", "not_centered", "all")
+d_prediction_all = p.predict("D", "linearsvc", "not_centered", "all")
+e_prediction_all = p.predict("E", "linearsvc", "not_centered", "all")
+f_prediction_all = p.predict("F", "linearsvc", "not_centered", "all")
+g_prediction_all = p.predict("G", "linearsvc", "not_centered", "all")
