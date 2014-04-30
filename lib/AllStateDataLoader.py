@@ -815,3 +815,22 @@ shopping_pt = 1
 
         return data
 
+    def get_X_with_scaler(data):
+        tmp = data.copy()
+
+        for variable in ["real_%s" % x for x in ['A','B','C','D','E','F','G']]:
+            del tmp[variable]
+
+        scaler = preprocessing.StandardScaler()
+        scaler.fit(tmp)
+
+        return (scaler, scaler.transform(tmp))
+
+    def get_X_without_scaler(data):
+        tmp = data.copy()
+
+        for variable in ["real_%s" % x for x in ['A','B','C','D','E','F','G']]:
+            del tmp[variable]
+
+        return np.array(tmp)
+

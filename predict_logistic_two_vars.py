@@ -51,7 +51,7 @@ def get_y(letter_1, letter_2, data):
     return np.array(tmp.apply(concat_12, axis=1)).astype(str)
 
 
-from sklearn import svm
+from sklearn import linear_model
 from sklearn.externals import joblib
 from sklearn import grid_search
 
@@ -79,7 +79,8 @@ def fit_and_save_log(parameters, dataset, letter_1, letter_2, filename,verbose=2
 
 
 # fitting models
-parameters = {'C' : [0.1, 0.5, 1.0], 'loss' : ['l2'], 'penalty' : ['l1','l2'], 'dual' : [False]}
+parameters = {'penalty' : ['l1','l2'], 'C' : [0.1, 0.5, 1, 5]}
+parameters = {'penalty' : ['l2'], 'C' : [0.1, 0.5, 1, 5]}
 
 dataset = {'2' : data_2, '3' : data_3, 'all' : data_all}
 
