@@ -54,8 +54,12 @@ class AllStatePredictor():
   
         return np.array(tmp.index)
 
+    def get_model_filename(self, letter, type_prediction, centered_or_not, type_dataset):
+        """Retourne le nom du fichier modele"""
+        return(os.path.join("model_%s" % type_prediction, "model_%s_data_%s_%s_%s.pkl" % (type_prediction, type_dataset, letter, centered_or_not)))
+
     def __get_model(self, letter, type_prediction, centered_or_not, type_dataset):
-        filename = os.path.join("model_%s" % type_prediction, "model_%s_data_%s_%s_%s.pkl" % (type_prediction, type_dataset, letter, centered_or_not))
+        filename = self.get_model_filename(letter, type_prediction, centered_or_not, type_dataset)
 
         model = joblib.load(filename)
 
@@ -68,4 +72,10 @@ class AllStatePredictor():
 
         model = self.__get_model(letter, type_prediction, centered_or_not, type_dataset)
 
-        return model.predict(X)
+        return(model.predict(X), model.predict_proba(X), model)
+
+    def get_model(self, letter, type_prediction, centered_or_not, type_dataset):
+        """Recuperation modele"""
+        model = self.__get_model(letter, type_prediction, centered_or_not, type_dataset)
+        return model
+

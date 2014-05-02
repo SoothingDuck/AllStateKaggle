@@ -79,7 +79,7 @@ def fit_and_save_log(parameters, dataset, letter_1, letter_2, filename,verbose=2
 
 
 # fitting models
-parameters = {'C' : [0.1, 0.5, 1.0], 'loss' : ['l2'], 'penalty' : ['l1','l2'], 'dual' : [False]}
+parameters = {'C' : [0.1, 0.5, 1.0], 'loss' : ['l2'], 'penalty' : ['l1', 'l2'], 'dual' : [False]}
 
 dataset = {'2' : data_2, '3' : data_3, 'all' : data_all}
 
