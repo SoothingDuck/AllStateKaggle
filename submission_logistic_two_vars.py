@@ -1,95 +1,59 @@
 import os
 import sys
 import pandas as pd
+from sklearn.externals import joblib
 sys.path.append("lib")
 
-from AllStatePredictor import AllStatePredictor
+from AllStateDataLoader import AllStateDataLoader
 
-p = AllStatePredictor()
+l = AllStateDataLoader()
 
-def concat_ABCDEFG(x):
-    return "%d%d%d%d%d%d%d" % (x['A'], x['B'], x['C'], x['D'], x['E'], x['F'], x['G'])
+data_train_all = l.get_data_all_train()
+
+data_train_all_np = l.get_X_without_scaler(data_train_all)
+
+def predict_AB(data, letter_1, letter_2):
+    model_name = os.path.join("model_logistic", "model_logistic_data_all_%s%s_not_centered.pkl" % (letter_1, letter_2))
+    model = joblib.load(model_name)
+    list_classes = model.best_estimator_.classes_
+
+    prediction = model.predict_proba(data)
+    prediction_cumsum = np.cumsum(prediction, axis=1)
+    prediction_classes = np.apply_along_axis(
+        lambda x : np.searchsorted(x, np.random.uniform()),
+        axis=1,
+        arr=prediction_cumsum
+    )
+
+    prediction_real_classes = list_classes[prediction_classes]
+
+    return prediction_real_classes
 
 
-print "prediction classe 2 linear svc..."
-customer_ID_list_2 = p.get_customer_ID_list("2")
-
-models_2 = {}
 for letter_1 in ['A','B','C','D','E','F','G']:
     for letter_2 in ['A','B','C','D','E','F','G']:
         if letter_1 < letter_2:
-            letter_couple = "%s%s" % (letter_1, letter_2)
-            models_2[letter_couple] = p.predict(letter_couple, "logistic", "not_centered", "2")
-
-prediction_2_detail = pd.DataFrame(
-    {
-        'A' : a_prediction_2,
-        'B' : b_prediction_2,
-        'C' : c_prediction_2,
-        'D' : d_prediction_2,
-        'E' : e_prediction_2,
-        'F' : f_prediction_2,
-        'G' : g_prediction_2
-    },
-    index=customer_ID_list_2
-)
-
-prediction_2_synthese = prediction_2_detail.apply(concat_ABCDEFG, axis=1)
-
-print "prediction classe 3 linear svc..."
-customer_ID_list_3 = p.get_customer_ID_list("3")
-a_prediction_3 = p.predict("A", "logistic", "not_centered", "3")
-b_prediction_3 = p.predict("B", "logistic", "not_centered", "3")
-c_prediction_3 = p.predict("C", "logistic", "not_centered", "3")
-d_prediction_3 = p.predict("D", "logistic", "not_centered", "3")
-e_prediction_3 = p.predict("E", "logistic", "not_centered", "3")
-f_prediction_3 = p.predict("F", "logistic", "not_centered", "3")
-g_prediction_3 = p.predict("G", "logistic", "not_centered", "3")
-
-prediction_3_detail = pd.DataFrame(
-    {
-        'A' : a_prediction_3,
-        'B' : b_prediction_3,
-        'C' : c_prediction_3,
-        'D' : d_prediction_3,
-        'E' : e_prediction_3,
-        'F' : f_prediction_3,
-        'G' : g_prediction_3
-    },
-    index=customer_ID_list_3
-)
-
-prediction_3_synthese = prediction_3_detail.apply(concat_ABCDEFG, axis=1)
-
-print "prediction classe all linear svc..."
-customer_ID_list_all = p.get_customer_ID_list("all")
-a_prediction_all = p.predict("A", "logistic", "not_centered", "all")
-b_prediction_all = p.predict("B", "logistic", "not_centered", "all")
-c_prediction_all = p.predict("C", "logistic", "not_centered", "all")
-d_prediction_all = p.predict("D", "logistic", "not_centered", "all")
-e_prediction_all = p.predict("E", "logistic", "not_centered", "all")
-f_prediction_all = p.predict("F", "logistic", "not_centered", "all")
-g_prediction_all = p.predict("G", "logistic", "not_centered", "all")
-
-prediction_all_detail = pd.DataFrame(
-    {
-        'A' : a_prediction_all,
-        'B' : b_prediction_all,
-        'C' : c_prediction_all,
-        'D' : d_prediction_all,
-        'E' : e_prediction_all,
-        'F' : f_prediction_all,
-        'G' : g_prediction_all
-    },
-    index=customer_ID_list_all
-)
-
-prediction_all_synthese = prediction_all_detail.apply(concat_ABCDEFG, axis=1)
+            print "prediction %s%s..." % (letter_1, letter_2)
+            tmp = predict_AB(data_train_all_np, letter_1, letter_2)
+            data_train_all["prediction_%s%s" % (letter_1, letter_2)] = tmp
 
 
-prediction_submission = prediction_2_synthese.append(prediction_3_synthese.append(prediction_all_synthese))
-prediction_submission = prediction_submission.sort_index(ascending=True)
-prediction_submission = pd.DataFrame(prediction_submission, columns=["plan"])
 
-submission_filename = os.path.join("DATA", "PYTHON", "logistic_python_v1.csv")
-prediction_submission.to_csv(submission_filename, header=True, index=True, index_label=["customer_ID"])
+def votes_A(x):
+    tmp = {"0":0, "1":0, "2":0}
+
+    tmp[x["prediction_AB"][0]] += 1
+    tmp[x["prediction_AC"][0]] += 1
+    tmp[x["prediction_AD"][0]] += 1
+    tmp[x["prediction_AE"][0]] += 1
+    tmp[x["prediction_AF"][0]] += 1
+    tmp[x["prediction_AG"][0]] += 1
+
+    a = np.array([tmp["0"], tmp["1"], tmp["2"]])/6.0
+
+    return np.searchsorted(np.cumsum(a), np.random.uniform())
+
+    
+
+data_train_all["prediction_A"] = data_train_all.apply(votes_A, axis=1)
+

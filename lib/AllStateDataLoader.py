@@ -4,11 +4,16 @@ from pandas.io import sql
 import pandas as pd
 import numpy as np
 
+class AllStateDataLoaderUnknownModelType(Exception):
+    pass
+
 class AllStateDataLoader:
 
     def __init__(self):
         self.__db_filename = os.path.join('db', 'allstate_data.sqlite3')
         self.__cnx = sqlite3.connect(self.__db_filename)
+        self.__data = {}
+
 
     def get_data_nb_views(self):
         data = sql.read_sql("""
@@ -159,6 +164,44 @@ shopping_pt = 1
 
         return data
 
+    def __get_model_train(self, type_data):
+        if type_data == "2":
+            if not self.__data.has_key("2"):
+                print "Recuperation data 2"
+                self.__data["2"] = self.get_data_2_train()
+            return self.__data["2"]
+        elif type_data == "3":
+            if not self.__data.has_key("3"):
+                print "Recuperation data 3"
+                self.__data["3"] = self.get_data_3_train()
+            return self.__data["3"]
+        elif type_data == "all":
+            if not self.__data.has_key("all"):
+                print "Recuperation data all"
+                self.__data["all"] = self.get_data_all_train()
+            return self.__data["all"]
+        else:
+            raise AllStateDataLoaderUnknownModelType
+            
+
+    def get_X_train(self, type_data, letter_list):
+        """Recuperation X entrainement"""
+        data = self.__get_model_train(type_data).copy()
+
+        for x in [x for x in "ABCDEFG" if x not in letter_list]:
+            del data["real_%s" % x]
+
+        for variable in ['real_%s' % x for x in letter_list]:
+            tmp = pd.DataFrame(pd.get_dummies(data[variable], prefix=variable), index=data.index)
+            data = pd.merge(data, tmp, left_index=True, right_index=True)
+            del data[variable]
+
+        return data
+
+    def get_y(self, type_data, letter):
+        """Recuperation y entrainement"""
+        data = self.__get_model_train(type_data).copy()
+        return data["real_%s" % letter]
 
     def get_data_2_train(self):
 
@@ -815,7 +858,7 @@ shopping_pt = 1
 
         return data
 
-    def get_X_with_scaler(data):
+    def get_X_with_scaler(self, data):
         tmp = data.copy()
 
         for variable in ["real_%s" % x for x in ['A','B','C','D','E','F','G']]:
@@ -826,7 +869,7 @@ shopping_pt = 1
 
         return (scaler, scaler.transform(tmp))
 
-    def get_X_without_scaler(data):
+    def get_X_without_scaler(self, data):
         tmp = data.copy()
 
         for variable in ["real_%s" % x for x in ['A','B','C','D','E','F','G']]:
