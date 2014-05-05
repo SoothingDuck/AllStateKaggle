@@ -549,7 +549,7 @@ from
 transactions
 where
 shopping_pt = 3
-) T3 on (T1.customer_ID = T3.customer_ID and T1.shopping_pt = T3.shopping_pt)i
+) T3 on (T1.customer_ID = T3.customer_ID and T1.shopping_pt = T3.shopping_pt)
 inner join
 (
 select
@@ -589,6 +589,11 @@ shopping_pt = 1
             tmp = pd.DataFrame(pd.get_dummies(data[column], prefix=column), index=data.index)
             data = pd.merge(data, tmp, left_index=True, right_index=True)
             del data[column]
+
+        for variable in ['value_%s_pt_2' % x for x in ['A','B','C','D','E','F','G']]:
+            tmp = pd.DataFrame(pd.get_dummies(data[variable], prefix=variable), index=data.index)
+            data = pd.merge(data, tmp, left_index=True, right_index=True)
+            del data[variable]
 
         for variable in ['value_%s_pt_3' % x for x in ['A','B','C','D','E','F','G']]:
             tmp = pd.DataFrame(pd.get_dummies(data[variable], prefix=variable), index=data.index)
