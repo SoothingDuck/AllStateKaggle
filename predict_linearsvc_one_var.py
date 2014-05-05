@@ -57,6 +57,8 @@ print("Extraction data_2...")
 data_2 = l.get_data_2_train()
 print("Extraction data_3...")
 data_3 = l.get_data_3_train()
+print("Extraction data_4...")
+data_4 = l.get_data_4_train()
 print("Extraction data_all...")
 data_all = l.get_data_all_train()
 
@@ -79,7 +81,7 @@ def fit_and_save_log(parameters, dataset, letter, filename,verbose=2):
 parameters = {'C' : [0.1, 0.5, 1.0], 'loss' : ['l2'], 'penalty' : ['l1','l2'], 'dual' : [False]}
 
 model_list = {}
-dataset = {'2' : data_2, '3' : data_3, 'all' : data_all}
+dataset = {'2' : data_2, '3' : data_3, '4' : data_4, 'all' : data_all}
 
 for letter in ['A','B','C','D','E','F','G']:
     model_list[letter] = {}

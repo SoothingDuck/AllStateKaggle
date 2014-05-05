@@ -31,7 +31,14 @@ class AllStatePredictor():
                 else:
                     self.__datasets["3"] = self.__dataloader.get_X_train("3", "")
             return self.__datasets["3"]
-        if type_dataset == "all":
+        elif type_dataset == "4":
+            if not self.__datasets.has_key("4"):
+                if kind == "test":
+                    self.__datasets["4"] = self.__dataloader.get_data_4_test()
+                else:
+                    self.__datasets["4"] = self.__dataloader.get_X_train("4", "")
+            return self.__datasets["4"]
+        elif type_dataset == "all":
             if not self.__datasets.has_key("all"):
                 if kind == "test":
                     self.__datasets["all"] = self.__dataloader.get_data_all_test()

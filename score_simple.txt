@@ -1,0 +1,4 @@
+score 2   linearsvc : 0.4097
+score 3   linearsvc : 0.5562
+score 4   linearsvc : 0.5565
+score all linearsvc : 0.6883
