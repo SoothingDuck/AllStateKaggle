@@ -200,8 +200,18 @@ shopping_pt = 1
 
     def get_y(self, type_data, letter):
         """Recuperation y entrainement"""
-        data = self.__get_model_train(type_data).copy()
-        return data["real_%s" % letter]
+
+        def concat_ABCDEFG(x):
+            return "%d%d%d%d%d%d%d" % (x['real_A'], x['real_B'], x['real_C'], x['real_D'], x['real_E'], x['real_F'], x['real_G'])
+
+        if letter == "ABCDEFG":
+            data = self.__get_model_train(type_data).copy()
+            return data.apply(concat_ABCDEFG, axis=1)
+
+        else:
+            data = self.__get_model_train(type_data).copy()
+            return data["real_%s" % letter]
+
 
     def get_data_2_train(self):
 

@@ -61,7 +61,7 @@ print("Extraction data_all...")
 data_all = l.get_data_all_train()
 
 def fit_and_save_log(parameters, dataset, letter, filename,verbose=2):
-    log = svm.LinearSVC()
+    log = svm.LinearSVC(class_weight="auto")
 
     X = get_X_without_scaler(dataset)
     y = get_y(letter, dataset)

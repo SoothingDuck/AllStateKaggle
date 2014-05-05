@@ -14,20 +14,29 @@ class AllStatePredictor():
         self.debug = True
 
 
-    def __get_dataset(self, type_dataset):
+    def __get_dataset(self, type_dataset, kind="test"):
         """Recuperation du dataset (lazy)"""
 
         if type_dataset == "2":
             if not self.__datasets.has_key("2"):
-                self.__datasets["2"] = self.__dataloader.get_data_2_test()
+                if kind == "test":
+                    self.__datasets["2"] = self.__dataloader.get_data_2_test()
+                else:
+                    self.__datasets["2"] = self.__dataloader.get_X_train("2", "")                    
             return self.__datasets["2"]
         elif type_dataset == "3":
             if not self.__datasets.has_key("3"):
-                self.__datasets["3"] = self.__dataloader.get_data_3_test()
+                if kind == "test":
+                    self.__datasets["3"] = self.__dataloader.get_data_3_test()
+                else:
+                    self.__datasets["3"] = self.__dataloader.get_X_train("3", "")
             return self.__datasets["3"]
         if type_dataset == "all":
             if not self.__datasets.has_key("all"):
-                self.__datasets["all"] = self.__dataloader.get_data_all_test()
+                if kind == "test":
+                    self.__datasets["all"] = self.__dataloader.get_data_all_test()
+                else:
+                    self.__datasets["all"] = self.__dataloader.get_X_train("all", "")
             return self.__datasets["all"]
 
     def get_X_columns(self, type_dataset):
@@ -78,4 +87,25 @@ class AllStatePredictor():
         """Recuperation modele"""
         model = self.__get_model(letter, type_prediction, centered_or_not, type_dataset)
         return model
+
+    def predict_simple(self, type_data, type_model, letter, kind="test"):
+        """prediction"""
+        def concat_ABCDEFG(x):
+            return "%d%d%d%d%d%d%d" % (x['real_A'], x['real_B'], x['real_C'], x['real_D'], x['real_E'], x['real_F'], x['real_G'])
+
+        data = self.__get_dataset(type_data, kind=kind)
+        tmp = data.copy()
+
+        if letter == "ABCDEFG":
+            for letter_unique in letter:
+                model_filename = os.path.join("model_%s" % type_model, "model_%s_data_%s_%s_not_centered.pkl" % (type_model, type_data, letter_unique))
+                model = joblib.load(model_filename)
+                tmp["real_%s" % letter_unique] = model.predict(data)
+
+            return tmp.apply(concat_ABCDEFG, axis=1)
+        else:
+            model_filename = os.path.join("model_%s" % type_model, "model_%s_data_%s_%s_not_centered.pkl" % (type_model, type_data, letter))
+            model = joblib.load(model_filename)
+            return model.predict(data)
+
 
