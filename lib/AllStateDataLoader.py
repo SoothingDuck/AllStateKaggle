@@ -179,7 +179,7 @@ shopping_pt = 1
             if not self.__data.has_key("4"):
                 print "Recuperation data 4"
                 self.__data["4"] = self.get_data_4_train()
-            return self.__data["3"]
+            return self.__data["4"]
         elif type_data == "all":
             if not self.__data.has_key("all"):
                 print "Recuperation data all"
@@ -507,7 +507,7 @@ T6.D as value_D_pt_2,
 T6.E as value_E_pt_2,
 T6.F as value_F_pt_2,
 T6.G as value_G_pt_2,
-T6.A as value_A_pt_3,
+T3.A as value_A_pt_3,
 T3.B as value_B_pt_3,
 T3.C as value_C_pt_3,
 T3.D as value_D_pt_3,
