@@ -201,6 +201,8 @@ shopping_pt = 1
             data = pd.merge(data, tmp, left_index=True, right_index=True)
             del data[variable]
 
+        data = data.reindex(columns=sorted(list(data.columns)))
+
         return data
 
     def get_y(self, type_data, letter):
@@ -216,6 +218,7 @@ shopping_pt = 1
         else:
             data = self.__get_model_train(type_data).copy()
             return data["real_%s" % letter]
+
 
 
     def get_data_2_train(self):
@@ -496,17 +499,12 @@ T3.age_oldest as age_oldest,
 T3.married_couple as married_couple,
 T3.C_previous as C_previous,
 T3.duration_previous as duration_previous,
+T5.cost as value_cost_pt_1,
+T6.cost as value_cost_pt_2,
 T3.cost as value_cost_pt_3,
 T4.avg_cost as avg_cost,
 T4.min_cost as min_cost,
 T4.max_cost as max_cost,
-T6.A as value_A_pt_2,
-T6.B as value_B_pt_2,
-T6.C as value_C_pt_2,
-T6.D as value_D_pt_2,
-T6.E as value_E_pt_2,
-T6.F as value_F_pt_2,
-T6.G as value_G_pt_2,
 T3.A as value_A_pt_3,
 T3.B as value_B_pt_3,
 T3.C as value_C_pt_3,
@@ -514,20 +512,6 @@ T3.D as value_D_pt_3,
 T3.E as value_E_pt_3,
 T3.F as value_F_pt_3,
 T3.G as value_G_pt_3,
-case when T5.A = T3.A then 1 else 0 end as same_A_pt_1_pt_3,
-case when T5.B = T3.B then 1 else 0 end as same_B_pt_1_pt_3,
-case when T5.C = T3.C then 1 else 0 end as same_C_pt_1_pt_3,
-case when T5.D = T3.D then 1 else 0 end as same_D_pt_1_pt_3,
-case when T5.E = T3.E then 1 else 0 end as same_E_pt_1_pt_3,
-case when T5.F = T3.F then 1 else 0 end as same_F_pt_1_pt_3,
-case when T5.G = T3.G then 1 else 0 end as same_G_pt_1_pt_3,
-case when T3.A = T6.A then 1 else 0 end as same_A_pt_2_pt_3,
-case when T3.B = T6.B then 1 else 0 end as same_B_pt_2_pt_3,
-case when T3.C = T6.C then 1 else 0 end as same_C_pt_2_pt_3,
-case when T3.D = T6.D then 1 else 0 end as same_D_pt_2_pt_3,
-case when T3.E = T6.E then 1 else 0 end as same_E_pt_2_pt_3,
-case when T3.F = T6.F then 1 else 0 end as same_F_pt_2_pt_3,
-case when T3.G = T6.G then 1 else 0 end as same_G_pt_2_pt_3,
 T5.A as first_A,
 T5.B as first_B,
 T5.C as first_C,
@@ -604,10 +588,10 @@ shopping_pt = 1
             data = pd.merge(data, tmp, left_index=True, right_index=True)
             del data[column]
 
-        for variable in ['value_%s_pt_2' % x for x in ['A','B','C','D','E','F','G']]:
-            tmp = pd.DataFrame(pd.get_dummies(data[variable], prefix=variable), index=data.index)
-            data = pd.merge(data, tmp, left_index=True, right_index=True)
-            del data[variable]
+        # for variable in ['value_%s_pt_2' % x for x in ['A','B','C','D','E','F','G']]:
+        #     tmp = pd.DataFrame(pd.get_dummies(data[variable], prefix=variable), index=data.index)
+        #     data = pd.merge(data, tmp, left_index=True, right_index=True)
+        #     del data[variable]
 
         for variable in ['value_%s_pt_3' % x for x in ['A','B','C','D','E','F','G']]:
             tmp = pd.DataFrame(pd.get_dummies(data[variable], prefix=variable), index=data.index)

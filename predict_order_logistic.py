@@ -62,4 +62,5 @@ model_C_avec_D.fit(np.array(X_all), np.array(y_all))
 # D => C
 # E => A, B, F
 # F => A, E
-# G => .
+# G(2) => A(2)
+# G(3) => A(3)
