@@ -313,7 +313,7 @@ shopping_pt = 1
         data = data.set_index(['customer_ID'])
 
         # not null columns
-        for column in ['state', 'homeowner', 'car_value', 'married_couple', 'location_id']:
+        for column in ['state', 'homeowner', 'car_value', 'married_couple']:
             tmp = pd.DataFrame(pd.get_dummies(data[column], prefix=column), index=data.index)
             data = pd.merge(data, tmp, left_index=True, right_index=True)
             del data[column]
@@ -548,15 +548,6 @@ shopping_pt = 3
 inner join
 (
 select
-*
-from
-transactions
-where
-shopping_pt = 2
-) T6 on (T1.customer_ID = T6.customer_ID)
-inner join
-(
-select
 customer_ID,
 avg(cost) as avg_cost,
 min(cost) as min_cost,
@@ -580,7 +571,7 @@ shopping_pt = 1
         data = data.set_index(['customer_ID'])
 
         # not null columns
-        for column in ['state', 'homeowner', 'car_value', 'married_couple']:
+        for column in ['state', 'homeowner', 'car_value', 'married_couple', 'day']:
             tmp = pd.DataFrame(pd.get_dummies(data[column], prefix=column), index=data.index)
             data = pd.merge(data, tmp, left_index=True, right_index=True)
             del data[column]
@@ -609,7 +600,7 @@ shopping_pt = 1
             del data[variable]
 
         # drop variable
-        for variable in ['day', 'time']:
+        for variable in ['time']:
             del data[variable]
 
         data = data.reindex(columns=sorted(list(data.columns)))
