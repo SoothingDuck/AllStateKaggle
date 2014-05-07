@@ -37,7 +37,7 @@ for datasetname in ["2", "3", "4", "all"]:
     # Model D sans rien
     model_filename = get_model_filename(datasetname, "D", "")
     if not os.path.exists(model_filename):
-        print("Calcul model %s sur dataset %s" % ("D", datasetname))
+        print("Calcul model %s sur dataset %s (%s)" % ("D", datasetname, model_filename))
         X = l.get_X_train(datasetname, "")
         y = l.get_y(datasetname, "D")
         model = fit_and_save_log(parameters, np.array(X), np.array(y), model_filename)
@@ -45,7 +45,7 @@ for datasetname in ["2", "3", "4", "all"]:
     # Model C avec info D
     model_filename = get_model_filename(datasetname, "C", "D")
     if not os.path.exists(model_filename):
-        print("Calcul model %s sur dataset %s" % ("C", datasetname))
+        print("Calcul model %s sur dataset %s (%s)" % ("C", datasetname, model_filename))
         X = l.get_X_train(datasetname, "D")
         y = l.get_y(datasetname, "C")
         model = fit_and_save_log(parameters, np.array(X), np.array(y), model_filename)
@@ -53,7 +53,7 @@ for datasetname in ["2", "3", "4", "all"]:
     # Model E sans rien
     model_filename = get_model_filename(datasetname, "E", "")
     if not os.path.exists(model_filename):
-        print("Calcul model %s sur dataset %s" % ("E", datasetname))
+        print("Calcul model %s sur dataset %s (%s)" % ("E", datasetname, model_filename))
         X = l.get_X_train(datasetname, "")
         y = l.get_y(datasetname, "E")
         model = fit_and_save_log(parameters, np.array(X), np.array(y), model_filename)
@@ -69,7 +69,7 @@ for datasetname in ["2", "3", "4", "all"]:
     # Model F avec info E
     model_filename = get_model_filename(datasetname, "F", "E")
     if not os.path.exists(model_filename):
-        print("Calcul model %s sur dataset %s" % ("F", datasetname))
+        print("Calcul model %s sur dataset %s (%s)" % ("F", datasetname, model_filename))
         X = l.get_X_train(datasetname, "E")
         y = l.get_y(datasetname, "F")
         model = fit_and_save_log(parameters, np.array(X), np.array(y), model_filename)
@@ -77,7 +77,7 @@ for datasetname in ["2", "3", "4", "all"]:
     # Model A avec info EF
     model_filename = get_model_filename(datasetname, "A", "EF")
     if not os.path.exists(model_filename):
-        print("Calcul model %s sur dataset %s" % ("A", datasetname))
+        print("Calcul model %s sur dataset %s (%s)" % ("A", datasetname, model_filename))
         X = l.get_X_train(datasetname, "EF")
         y = l.get_y(datasetname, "A")
         model = fit_and_save_log(parameters, np.array(X), np.array(y), model_filename)
@@ -85,7 +85,7 @@ for datasetname in ["2", "3", "4", "all"]:
     # Model G avec A
     model_filename = get_model_filename(datasetname, "G", "A")
     if not os.path.exists(model_filename):
-        print("Calcul model %s sur dataset %s" % ("G", datasetname))
+        print("Calcul model %s sur dataset %s (%s)" % ("G", datasetname, model_filename))
         X = l.get_X_train(datasetname, "A")
         y = l.get_y(datasetname, "G")
         model = fit_and_save_log(parameters, np.array(X), np.array(y), model_filename)

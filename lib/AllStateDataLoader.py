@@ -228,6 +228,10 @@ shopping_pt = 1
 select
 T1.customer_ID as customer_ID,
 cust.state as state,
+case 
+  when T6.nb_customers > 150 then case when T6.location = '' then 1 else T6.location end
+  else 0
+end as location_id,
 T3.day as day,
 T3.time as time,
 T3.group_size as group_size,
@@ -308,13 +312,21 @@ transactions
 where
 shopping_pt = 1
 ) T5 on (T1.customer_ID = T5.customer_ID)
-
+left outer join
+(
+select
+location,
+count(distinct customer_ID) as nb_customers
+from
+transactions
+group by location
+) T6 on (T3.location = T6.location)
 """, self.__cnx)
 
         data = data.set_index(['customer_ID'])
 
         # not null columns
-        for column in ['state', 'homeowner', 'car_value', 'married_couple']:
+        for column in ['state', 'homeowner', 'car_value', 'married_couple', 'location_id']:
             tmp = pd.DataFrame(pd.get_dummies(data[column], prefix=column), index=data.index)
             data = pd.merge(data, tmp, left_index=True, right_index=True)
             del data[column]
