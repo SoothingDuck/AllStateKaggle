@@ -12,78 +12,93 @@ data <- dbGetQuery(
 con,
 "
 select
-location,
-sum(case when A = 0 then 1 else 0 end) as A0_count,
-sum(case when A = 1 then 1 else 0 end) as A1_count,
-sum(case when A = 2 then 1 else 0 end) as A2_count,
-sum(case when B = 0 then 1 else 0 end) as B0_count,
-sum(case when B = 1 then 1 else 0 end) as B1_count,
-sum(case when C = 1 then 1 else 0 end) as C1_count,
-sum(case when C = 2 then 1 else 0 end) as C2_count,
-sum(case when C = 3 then 1 else 0 end) as C3_count,
-sum(case when C = 4 then 1 else 0 end) as C4_count,
-sum(case when D = 1 then 1 else 0 end) as D1_count,
-sum(case when D = 2 then 1 else 0 end) as D2_count,
-sum(case when D = 3 then 1 else 0 end) as D3_count,
-sum(case when E = 0 then 1 else 0 end) as E0_count,
-sum(case when E = 1 then 1 else 0 end) as E1_count,
-sum(case when F = 0 then 1 else 0 end) as F0_count,
-sum(case when F = 1 then 1 else 0 end) as F1_count,
-sum(case when F = 2 then 1 else 0 end) as F2_count,
-sum(case when F = 3 then 1 else 0 end) as F3_count,
-sum(case when G = 1 then 1 else 0 end) as G1_count,
-sum(case when G = 2 then 1 else 0 end) as G2_count,
-sum(case when G = 3 then 1 else 0 end) as G3_count,
-sum(case when G = 4 then 1 else 0 end) as G4_count,
-count(*) as total_count
-from transactions
-where
-record_type = 1
-group by 1
+T1.location,
+T1.A0_count_location/T2.A0_count_global as A0_percent_location,
+T1.A1_count_location/T2.A1_count_global as A1_percent_location,
+T1.A2_count_location/T2.A2_count_global as A2_percent_location,
+T1.B0_count_location/T2.B0_count_global as B0_percent_location,
+T1.B1_count_location/T2.B1_count_global as B1_percent_location,
+T1.C1_count_location/T2.C1_count_global as C1_percent_location,
+T1.C2_count_location/T2.C2_count_global as C2_percent_location,
+T1.C3_count_location/T2.C3_count_global as C3_percent_location,
+T1.C4_count_location/T2.C4_count_global as C4_percent_location,
+T1.D1_count_location/T2.D1_count_global as D1_percent_location,
+T1.D2_count_location/T2.D2_count_global as D2_percent_location,
+T1.D3_count_location/T2.D3_count_global as D3_percent_location,
+T1.E0_count_location/T2.E0_count_global as E0_percent_location,
+T1.E1_count_location/T2.E1_count_global as E1_percent_location,
+T1.F0_count_location/T2.F0_count_global as F0_percent_location,
+T1.F1_count_location/T2.F1_count_global as F1_percent_location,
+T1.F2_count_location/T2.F2_count_global as F2_percent_location,
+T1.F3_count_location/T2.F3_count_global as F3_percent_location,
+T1.G1_count_location/T2.G1_count_global as G1_percent_location,
+T1.G2_count_location/T2.G2_count_global as G2_percent_location,
+T1.G3_count_location/T2.G3_count_global as G3_percent_location,
+T1.G4_count_location/T2.G4_count_global as G4_percent_location
+from
+(
+  select
+  location,
+  1.0*sum(case when A = 0 then 1 else 0 end) as A0_count_location,
+  1.0*sum(case when A = 1 then 1 else 0 end) as A1_count_location,
+  1.0*sum(case when A = 2 then 1 else 0 end) as A2_count_location,
+  1.0*sum(case when B = 0 then 1 else 0 end) as B0_count_location,
+  1.0*sum(case when B = 1 then 1 else 0 end) as B1_count_location,
+  1.0*sum(case when C = 1 then 1 else 0 end) as C1_count_location,
+  1.0*sum(case when C = 2 then 1 else 0 end) as C2_count_location,
+  1.0*sum(case when C = 3 then 1 else 0 end) as C3_count_location,
+  1.0*sum(case when C = 4 then 1 else 0 end) as C4_count_location,
+  1.0*sum(case when D = 1 then 1 else 0 end) as D1_count_location,
+  1.0*sum(case when D = 2 then 1 else 0 end) as D2_count_location,
+  1.0*sum(case when D = 3 then 1 else 0 end) as D3_count_location,
+  1.0*sum(case when E = 0 then 1 else 0 end) as E0_count_location,
+  1.0*sum(case when E = 1 then 1 else 0 end) as E1_count_location,
+  1.0*sum(case when F = 0 then 1 else 0 end) as F0_count_location,
+  1.0*sum(case when F = 1 then 1 else 0 end) as F1_count_location,
+  1.0*sum(case when F = 2 then 1 else 0 end) as F2_count_location,
+  1.0*sum(case when F = 3 then 1 else 0 end) as F3_count_location,
+  1.0*sum(case when G = 1 then 1 else 0 end) as G1_count_location,
+  1.0*sum(case when G = 2 then 1 else 0 end) as G2_count_location,
+  1.0*sum(case when G = 3 then 1 else 0 end) as G3_count_location,
+  1.0*sum(case when G = 4 then 1 else 0 end) as G4_count_location
+  from transactions
+  where
+  record_type = 1
+  group by 1
+) T1,
+(
+  select
+  1.0*sum(case when A = 0 then 1 else 0 end) as A0_count_global,
+  1.0*sum(case when A = 1 then 1 else 0 end) as A1_count_global,
+  1.0*sum(case when A = 2 then 1 else 0 end) as A2_count_global,
+  1.0*sum(case when B = 0 then 1 else 0 end) as B0_count_global,
+  1.0*sum(case when B = 1 then 1 else 0 end) as B1_count_global,
+  1.0*sum(case when C = 1 then 1 else 0 end) as C1_count_global,
+  1.0*sum(case when C = 2 then 1 else 0 end) as C2_count_global,
+  1.0*sum(case when C = 3 then 1 else 0 end) as C3_count_global,
+  1.0*sum(case when C = 4 then 1 else 0 end) as C4_count_global,
+  1.0*sum(case when D = 1 then 1 else 0 end) as D1_count_global,
+  1.0*sum(case when D = 2 then 1 else 0 end) as D2_count_global,
+  1.0*sum(case when D = 3 then 1 else 0 end) as D3_count_global,
+  1.0*sum(case when E = 0 then 1 else 0 end) as E0_count_global,
+  1.0*sum(case when E = 1 then 1 else 0 end) as E1_count_global,
+  1.0*sum(case when F = 0 then 1 else 0 end) as F0_count_global,
+  1.0*sum(case when F = 1 then 1 else 0 end) as F1_count_global,
+  1.0*sum(case when F = 2 then 1 else 0 end) as F2_count_global,
+  1.0*sum(case when F = 3 then 1 else 0 end) as F3_count_global,
+  1.0*sum(case when G = 1 then 1 else 0 end) as G1_count_global,
+  1.0*sum(case when G = 2 then 1 else 0 end) as G2_count_global,
+  1.0*sum(case when G = 3 then 1 else 0 end) as G3_count_global,
+  1.0*sum(case when G = 4 then 1 else 0 end) as G4_count_global
+  from transactions
+  where
+  record_type = 1
+) T2
 "
 )
 
 dbDisconnect(con)
 
-# evaluation 
-# 
-# df <- ddply(
-#   data,
-#   .(location),
-#   function(x) {
-#     tmp.A <- (0:2)[order(x[,c("A0","A1","A2")])]
-#     tmp.B <- (0:1)[order(x[,c("B0","B1")])]
-#     tmp.C <- (1:4)[order(x[,c("C1","C2","C3","C4")])]
-#     tmp.D <- (1:3)[order(x[,c("D1","D2","D3")])]
-#     tmp.E <- (0:1)[order(x[,c("E0","E1")])]
-#     tmp.F <- (0:3)[order(x[,c("F0","F1","F2","F3")])]
-#     tmp.G <- (1:4)[order(x[,c("G1","G2","G3","G4")])]
-#     data.frame(
-#       A_proba_1=tmp.A[3],
-#       A_proba_2=tmp.A[2],
-#       A_proba_3=tmp.A[1],
-#       B_proba_1=tmp.B[2],
-#       B_proba_2=tmp.B[1],
-#       C_proba_1=tmp.C[4],
-#       C_proba_2=tmp.C[3],
-#       C_proba_3=tmp.C[2],
-#       C_proba_4=tmp.C[1],
-#       D_proba_1=tmp.D[3],
-#       D_proba_2=tmp.D[2],
-#       D_proba_3=tmp.D[1],
-#       E_proba_1=tmp.E[2],
-#       E_proba_2=tmp.E[1],
-#       F_proba_1=tmp.F[4],
-#       F_proba_2=tmp.F[3],
-#       F_proba_3=tmp.F[2],
-#       F_proba_4=tmp.F[1],
-#       G_proba_1=tmp.G[4],
-#       G_proba_2=tmp.G[3],
-#       G_proba_3=tmp.G[2],
-#       G_proba_4=tmp.G[1]      
-#       )
-#   }
-#   )
 
 # Ecriture
 drv <- dbDriver("SQLite")
