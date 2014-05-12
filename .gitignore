@@ -39,3 +39,7 @@ DATA/TMP/*
 
 # Compiled python
 *.pyc
+
+# Huge model
+model_extratrees/*
+
