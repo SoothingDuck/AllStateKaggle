@@ -38,7 +38,7 @@ T1.G4_count_location/T2.G4_count_global as G4_percent_location
 from
 (
   select
-  location,
+  coalesce(location, '') as location,
   1.0*sum(case when A = 0 then 1 else 0 end) as A0_count_location,
   1.0*sum(case when A = 1 then 1 else 0 end) as A1_count_location,
   1.0*sum(case when A = 2 then 1 else 0 end) as A2_count_location,
@@ -63,7 +63,7 @@ from
   1.0*sum(case when G = 4 then 1 else 0 end) as G4_count_location
   from transactions
   where
-  record_type = 1
+  record_type = 0
   group by 1
 ) T1,
 (
@@ -92,7 +92,7 @@ from
   1.0*sum(case when G = 4 then 1 else 0 end) as G4_count_global
   from transactions
   where
-  record_type = 1
+  record_type = 0
 ) T2
 "
 )
@@ -105,6 +105,6 @@ drv <- dbDriver("SQLite")
 con <- dbConnect(drv, dbname=sqlitedb.filename)
 
 print("Alimentation table location agg")
-dbWriteTable(con, "location_agg", data)
+dbWriteTable(con, "location_agg_view", data)
 
 dbDisconnect(con)

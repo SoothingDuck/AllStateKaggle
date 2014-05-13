@@ -157,7 +157,7 @@ shopping_pt = 1
             del data[variable]
 
         # drop variable
-        for variable in ['day', 'time']:
+        for variable in ['day', 'time', 'row_names']:
             del data[variable]
 
         data = data.reindex(columns=sorted(list(data.columns)))
@@ -221,13 +221,14 @@ shopping_pt = 1
 
 
 
-    def get_data_2_train(self, with_location=False):
+    def get_data_2_train(self, with_location_view=False):
 
         # read_data
         data = sql.read_sql("""
 select
 T1.customer_ID as customer_ID,
 cust.state as state,
+coalesce(T3.location, 0) as location,
 T3.day as day,
 T3.time as time,
 T3.group_size as group_size,
@@ -312,6 +313,23 @@ shopping_pt = 1
 
         data = data.set_index(['customer_ID'])
 
+        # Ajout location
+        if with_location_view:
+            data_location = sql.read_sql("""
+select
+*
+from
+location_agg_view
+""", self.__cnx)
+
+            data = pd.merge(data, data_location, left_on=["location"], right_on=["location"])
+            del data['location']
+
+        else:
+            del data['location']
+            
+            
+
         # not null columns
         for column in ['state', 'homeowner', 'car_value', 'married_couple']:
             tmp = pd.DataFrame(pd.get_dummies(data[column], prefix=column), index=data.index)
@@ -337,7 +355,7 @@ shopping_pt = 1
             del data[variable]
 
         # drop variable
-        for variable in ['day', 'time']:
+        for variable in ['day', 'time', 'row_names']:
             del data[variable]
 
         data = data.reindex(columns=sorted(list(data.columns)))
@@ -471,7 +489,7 @@ shopping_pt = 1
             del data[variable]
 
         # drop variable
-        for variable in ['day', 'time']:
+        for variable in ['day', 'time', 'row_names']:
             del data[variable]
 
         data = data.reindex(columns=sorted(list(data.columns)))
@@ -606,7 +624,7 @@ shopping_pt = 1
             del data[variable]
 
         # drop variable
-        for variable in ['day', 'time']:
+        for variable in ['day', 'time', 'row_names']:
             del data[variable]
 
         data = data.reindex(columns=sorted(list(data.columns)))
@@ -614,13 +632,14 @@ shopping_pt = 1
         return data
 
 
-    def get_data_3_train(self):
+    def get_data_3_train(self, with_location_view=False):
 
         # read_data
         data = sql.read_sql("""
 select
 T1.customer_ID as customer_ID,
 cust.state as state,
+coalesce(T3.location, 0) as location,
 T3.day as day,
 T3.time as time,
 T3.group_size as group_size,
@@ -705,6 +724,21 @@ shopping_pt = 1
 
         data = data.set_index(['customer_ID'])
 
+        # Ajout location
+        if with_location_view:
+            data_location = sql.read_sql("""
+select
+*
+from
+location_agg_view
+""", self.__cnx)
+
+            data = pd.merge(data, data_location, left_on=["location"], right_on=["location"])
+            del data['location']
+
+        else:
+            del data['location']
+
         # not null columns
         for column in ['state', 'homeowner', 'car_value', 'married_couple']:
             tmp = pd.DataFrame(pd.get_dummies(data[column], prefix=column), index=data.index)
@@ -730,20 +764,21 @@ shopping_pt = 1
             del data[variable]
 
         # drop variable
-        for variable in ['day', 'time']:
+        for variable in ['day', 'time', 'row_names']:
             del data[variable]
 
         data = data.reindex(columns=sorted(list(data.columns)))
 
         return data
 
-    def get_data_4_train(self):
+    def get_data_4_train(self, with_location_view=False):
 
         # read_data
         data = sql.read_sql("""
 select
 T1.customer_ID as customer_ID,
 cust.state as state,
+coalesce(T3.location, 0) as location,
 T3.day as day,
 T3.time as time,
 T3.group_size as group_size,
@@ -828,6 +863,22 @@ shopping_pt = 1
 
         data = data.set_index(['customer_ID'])
 
+        # Ajout location
+        if with_location_view:
+            data_location = sql.read_sql("""
+select
+*
+from
+location_agg_view
+""", self.__cnx)
+
+            data = pd.merge(data, data_location, left_on=["location"], right_on=["location"])
+            del data['location']
+
+        else:
+            del data['location']
+            
+
         # not null columns
         for column in ['state', 'homeowner', 'car_value', 'married_couple']:
             tmp = pd.DataFrame(pd.get_dummies(data[column], prefix=column), index=data.index)
@@ -853,7 +904,7 @@ shopping_pt = 1
             del data[variable]
 
         # drop variable
-        for variable in ['day', 'time']:
+        for variable in ['day', 'time', 'row_names']:
             del data[variable]
 
         data = data.reindex(columns=sorted(list(data.columns)))
@@ -993,7 +1044,7 @@ shopping_pt = 1
             del data[variable]
 
         # drop variable
-        for variable in ['day', 'time']:
+        for variable in ['day', 'time', 'row_names']:
             del data[variable]
 
         data = data.reindex(columns=sorted(list(data.columns)))
@@ -1001,7 +1052,7 @@ shopping_pt = 1
         return data
 
 
-    def get_data_all_train(self):
+    def get_data_all_train(self, with_location_view=False):
 
         # read_data
         data_max_shopping_pt = sql.read_sql("""
@@ -1018,6 +1069,7 @@ group by 1
 select
 T1.customer_ID as customer_ID,
 T1.shopping_pt as shopping_pt,
+coalesce(T1.location, 0) as location,
 cust.state as state,
 T1.day as day,
 T1.time as time,
@@ -1101,6 +1153,22 @@ shopping_pt = 1
 
         data = data.set_index(['customer_ID'])
 
+        # Ajout location
+        if with_location_view:
+            data_location = sql.read_sql("""
+select
+*
+from
+location_agg_view
+""", self.__cnx)
+
+            data = pd.merge(data, data_location, left_on=["location"], right_on=["location"])
+            del data['location']
+
+        else:
+            del data['location']
+            
+
         # not null columns
         for column in ['state', 'homeowner', 'car_value', 'married_couple']:
             tmp = pd.DataFrame(pd.get_dummies(data[column], prefix=column), index=data.index)
@@ -1126,7 +1194,7 @@ shopping_pt = 1
             del data[variable]
 
         # drop variable
-        for variable in ['day', 'time']:
+        for variable in ['day', 'time', 'row_names']:
             del data[variable]
 
         data = data.reindex(columns=sorted(list(data.columns)))
