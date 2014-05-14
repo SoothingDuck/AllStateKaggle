@@ -158,7 +158,8 @@ shopping_pt = 1
 
         # drop variable
         for variable in ['day', 'time', 'row_names']:
-            del data[variable]
+            if variable in data.columns:
+                del data[variable]
 
         data = data.reindex(columns=sorted(list(data.columns)))
 
@@ -356,7 +357,8 @@ location_agg_view
 
         # drop variable
         for variable in ['day', 'time', 'row_names']:
-            del data[variable]
+            if variable in data.columns:
+                del data[variable]
 
         data = data.reindex(columns=sorted(list(data.columns)))
 
@@ -490,7 +492,8 @@ shopping_pt = 1
 
         # drop variable
         for variable in ['day', 'time', 'row_names']:
-            del data[variable]
+            if variable in data.columns:
+                del data[variable]
 
         data = data.reindex(columns=sorted(list(data.columns)))
 
@@ -625,7 +628,8 @@ shopping_pt = 1
 
         # drop variable
         for variable in ['day', 'time', 'row_names']:
-            del data[variable]
+            if variable in data.columns:
+                del data[variable]
 
         data = data.reindex(columns=sorted(list(data.columns)))
 
@@ -765,8 +769,9 @@ location_agg_view
 
         # drop variable
         for variable in ['day', 'time', 'row_names']:
-            del data[variable]
-
+            if variable in data.columns:
+                del data[variable]
+            
         data = data.reindex(columns=sorted(list(data.columns)))
 
         return data
@@ -905,7 +910,8 @@ location_agg_view
 
         # drop variable
         for variable in ['day', 'time', 'row_names']:
-            del data[variable]
+            if variable in data.columns:
+                del data[variable]
 
         data = data.reindex(columns=sorted(list(data.columns)))
 
@@ -1045,7 +1051,8 @@ shopping_pt = 1
 
         # drop variable
         for variable in ['day', 'time', 'row_names']:
-            del data[variable]
+            if variable in data.columns:
+                del data[variable]
 
         data = data.reindex(columns=sorted(list(data.columns)))
 
@@ -1195,7 +1202,8 @@ location_agg_view
 
         # drop variable
         for variable in ['day', 'time', 'row_names']:
-            del data[variable]
+            if variable in data.columns:
+                del data[variable]
 
         data = data.reindex(columns=sorted(list(data.columns)))
 
