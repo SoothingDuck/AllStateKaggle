@@ -343,6 +343,26 @@ normalize.data <- function(data) {
   data$real_F <- factor(data$real_F)
   data$real_G <- factor(data$real_G)
   
+  data <- data[, colnames(data) != "diff_age"]
+  data <- data[, colnames(data) != "same_last_min_cost_shopping_pt"]
+  data <- data[, colnames(data) != "diff_cost"]
+  
+  data <- data[, colnames(data) != "prc_all_shopped_A_2"]
+  data <- data[, colnames(data) != "prc_all_shopped_B_1"]
+  data <- data[, colnames(data) != "prc_all_shopped_C_4"]
+  data <- data[, colnames(data) != "prc_all_shopped_D_3"]
+  data <- data[, colnames(data) != "prc_all_shopped_E_1"]
+  data <- data[, colnames(data) != "prc_all_shopped_F_3"]
+  data <- data[, colnames(data) != "prc_all_shopped_G_4"]
+  
+  data <- data[, colnames(data) != "prc_location_shopped_A_2"]
+  data <- data[, colnames(data) != "prc_location_shopped_B_1"]
+  data <- data[, colnames(data) != "prc_location_shopped_C_4"]
+  data <- data[, colnames(data) != "prc_location_shopped_D_3"]
+  data <- data[, colnames(data) != "prc_location_shopped_E_1"]
+  data <- data[, colnames(data) != "prc_location_shopped_F_3"]
+  data <- data[, colnames(data) != "prc_location_shopped_G_4"]
+  
   return(data)  
 }
 
