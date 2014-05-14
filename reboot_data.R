@@ -263,7 +263,27 @@ data.location.shopped.mean <- colMeans(data.location.shopped)
 data.location.shopped.mean <- data.frame(t(data.location.shopped.mean))
 data.location.shopped.mean <- data.location.shopped.mean[,colnames(data.location.shopped.mean) != "location"]
 
-normalize.all <- function(data) {
+
+# make big data
+null.location.data <- subset(data.info.user, is.na(location))
+not.null.location.data <- subset(data.info.user, ! is.na(location))
+
+tmp.null <- cbind(null.location.data, data.location.shopped.mean)
+tmp.not.null <- merge(data.info.user, data.location.shopped, by=c("location"))
+
+tmp.null <- tmp.null[, sort(colnames(tmp.null))]
+tmp.not.null <- tmp.not.null[, sort(colnames(tmp.not.null))]
+
+tmp <- rbind(tmp.null, tmp.not.null)
+
+tmp <- merge(tmp, data.state, on=c("customer_ID"))
+tmp <- merge(tmp, data.last.shopping.pt, on=c("customer_ID"))
+tmp <- merge(tmp, data.min.cost.shopping.pt, on=c("customer_ID"))
+tmp <- merge(tmp, data.real, on=c("customer_ID"))
+
+data.train <- tmp
+
+normalize.train <- function(data) {
   
   rownames(data) <- data$customer_ID
   data <- data[, colnames(data) != "customer_ID"]
