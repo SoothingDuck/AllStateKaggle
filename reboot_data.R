@@ -297,25 +297,15 @@ data$car_age_factor <- cut(data$car_age,breaks=quantile(data$car_age, probs=seq(
 data$car_value <- factor(ifelse(data$car_value == "", "NotAvailable", data$car_value))
   
 data$duration_previous <- factor(ifelse(is.na(data$duration_previous), "NotAvailable", data$duration_previous))
-  data$homeowner <- factor(ifelse(data$homeowner == 1, "Yes", "No"))
-  
-  data$car_value <- factor(data$car_value)
-  
-  data$risk_factor <- factor(ifelse(is.na(data$risk_factor), "NotAvailable", data$risk_factor))
-  
-  data$married_couple <- factor(ifelse(data$married_couple == 1, "Yes", "No"))
-  
-  data$C_previous <- factor(ifelse(is.na(data$C_previous), "NotAvailable", data$C_previous))
-  
-  data$duration_previous <- ifelse(is.na(data$duration_previous), 5, data$duration_previous)  
-  
-  for(letter in c("A","B","C","D","E","F","G")) {
-    data[, paste("value", letter, "last", sep="_")] <- factor(data[, paste("value", letter, "last", sep="_")])
-    data[, paste("first", letter, sep="_")] <- factor(data[, paste("first", letter, sep="_")])
-    data[, paste("real", letter, sep="_")] <- factor(data[, paste("real", letter, sep="_")])
-  }
-  
-  return(data)
-  
-}
 
+data$group_size_factor <- factor(data$group_size)
+
+data$homeowner <- factor(ifelse(data$homeowner == 1, "Yes", "No"))
+  
+data$married_couple <- factor(ifelse(data$married_couple == 1, "Yes", "No"))
+
+data <- data[, colnames(data) != "location"]
+
+data$risk_factor <- factor(ifelse(is.na(data$risk_factor), "NotAvailable", data$risk_factor))
+
+data$diff_age <- (data$age_oldest - data$age_youngest)
