@@ -283,16 +283,18 @@ tmp <- merge(tmp, data.real, on=c("customer_ID"))
 
 data.train <- tmp
 
-normalize.train <- function(data) {
+# Normalize
+data <- data.train
   
-  rownames(data) <- data$customer_ID
-  data <- data[, colnames(data) != "customer_ID"]
+rownames(data) <- data$customer_ID
+data <- data[, colnames(data) != "customer_ID"]
   
-  data$state <- factor(data$state)
+data$state <- factor(data$state)
+data$day <- factor(data$day)
   
-  data <- data[, colnames(data) != "day"]
-  data <- data[, colnames(data) != "time"]
-  
+data$C_previous <- factor(ifelse(is.na(data$C_previous),"NotAvailable", data$C_previous))
+data$car_age_factor <- cut(data$car_age,breaks=quantile(data$car_age, probs=seq(0,1,0.25)), include.lowest=TRUE, ordered_result=TRUE)
+
   data$homeowner <- factor(ifelse(data$homeowner == 1, "Yes", "No"))
   
   data$car_value <- factor(data$car_value)
