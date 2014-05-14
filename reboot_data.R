@@ -294,7 +294,9 @@ data$day <- factor(data$day)
   
 data$C_previous <- factor(ifelse(is.na(data$C_previous),"NotAvailable", data$C_previous))
 data$car_age_factor <- cut(data$car_age,breaks=quantile(data$car_age, probs=seq(0,1,0.25)), include.lowest=TRUE, ordered_result=TRUE)
-
+data$car_value <- factor(ifelse(data$car_value == "", "NotAvailable", data$car_value))
+  
+data$duration_previous <- factor(ifelse(is.na(data$duration_previous), "NotAvailable", data$duration_previous))
   data$homeowner <- factor(ifelse(data$homeowner == 1, "Yes", "No"))
   
   data$car_value <- factor(data$car_value)
