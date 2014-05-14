@@ -284,28 +284,66 @@ tmp <- merge(tmp, data.real, on=c("customer_ID"))
 data.train <- tmp
 
 # Normalize
-data <- data.train
+normalize.data <- function(data) {
+  rownames(data) <- data$customer_ID
+  data <- data[, colnames(data) != "customer_ID"]
   
-rownames(data) <- data$customer_ID
-data <- data[, colnames(data) != "customer_ID"]
+  data$state <- factor(data$state)
+  data$day <- factor(data$day)
   
-data$state <- factor(data$state)
-data$day <- factor(data$day)
+  data$C_previous <- factor(ifelse(is.na(data$C_previous),"NotAvailable", data$C_previous))
+  data$car_age_factor <- cut(data$car_age,breaks=quantile(data$car_age, probs=seq(0,1,0.25)), include.lowest=TRUE, ordered_result=TRUE)
+  data$car_value <- factor(ifelse(data$car_value == "", "NotAvailable", data$car_value))
   
-data$C_previous <- factor(ifelse(is.na(data$C_previous),"NotAvailable", data$C_previous))
-data$car_age_factor <- cut(data$car_age,breaks=quantile(data$car_age, probs=seq(0,1,0.25)), include.lowest=TRUE, ordered_result=TRUE)
-data$car_value <- factor(ifelse(data$car_value == "", "NotAvailable", data$car_value))
+  data$duration_previous <- factor(ifelse(is.na(data$duration_previous), "NotAvailable", data$duration_previous))
   
-data$duration_previous <- factor(ifelse(is.na(data$duration_previous), "NotAvailable", data$duration_previous))
-
-data$group_size_factor <- factor(data$group_size)
-
-data$homeowner <- factor(ifelse(data$homeowner == 1, "Yes", "No"))
+  data$group_size_factor <- factor(data$group_size)
   
-data$married_couple <- factor(ifelse(data$married_couple == 1, "Yes", "No"))
+  data$homeowner <- factor(ifelse(data$homeowner == 1, "Yes", "No"))
+  
+  data$married_couple <- factor(ifelse(data$married_couple == 1, "Yes", "No"))
+  
+  data <- data[, colnames(data) != "location"]
+  
+  data$risk_factor <- factor(ifelse(is.na(data$risk_factor), "NotAvailable", data$risk_factor))
+  
+  data$diff_age <- (data$age_oldest - data$age_youngest)
+  
+  data$same_last_min_cost_shopping_pt <- (data$min_cost_shopping_pt == data$last_shopping_pt)
+  
+  data$last_shopping_pt <- factor(data$last_shopping_pt)
+  
+  data$last_A <- factor(data$last_A)
+  data$last_B <- factor(data$last_B)
+  data$last_C <- factor(data$last_C)
+  data$last_D <- factor(data$last_D)
+  data$last_E <- factor(data$last_E)
+  data$last_F <- factor(data$last_F)
+  data$last_G <- factor(data$last_G)
+  
+  data$min_cost_shopping_pt <- factor(data$min_cost_shopping_pt)
+    
+  data$diff_cost <- data$last_cost - data$min_cost_cost
+  
+  data$min_cost_A <- factor(data$min_cost_A)
+  data$min_cost_B <- factor(data$min_cost_B)
+  data$min_cost_C <- factor(data$min_cost_C)
+  data$min_cost_D <- factor(data$min_cost_D)
+  data$min_cost_E <- factor(data$min_cost_E)
+  data$min_cost_F <- factor(data$min_cost_F)
+  data$min_cost_G <- factor(data$min_cost_G)
+  
+  data <- data[, colnames(data) != "real_shopping_pt"]
+  
+  data$real_A <- factor(data$real_A)
+  data$real_B <- factor(data$real_B)
+  data$real_C <- factor(data$real_C)
+  data$real_D <- factor(data$real_D)
+  data$real_E <- factor(data$real_E)
+  data$real_F <- factor(data$real_F)
+  data$real_G <- factor(data$real_G)
+  
+  return(data)  
+}
 
-data <- data[, colnames(data) != "location"]
-
-data$risk_factor <- factor(ifelse(is.na(data$risk_factor), "NotAvailable", data$risk_factor))
-
-data$diff_age <- (data$age_oldest - data$age_youngest)
+data.train.normalized <- normalize.data(data.train)
