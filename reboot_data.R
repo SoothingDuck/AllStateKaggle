@@ -12,7 +12,8 @@ data.state <- dbGetQuery(
   "
   select
   customer_ID,
-  state
+  state,
+  dataset
   from
   customers
   "
@@ -265,23 +266,62 @@ data.location.shopped.mean <- data.location.shopped.mean[,colnames(data.location
 
 
 # make big data
-null.location.data <- subset(data.info.user, is.na(location))
-not.null.location.data <- subset(data.info.user, ! is.na(location))
+make.data.train <- function() {
+  null.location.data <- subset(data.info.user, is.na(location))
+  not.null.location.data <- subset(data.info.user, ! is.na(location))
+  
+  tmp.null <- cbind(null.location.data, data.location.shopped.mean)
+  tmp.not.null <- merge(not.null.location.data, data.location.shopped, on=c("location"))
+  
+  tmp.null <- tmp.null[, sort(colnames(tmp.null))]
+  tmp.not.null <- tmp.not.null[, sort(colnames(tmp.not.null))]
+  
+  tmp <- rbind(tmp.null, tmp.not.null)
+  
+  tmp <- merge(tmp, data.state, on=c("customer_ID"))
+  tmp <- merge(tmp, data.last.shopping.pt, on=c("customer_ID"))
+  tmp <- merge(tmp, data.min.cost.shopping.pt, on=c("customer_ID"))
+  tmp <- merge(tmp, data.real, on=c("customer_ID"))
 
-tmp.null <- cbind(null.location.data, data.location.shopped.mean)
-tmp.not.null <- merge(data.info.user, data.location.shopped, by=c("location"))
+  tmp <- tmp[, colnames(tmp) != "dataset"]
+  
+  return(tmp)
+}
 
-tmp.null <- tmp.null[, sort(colnames(tmp.null))]
-tmp.not.null <- tmp.not.null[, sort(colnames(tmp.not.null))]
+make.data.test <- function() {
+  null.location.data <- subset(merge(subset(data.info.user, is.na(location)), data.state, on=c("customer_ID")), dataset == "test")
+  not.null.location.data <- subset(merge(subset(data.info.user, ! is.na(location)), data.state, on=c("customer_ID")), dataset == "test")
+    
+  tmp.null <- cbind(null.location.data, data.location.shopped.mean)
+  tmp.not.null <- merge(not.null.location.data, data.location.shopped, on=c("location"), all.x=TRUE)
+  tmp.null.bis <- subset(tmp.not.null, is.na(prc_all_shopped_G_4))
+  
+  tmp.null <- rbind(
+    tmp.null,
+    cbind(tmp.null.bis[,colnames(null.location.data)],data.location.shopped.mean)
+    )
+  
+  tmp.not.null <- subset(tmp.not.null, ! is.na(prc_all_shopped_G_4))
+  
+  tmp.null <- tmp.null[, sort(colnames(tmp.null))]
+  tmp.not.null <- tmp.not.null[, sort(colnames(tmp.not.null))]
+  
+  tmp <- rbind(tmp.null, tmp.not.null)
+  
+  tmp <- merge(tmp, data.state, on=c("customer_ID"))
+  tmp <- merge(tmp, data.last.shopping.pt, on=c("customer_ID"))
+  tmp <- merge(tmp, data.min.cost.shopping.pt, on=c("customer_ID"))
+  # tmp <- merge(tmp, data.real, on=c("customer_ID"))
 
-tmp <- rbind(tmp.null, tmp.not.null)
+  tmp <- tmp[tmp$dataset == "test",]
+  
+  tmp <- tmp[, colnames(tmp) != "dataset"]
+  
+  return(tmp)
+}
 
-tmp <- merge(tmp, data.state, on=c("customer_ID"))
-tmp <- merge(tmp, data.last.shopping.pt, on=c("customer_ID"))
-tmp <- merge(tmp, data.min.cost.shopping.pt, on=c("customer_ID"))
-tmp <- merge(tmp, data.real, on=c("customer_ID"))
-
-data.train <- tmp
+data.train <- make.data.train()
+data.test <- make.data.test()
 
 # Normalize
 normalize.data <- function(data) {
@@ -335,13 +375,15 @@ normalize.data <- function(data) {
   
   data <- data[, colnames(data) != "real_shopping_pt"]
   
-  data$real_A <- factor(data$real_A)
-  data$real_B <- factor(data$real_B)
-  data$real_C <- factor(data$real_C)
-  data$real_D <- factor(data$real_D)
-  data$real_E <- factor(data$real_E)
-  data$real_F <- factor(data$real_F)
-  data$real_G <- factor(data$real_G)
+  if("real_A" %in% colnames(data)) {
+    data$real_A <- factor(data$real_A)
+    data$real_B <- factor(data$real_B)
+    data$real_C <- factor(data$real_C)
+    data$real_D <- factor(data$real_D)
+    data$real_E <- factor(data$real_E)
+    data$real_F <- factor(data$real_F)
+    data$real_G <- factor(data$real_G)    
+  }
   
   data <- data[, colnames(data) != "diff_age"]
   data <- data[, colnames(data) != "same_last_min_cost_shopping_pt"]
@@ -370,3 +412,4 @@ normalize.data <- function(data) {
 }
 
 data.train.normalized <- normalize.data(data.train)
+data.test.normalized <- normalize.data(data.test)
