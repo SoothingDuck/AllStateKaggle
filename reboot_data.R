@@ -295,7 +295,7 @@ normalize.data <- function(data) {
   data$car_age_factor <- cut(data$car_age,breaks=quantile(data$car_age, probs=seq(0,1,0.25)), include.lowest=TRUE, ordered_result=TRUE)
   data$car_value <- factor(ifelse(data$car_value == "", "NotAvailable", data$car_value))
   
-  data$duration_previous <- factor(ifelse(is.na(data$duration_previous), "NotAvailable", data$duration_previous))
+  data$duration_previous <- ifelse(is.na(data$duration_previous), 5, data$duration_previous)
   
   data$group_size_factor <- factor(data$group_size)
   
@@ -362,6 +362,9 @@ normalize.data <- function(data) {
   data <- data[, colnames(data) != "prc_location_shopped_E_1"]
   data <- data[, colnames(data) != "prc_location_shopped_F_3"]
   data <- data[, colnames(data) != "prc_location_shopped_G_4"]
+
+  data <- data[, colnames(data) != "min_cost_shopping_pt"]
+  data <- data[, colnames(data) != "last_shopping_pt"]
   
   return(data)  
 }

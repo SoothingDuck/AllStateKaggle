@@ -42,4 +42,5 @@ DATA/TMP/*
 
 # Huge model
 model_extratrees/*
+last_model/*
 
