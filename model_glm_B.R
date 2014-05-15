@@ -22,7 +22,7 @@ df.anova.model.B.1 <- data.frame(anova.model.B.1)
 
 model.B.1.restricted <- glm(
   I(real_B == "1") ~ 
-    prc_location_shopped_B_0 +
+    I(1-prc_location_shopped_B_0) +
     last_A + 
     last_B,
   data=data.train.normalized,

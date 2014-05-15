@@ -37,7 +37,7 @@ df.anova.model.A.2 <- data.frame(anova.model.A.2)
 model.A.2.restricted <- glm(
   I(real_A == "2") ~ 
     car_age + 
-    prc_location_shopped_A_1 +
+    I(1-prc_location_shopped_A_1-prc_location_shopped_A_0) +
     last_A,
   data=data.train.normalized,
   family=binomial
