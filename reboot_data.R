@@ -126,6 +126,7 @@ data.info.user <- dbGetQuery(
   ) T2 on (T1.customer_ID = T2.customer_ID and T1.shopping_pt = min_cost_shopping_pt)
   ")
 
+stop("customer nb_views")
 
 data.real <- dbGetQuery(
   con,
