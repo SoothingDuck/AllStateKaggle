@@ -34,6 +34,6 @@ model.E.1.restricted <- glm(
 save(
   model.E.0.restricted,
   model.E.1.restricted,
-  file = file.path("last_model", "model_glm_E_restricted.RData")
+  file = file.path("last_model", "model_glm_E_restricted_cascade.RData")
 )
 

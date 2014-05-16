@@ -56,6 +56,6 @@ save(
   model.A.0.restricted,
   model.A.1.restricted,
   model.A.2.restricted,
-  file = file.path("last_model", "model_glm_A_restricted.RData")
+  file = file.path("last_model", "model_glm_A_restricted_cascade.RData")
   )
 

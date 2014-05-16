@@ -1,6 +1,6 @@
 source("reboot_data.R")
 
-load(file.path("last_model", "model_glm_A_restricted.RData"))
+load(file.path("last_model", "model_glm_A_restricted_cascade.RData"))
 
 error.pred <- function(real, predict) {
   nb.ko <- sum(real != predict)
@@ -10,7 +10,7 @@ error.pred <- function(real, predict) {
 }
 
 # A
-load(file.path("last_model", "model_glm_A_restricted.RData"))
+load(file.path("last_model", "model_glm_A_restricted_cascade.RData"))
 
 data.train.normalized$predicted_A_0 <- predict(model.A.0.restricted, newdata=data.train.normalized, type="response")
 data.train.normalized$predicted_A_1 <- predict(model.A.1.restricted, newdata=data.train.normalized, type="response")
@@ -21,7 +21,7 @@ data.train.normalized$predicted_A <- max.col(data.train.normalized[,c("predicted
 cat("Error A : ", with(data.train.normalized, error.pred(real_A, predicted_A)), "\n")
 
 # B
-load(file.path("last_model", "model_glm_B_restricted.RData"))
+load(file.path("last_model", "model_glm_B_restricted_cascade.RData"))
 
 data.train.normalized$predicted_B_0 <- predict(model.B.0.restricted, newdata=data.train.normalized, type="response")
 data.train.normalized$predicted_B_1 <- predict(model.B.1.restricted, newdata=data.train.normalized, type="response")
@@ -31,7 +31,7 @@ data.train.normalized$predicted_B <- max.col(data.train.normalized[,c("predicted
 cat("Error B : ", with(data.train.normalized, error.pred(real_B, predicted_B)), "\n")
 
 # C
-load(file.path("last_model", "model_glm_C_restricted.RData"))
+load(file.path("last_model", "model_glm_C_restricted_cascade.RData"))
 
 data.train.normalized$predicted_C_1 <- predict(model.C.1.restricted, newdata=data.train.normalized, type="response")
 data.train.normalized$predicted_C_2 <- predict(model.C.2.restricted, newdata=data.train.normalized, type="response")
@@ -43,7 +43,7 @@ data.train.normalized$predicted_C <- max.col(data.train.normalized[,c("predicted
 cat("Error C : ", with(data.train.normalized, error.pred(real_C, predicted_C)), "\n")
 
 # D
-load(file.path("last_model", "model_glm_D_restricted.RData"))
+load(file.path("last_model", "model_glm_D_restricted_cascade.RData"))
 
 data.train.normalized$predicted_D_1 <- predict(model.D.1.restricted, newdata=data.train.normalized, type="response")
 data.train.normalized$predicted_D_2 <- predict(model.D.2.restricted, newdata=data.train.normalized, type="response")
@@ -54,7 +54,7 @@ data.train.normalized$predicted_D <- max.col(data.train.normalized[,c("predicted
 cat("Error D : ", with(data.train.normalized, error.pred(real_D, predicted_D)), "\n")
 
 # E
-load(file.path("last_model", "model_glm_E_restricted.RData"))
+load(file.path("last_model", "model_glm_E_restricted_cascade.RData"))
 
 data.train.normalized$predicted_E_0 <- predict(model.E.0.restricted, newdata=data.train.normalized, type="response")
 data.train.normalized$predicted_E_1 <- predict(model.E.1.restricted, newdata=data.train.normalized, type="response")
@@ -64,7 +64,7 @@ data.train.normalized$predicted_E <- max.col(data.train.normalized[,c("predicted
 cat("Error E : ", with(data.train.normalized, error.pred(real_E, predicted_E)), "\n")
 
 # F
-load(file.path("last_model", "model_glm_F_restricted.RData"))
+load(file.path("last_model", "model_glm_F_restricted_cascade.RData"))
 
 data.train.normalized$predicted_F_0 <- predict(model.F.0.restricted, newdata=data.train.normalized, type="response")
 data.train.normalized$predicted_F_1 <- predict(model.F.1.restricted, newdata=data.train.normalized, type="response")
@@ -76,7 +76,7 @@ data.train.normalized$predicted_F <- max.col(data.train.normalized[,c("predicted
 cat("Error F : ", with(data.train.normalized, error.pred(real_F, predicted_F)), "\n")
 
 # G
-load(file.path("last_model", "model_glm_G_restricted.RData"))
+load(file.path("last_model", "model_glm_G_restricted_cascade.RData"))
 
 data.train.normalized$predicted_G_1 <- predict(model.G.1.restricted, newdata=data.train.normalized, type="response")
 data.train.normalized$predicted_G_2 <- predict(model.G.2.restricted, newdata=data.train.normalized, type="response")
