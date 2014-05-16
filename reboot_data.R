@@ -153,134 +153,19 @@ data.customer.shopped <- dbGetQuery(
   con,
   "
   select
-  T1.customer_ID,
-  T1.nb_shopped_customer_A_0 as nb_shopped_customer_A_0,
-  T1.nb_shopped_customer_A_1 as nb_shopped_customer_A_1,
-  T1.nb_shopped_customer_A_2 as nb_shopped_customer_A_2,
-  T1.nb_shopped_customer_B_0 as nb_shopped_customer_B_0,
-  T1.nb_shopped_customer_B_1 as nb_shopped_customer_B_1,
-  T1.nb_shopped_customer_C_1 as nb_shopped_customer_C_1,
-  T1.nb_shopped_customer_C_2 as nb_shopped_customer_C_2,
-  T1.nb_shopped_customer_C_3 as nb_shopped_customer_C_3,
-  T1.nb_shopped_customer_C_4 as nb_shopped_customer_C_4,
-  T1.nb_shopped_customer_D_1 as nb_shopped_customer_D_1,
-  T1.nb_shopped_customer_D_2 as nb_shopped_customer_D_2,
-  T1.nb_shopped_customer_D_3 as nb_shopped_customer_D_3,
-  T1.nb_shopped_customer_E_0 as nb_shopped_customer_E_0,
-  T1.nb_shopped_customer_E_1 as nb_shopped_customer_E_1,
-  T1.nb_shopped_customer_F_0 as nb_shopped_customer_F_0,
-  T1.nb_shopped_customer_F_1 as nb_shopped_customer_F_1,
-  T1.nb_shopped_customer_F_2 as nb_shopped_customer_F_2,
-  T1.nb_shopped_customer_F_3 as nb_shopped_customer_F_3,
-  T1.nb_shopped_customer_G_1 as nb_shopped_customer_G_1,
-  T1.nb_shopped_customer_G_2 as nb_shopped_customer_G_2,
-  T1.nb_shopped_customer_G_3 as nb_shopped_customer_G_3,
-  T1.nb_shopped_customer_G_4 as nb_shopped_customer_G_4,
-  T1.nb_shopped_customer_A_0/(T1.nb_shopped_customer_A_0+T1.nb_shopped_customer_A_1+T1.nb_shopped_customer_A_2) as prc_location_shopped_customer_A_0,
-  T1.nb_shopped_customer_A_1/(T1.nb_shopped_customer_A_0+T1.nb_shopped_customer_A_1+T1.nb_shopped_customer_A_2) as prc_location_shopped_customer_A_1,
-  T1.nb_shopped_customer_A_2/(T1.nb_shopped_customer_A_0+T1.nb_shopped_customer_A_1+T1.nb_shopped_customer_A_2) as prc_location_shopped_customer_A_2,
-  T1.nb_shopped_customer_B_0/(T1.nb_shopped_customer_B_0+T1.nb_shopped_customer_B_1) as prc_location_shopped_customer_B_0,
-  T1.nb_shopped_customer_B_1/(T1.nb_shopped_customer_B_0+T1.nb_shopped_customer_B_1) as prc_location_shopped_customer_B_1,
-  T1.nb_shopped_customer_C_1/(T1.nb_shopped_customer_C_1+T1.nb_shopped_customer_C_2+nb_shopped_customer_C_3+nb_shopped_customer_C_4) as prc_location_shopped_customer_C_1,
-  T1.nb_shopped_customer_C_2/(T1.nb_shopped_customer_C_1+T1.nb_shopped_customer_C_2+nb_shopped_customer_C_3+nb_shopped_customer_C_4) as prc_location_shopped_customer_C_2,
-  T1.nb_shopped_customer_C_3/(T1.nb_shopped_customer_C_1+T1.nb_shopped_customer_C_2+nb_shopped_customer_C_3+nb_shopped_customer_C_4) as prc_location_shopped_customer_C_3,
-  T1.nb_shopped_customer_C_4/(T1.nb_shopped_customer_C_1+T1.nb_shopped_customer_C_2+nb_shopped_customer_C_3+nb_shopped_customer_C_4) as prc_location_shopped_customer_C_4,
-  T1.nb_shopped_customer_D_1/(T1.nb_shopped_customer_D_1+T1.nb_shopped_customer_D_2+nb_shopped_customer_D_3) as prc_location_shopped_customer_D_1,
-  T1.nb_shopped_customer_D_2/(T1.nb_shopped_customer_D_1+T1.nb_shopped_customer_D_2+nb_shopped_customer_D_3) as prc_location_shopped_customer_D_2,
-  T1.nb_shopped_customer_D_3/(T1.nb_shopped_customer_D_1+T1.nb_shopped_customer_D_2+nb_shopped_customer_D_3) as prc_location_shopped_customer_D_3,
-  T1.nb_shopped_customer_E_0/(T1.nb_shopped_customer_E_0+T1.nb_shopped_customer_E_1) as prc_location_shopped_customer_E_0,
-  T1.nb_shopped_customer_E_1/(T1.nb_shopped_customer_E_0+T1.nb_shopped_customer_E_1) as prc_location_shopped_customer_E_1,
-  T1.nb_shopped_customer_F_0/(T1.nb_shopped_customer_F_0+T1.nb_shopped_customer_F_1+T1.nb_shopped_customer_F_2+T1.nb_shopped_customer_F_3) as prc_location_shopped_customer_F_0,
-  T1.nb_shopped_customer_F_1/(T1.nb_shopped_customer_F_0+T1.nb_shopped_customer_F_1+T1.nb_shopped_customer_F_2+T1.nb_shopped_customer_F_3) as prc_location_shopped_customer_F_1,
-  T1.nb_shopped_customer_F_2/(T1.nb_shopped_customer_F_0+T1.nb_shopped_customer_F_1+T1.nb_shopped_customer_F_2+T1.nb_shopped_customer_F_3) as prc_location_shopped_customer_F_2,
-  T1.nb_shopped_customer_F_3/(T1.nb_shopped_customer_F_0+T1.nb_shopped_customer_F_1+T1.nb_shopped_customer_F_2+T1.nb_shopped_customer_F_3) as prc_location_shopped_customer_F_3,
-  T1.nb_shopped_customer_G_1/(T1.nb_shopped_customer_G_1+T1.nb_shopped_customer_G_2+T1.nb_shopped_customer_G_3+T1.nb_shopped_customer_G_4) as prc_location_shopped_customer_G_1,
-  T1.nb_shopped_customer_G_2/(T1.nb_shopped_customer_G_1+T1.nb_shopped_customer_G_2+T1.nb_shopped_customer_G_3+T1.nb_shopped_customer_G_4) as prc_location_shopped_customer_G_2,
-  T1.nb_shopped_customer_G_3/(T1.nb_shopped_customer_G_1+T1.nb_shopped_customer_G_2+T1.nb_shopped_customer_G_3+T1.nb_shopped_customer_G_4) as prc_location_shopped_customer_G_3,
-  T1.nb_shopped_customer_G_4/(T1.nb_shopped_customer_G_1+T1.nb_shopped_customer_G_2+T1.nb_shopped_customer_G_3+T1.nb_shopped_customer_G_4) as prc_location_shopped_customer_G_4,
-  T1.nb_shopped_customer_A_0/T2.nb_total_A_0 as prc_all_shopped_customer_A_0,
-  T1.nb_shopped_customer_A_1/T2.nb_total_A_0 as prc_all_shopped_customer_A_1,
-  T1.nb_shopped_customer_A_2/T2.nb_total_A_0 as prc_all_shopped_customer_A_2,
-  T1.nb_shopped_customer_B_0/T2.nb_total_B_0 as prc_all_shopped_customer_B_0,
-  T1.nb_shopped_customer_B_1/T2.nb_total_B_1 as prc_all_shopped_customer_B_1,
-  T1.nb_shopped_customer_C_1/T2.nb_total_C_1 as prc_all_shopped_customer_C_1,
-  T1.nb_shopped_customer_C_2/T2.nb_total_C_2 as prc_all_shopped_customer_C_2,
-  T1.nb_shopped_customer_C_3/T2.nb_total_C_3 as prc_all_shopped_customer_C_3,
-  T1.nb_shopped_customer_C_4/T2.nb_total_C_4 as prc_all_shopped_customer_C_4,
-  T1.nb_shopped_customer_D_1/T2.nb_total_D_1 as prc_all_shopped_customer_D_1,
-  T1.nb_shopped_customer_D_2/T2.nb_total_D_2 as prc_all_shopped_customer_D_2,
-  T1.nb_shopped_customer_D_3/T2.nb_total_D_3 as prc_all_shopped_customer_D_3,
-  T1.nb_shopped_customer_E_0/T2.nb_total_E_0 as prc_all_shopped_customer_E_0,
-  T1.nb_shopped_customer_E_1/T2.nb_total_E_1 as prc_all_shopped_customer_E_1,
-  T1.nb_shopped_customer_F_0/T2.nb_total_F_0 as prc_all_shopped_customer_F_0,
-  T1.nb_shopped_customer_F_1/T2.nb_total_F_1 as prc_all_shopped_customer_F_1,
-  T1.nb_shopped_customer_F_2/T2.nb_total_F_2 as prc_all_shopped_customer_F_2,
-  T1.nb_shopped_customer_F_3/T2.nb_total_F_3 as prc_all_shopped_customer_F_3,
-  T1.nb_shopped_customer_G_1/T2.nb_total_G_1 as prc_all_shopped_customer_G_1,
-  T1.nb_shopped_customer_G_2/T2.nb_total_G_2 as prc_all_shopped_customer_G_2,
-  T1.nb_shopped_customer_G_3/T2.nb_total_G_3 as prc_all_shopped_customer_G_3,
-  T1.nb_shopped_customer_G_4/T2.nb_total_G_4 as prc_all_shopped_customer_G_4  
+  T1.customer_ID as customer_ID,
+  T1.nb_views_customer as nb_views_customer
   from
   (
   select
   customer_ID,
-  sum(case when A = 0 then 1 else 0 end)*1.0 as nb_shopped_customer_A_0,
-  sum(case when A = 1 then 1 else 0 end)*1.0 as nb_shopped_customer_A_1,
-  sum(case when A = 2 then 1 else 0 end)*1.0 as nb_shopped_customer_A_2,
-  sum(case when B = 0 then 1 else 0 end)*1.0 as nb_shopped_customer_B_0,
-  sum(case when B = 1 then 1 else 0 end)*1.0 as nb_shopped_customer_B_1,
-  sum(case when C = 1 then 1 else 0 end)*1.0 as nb_shopped_customer_C_1,
-  sum(case when C = 2 then 1 else 0 end)*1.0 as nb_shopped_customer_C_2,
-  sum(case when C = 3 then 1 else 0 end)*1.0 as nb_shopped_customer_C_3,
-  sum(case when C = 4 then 1 else 0 end)*1.0 as nb_shopped_customer_C_4,
-  sum(case when D = 1 then 1 else 0 end)*1.0 as nb_shopped_customer_D_1,
-  sum(case when D = 2 then 1 else 0 end)*1.0 as nb_shopped_customer_D_2,
-  sum(case when D = 3 then 1 else 0 end)*1.0 as nb_shopped_customer_D_3,
-  sum(case when E = 0 then 1 else 0 end)*1.0 as nb_shopped_customer_E_0,
-  sum(case when E = 1 then 1 else 0 end)*1.0 as nb_shopped_customer_E_1,
-  sum(case when F = 0 then 1 else 0 end)*1.0 as nb_shopped_customer_F_0,
-  sum(case when F = 1 then 1 else 0 end)*1.0 as nb_shopped_customer_F_1,
-  sum(case when F = 2 then 1 else 0 end)*1.0 as nb_shopped_customer_F_2,
-  sum(case when F = 3 then 1 else 0 end)*1.0 as nb_shopped_customer_F_3,
-  sum(case when G = 1 then 1 else 0 end)*1.0 as nb_shopped_customer_G_1,
-  sum(case when G = 2 then 1 else 0 end)*1.0 as nb_shopped_customer_G_2,
-  sum(case when G = 3 then 1 else 0 end)*1.0 as nb_shopped_customer_G_3,
-  sum(case when G = 4 then 1 else 0 end)*1.0 as nb_shopped_customer_G_4
+  count(*) as nb_views_customer
   from
   transactions
   where
-  record_type = 1
+  record_type = 0
   group by customer_ID
-  ) T1,
-  (
-  select
-  sum(case when A = 0 then 1 else 0 end)*1.0 as nb_total_A_0,
-  sum(case when A = 1 then 1 else 0 end)*1.0 as nb_total_A_1,
-  sum(case when A = 2 then 1 else 0 end)*1.0 as nb_total_A_2,
-  sum(case when B = 0 then 1 else 0 end)*1.0 as nb_total_B_0,
-  sum(case when B = 1 then 1 else 0 end)*1.0 as nb_total_B_1,
-  sum(case when C = 1 then 1 else 0 end)*1.0 as nb_total_C_1,
-  sum(case when C = 2 then 1 else 0 end)*1.0 as nb_total_C_2,
-  sum(case when C = 3 then 1 else 0 end)*1.0 as nb_total_C_3,
-  sum(case when C = 4 then 1 else 0 end)*1.0 as nb_total_C_4,
-  sum(case when D = 1 then 1 else 0 end)*1.0 as nb_total_D_1,
-  sum(case when D = 2 then 1 else 0 end)*1.0 as nb_total_D_2,
-  sum(case when D = 3 then 1 else 0 end)*1.0 as nb_total_D_3,
-  sum(case when E = 0 then 1 else 0 end)*1.0 as nb_total_E_0,
-  sum(case when E = 1 then 1 else 0 end)*1.0 as nb_total_E_1,
-  sum(case when F = 0 then 1 else 0 end)*1.0 as nb_total_F_0,
-  sum(case when F = 1 then 1 else 0 end)*1.0 as nb_total_F_1,
-  sum(case when F = 2 then 1 else 0 end)*1.0 as nb_total_F_2,
-  sum(case when F = 3 then 1 else 0 end)*1.0 as nb_total_F_3,
-  sum(case when G = 1 then 1 else 0 end)*1.0 as nb_total_G_1,
-  sum(case when G = 2 then 1 else 0 end)*1.0 as nb_total_G_2,
-  sum(case when G = 3 then 1 else 0 end)*1.0 as nb_total_G_3,
-  sum(case when G = 4 then 1 else 0 end)*1.0 as nb_total_G_4
-  from
-  transactions
-  where
-  record_type = 1
-  ) T2
+  ) T1
   "
 )
 
@@ -355,7 +240,8 @@ T1.nb_shopped_F_3/T2.nb_total_F_3 as prc_all_shopped_F_3,
 T1.nb_shopped_G_1/T2.nb_total_G_1 as prc_all_shopped_G_1,
 T1.nb_shopped_G_2/T2.nb_total_G_2 as prc_all_shopped_G_2,
 T1.nb_shopped_G_3/T2.nb_total_G_3 as prc_all_shopped_G_3,
-T1.nb_shopped_G_4/T2.nb_total_G_4 as prc_all_shopped_G_4  
+T1.nb_shopped_G_4/T2.nb_total_G_4 as prc_all_shopped_G_4,
+T1.nb_achat_location
 from
 (
   select
@@ -381,7 +267,8 @@ from
   sum(case when G = 1 then 1 else 0 end)*1.0 as nb_shopped_G_1,
   sum(case when G = 2 then 1 else 0 end)*1.0 as nb_shopped_G_2,
   sum(case when G = 3 then 1 else 0 end)*1.0 as nb_shopped_G_3,
-  sum(case when G = 4 then 1 else 0 end)*1.0 as nb_shopped_G_4
+  sum(case when G = 4 then 1 else 0 end)*1.0 as nb_shopped_G_4,
+  count(*) as nb_achat_location
   from
   transactions
   where
@@ -536,6 +423,8 @@ normalize.data <- function(data) {
   data$min_cost_G <- factor(data$min_cost_G)
   
   data <- data[, colnames(data) != "real_shopping_pt"]
+  
+  data$nb_views_customer_factor <- factor(data$nb_views_customer, ordered=TRUE)
   
   if("real_A" %in% colnames(data)) {
     data$real_A <- factor(data$real_A)

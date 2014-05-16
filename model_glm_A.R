@@ -10,7 +10,8 @@ df.anova.model.A.0 <- data.frame(anova.model.A.0)
 model.A.0.restricted <- glm(
   I(real_A == "0") ~ 
     car_age + 
-    prc_location_shopped_A_0 +
+    prc_location_shopped_A_0*prc_location_shopped_A_1*prc_location_shopped_A_2 +
+    prc_location_shopped_customer_A_0*prc_location_shopped_customer_A_1*prc_location_shopped_customer_A_2 +
     last_A,
   data=data.train.normalized,
   family=binomial
