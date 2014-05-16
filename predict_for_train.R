@@ -124,4 +124,5 @@ data.train.normalized$predicted_ABCDEFG <- with(
   )
 )
 
+cat("Error ABCDEFG : ", with(data.train.normalized, error.pred(real_ABCDEFG, predicted_ABCDEFG)), "\n")
 
