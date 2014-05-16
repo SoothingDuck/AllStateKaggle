@@ -1,5 +1,13 @@
 source("reboot_data.R")
 
+# Error A :  0.07114792 
+# Error B :  0.06585746 
+# Error C :  0.0690338 
+# Error D :  0.05045015 
+# Error E :  0.06255736 
+# Error F :  0.07268452 
+# Error G :  0.1324677 
+
 load(file.path("last_model", "model_glm_A_restricted.RData"))
 
 error.pred <- function(real, predict) {
