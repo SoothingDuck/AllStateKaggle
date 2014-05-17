@@ -3,15 +3,19 @@ source("reboot_data.R")
 indices <- sample(1:nrow(data.train.normalized), 10000)
 data.train.normalized.10000 <- data.train.normalized[indices,]
 
-# model.A.0 <- glm(I(real_A == "0") ~ . - group_size_factor, data=data.train.normalized.10000, family=binomial)
-# anova.model.A.0 <- anova(model.A.0)
-# df.anova.model.A.0 <- data.frame(anova.model.A.0)
+model.A.0.F.0 <- glm(I(real_A == "0" & real_F == "0") ~ ., data=data.train.normalized.10000, family=binomial)
+anova.model.A.0.F.0 <- anova(model.A.0.F.0)
+df.anova.model.A.0.F.0 <- data.frame(anova.model.A.0.F.0)
 
-model.A.0.restricted <- glm(
-  I(real_A == "0") ~ 
+model.A.0.F.0.restricted <- glm(
+  I(real_A == "0" & real_F == "0") ~ 
+    C_previous +
     car_age + 
+    nb_shopped_A_0 +
     prc_location_shopped_A_0 + 
-    last_A,
+    prc_location_shopped_F_0 + 
+    last_A +
+    last_F,
   data=data.train.normalized,
   family=binomial
     )

@@ -1,8 +1,7 @@
 source("reboot_data.R")
 
-# cost
-load(file.path("last_model", "model_glm_cost_restricted.RData"))
-data.train.normalized$real_cost <- predict(model.cost.restricted, newdata=data.train.normalized)
+data.train.normalized <- subset(data.train.normalized, state == "NY")
+data.train.normalized <- data.train.normalized[, colnames(data.train.normalized) != "state"]
 
 indices <- sample(1:nrow(data.train.normalized), 10000)
 data.train.normalized.10000 <- data.train.normalized[indices,]
@@ -11,11 +10,12 @@ data.train.normalized.10000 <- data.train.normalized[indices,]
 # anova.model.G.1 <- anova(model.G.1)
 # df.anova.model.G.1 <- data.frame(anova.model.G.1)
 
-model.G.1.restricted <- glm(
+model.G.1.restricted.NY <- glm(
   I(real_G == "1") ~ 
+    nb_shopped_G_1 +
     prc_location_shopped_G_1 +
     last_G +
-    I(state %in% c("FL")),
+    risk_factor,
   data=data.train.normalized,
   family=binomial
 )
@@ -24,11 +24,11 @@ model.G.1.restricted <- glm(
 # anova.model.G.2 <- anova(model.G.2)
 # df.anova.model.G.2 <- data.frame(anova.model.G.2)
 
-model.G.2.restricted <- glm(
+model.G.2.restricted.NY <- glm(
   I(real_G == "2") ~
     prc_location_shopped_G_2 +
     last_G +
-    I(state %in% c("FL")),
+    risk_factor,
   data=data.train.normalized,
   family=binomial
 )
@@ -37,11 +37,11 @@ model.G.2.restricted <- glm(
 # anova.model.G.3 <- anova(model.G.3)
 # df.anova.model.G.3 <- data.frame(anova.model.G.3)
 
-model.G.3.restricted <- glm(
+model.G.3.restricted.NY <- glm(
   I(real_G == "3") ~ 
     prc_location_shopped_G_3 +
     last_G +
-    I(state %in% c("FL")),
+    risk_factor,
   data=data.train.normalized,
   family=binomial
 )
@@ -50,11 +50,11 @@ model.G.3.restricted <- glm(
 # anova.model.G.4 <- anova(model.G.4)
 # df.anova.model.G.4 <- data.frame(anova.model.G.4)
 
-model.G.4.restricted <- glm(
+model.G.4.restricted.NY <- glm(
   I(real_G == "4") ~ 
     I(1 - prc_location_shopped_G_1 - prc_location_shopped_G_2 - prc_location_shopped_G_3) +    
     last_G +
-    I(state %in% c("FL")),
+    risk_factor,
   data=data.train.normalized,
   family=binomial
 )
@@ -62,10 +62,10 @@ model.G.4.restricted <- glm(
 
 
 save(
-  model.G.1.restricted,
-  model.G.2.restricted,
-  model.G.3.restricted,
-  model.G.4.restricted,
-  file = file.path("last_model", "model_glm_G_restricted_cascade.RData")
+  model.G.1.restricted.NY,
+  model.G.2.restricted.NY,
+  model.G.3.restricted.NY,
+  model.G.4.restricted.NY,
+  file = file.path("last_model", "model_glm_G_restricted_NY_cascade.RData")
 )
 
