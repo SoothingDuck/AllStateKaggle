@@ -124,5 +124,39 @@ data.train.normalized$predicted_ABCDEFG <- with(
   )
 )
 
+data.train.normalized$error_on_A <- with(data.train.normalized,(real_A != predicted_A))
+data.train.normalized$error_on_B <- with(data.train.normalized,(real_B != predicted_B))
+data.train.normalized$error_on_C <- with(data.train.normalized,(real_C != predicted_C))
+data.train.normalized$error_on_D <- with(data.train.normalized,(real_D != predicted_D))
+data.train.normalized$error_on_E <- with(data.train.normalized,(real_E != predicted_E))
+data.train.normalized$error_on_F <- with(data.train.normalized,(real_F != predicted_F))
+data.train.normalized$error_on_G <- with(data.train.normalized,(real_G != predicted_G))
+
+data.train.normalized$nb.errors <- with(
+  data.train.normalized,
+  ifelse(error_on_A, 1, 0) +
+    ifelse(error_on_B, 1, 0) +
+    ifelse(error_on_C, 1, 0) +
+    ifelse(error_on_D, 1, 0) +
+    ifelse(error_on_E, 1, 0) +
+    ifelse(error_on_F, 1, 0) +
+    ifelse(error_on_G, 1, 0)
+)
+
 cat("Error ABCDEFG : ", with(data.train.normalized, error.pred(real_ABCDEFG, predicted_ABCDEFG)), "\n")
 
+data.train.normalized.error.1 <- subset(data.train.normalized, nb.errors == 1)
+
+data.train.normalized.error.1$error.on <- NA
+data.train.normalized.error.1$error.on <- with(data.train.normalized.error.1, ifelse(error_on_A, "A", error.on))
+data.train.normalized.error.1$error.on <- with(data.train.normalized.error.1, ifelse(error_on_B, "B", error.on))
+data.train.normalized.error.1$error.on <- with(data.train.normalized.error.1, ifelse(error_on_C, "C", error.on))
+data.train.normalized.error.1$error.on <- with(data.train.normalized.error.1, ifelse(error_on_D, "D", error.on))
+data.train.normalized.error.1$error.on <- with(data.train.normalized.error.1, ifelse(error_on_E, "E", error.on))
+data.train.normalized.error.1$error.on <- with(data.train.normalized.error.1, ifelse(error_on_F, "F", error.on))
+data.train.normalized.error.1$error.on <- with(data.train.normalized.error.1, ifelse(error_on_G, "G", error.on))
+data.train.normalized.error.1$error.on <- factor(data.train.normalized.error.1$error.on)
+
+library(ggplot2)
+ggplot(data.train.normalized.error.1) + geom_bar(aes(x=error.on)) + facet_wrap(~state)
+ggplot(subset(data.train.normalized.error.1, state %in% c("FL","NY","OH","PA","WA"))) + geom_bar(aes(x=error.on)) + facet_wrap(~state)
