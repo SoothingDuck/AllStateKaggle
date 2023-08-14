@@ -1,6 +1,6 @@
 AllStateKaggle
 ==============
 
-Entries for Kaggle All State
+Entries for [Kaggle Allstate Purchase Prediction Competition]()
 
-Made 170 out of 1585 with prediction of commit 90106c1053
+Made 159 out of 1566 with prediction of commit 90106c1053
